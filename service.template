@@ -1,6 +1,5 @@
 [Unit]
 Description=Display Service
-After=network.target iptables.service firewalld.service
 [Service]
 Type=simple
 Restart=always
