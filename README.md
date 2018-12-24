@@ -14,7 +14,7 @@ It is possible, that the Display uses the same GPIO like the Shut-Command of the
 > sed -i -e "s:shut = Button(3, hold_time=2):#shut = Button(3, hold_time=2):g" ~/RPi-Jukebox-RFID/scripts/gpio-buttons.py
 
 ### Service Installation
-1. cd ~
+1. Login as User pi
 2. sudo apt install -y git 
 3. sudo git clone https://github.com/splitti/oled_phoniebox ~/oled_phoniebox
 4. cd ~/oled_phoniebox
