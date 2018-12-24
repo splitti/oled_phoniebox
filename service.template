@@ -1,0 +1,12 @@
+[Unit]
+Description=Display Service
+After=network.target iptables.service firewalld.service
+[Service]
+Type=simple
+Restart=always
+WorkingDirectory=<PATH>/
+ExecStart=/usr/bin/python <PATH>/oled_phoniebox.py -d <CONTROLLER>
+RestartSec=2
+[Install]
+WantedBy=multi-user.target
+
