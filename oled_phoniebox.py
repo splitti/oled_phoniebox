@@ -7,12 +7,13 @@ import os
 from luma.core.render import canvas
 from demo_opts import get_device
 from PIL import ImageFont
+from PIL import Image
 font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
-                            'fonts', 'C&C Red Alert [INET].ttf'))
-font = ImageFont.truetype(font_path, 12)
+                            'fonts', 'PIXEARG_.TTF')) #C&C Red Alert [INET].ttf'))
+font = ImageFont.truetype(font_path, 8)
+chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252)}
 
 def SetCharacters(text):
-    chars = {'ö':'oe','ä':'ae','ü':'ue','ß':'ss','Ä':'Ae','Ü':'Ue','Ö':'Oe','%20':' ',' 1/4':'ue'}
     for char in chars:
        text = text.replace(char,chars[char])
     return text
@@ -20,14 +21,28 @@ def SetCharacters(text):
 def GetMPC(command):
     from subprocess import check_output
     process = check_output(command.split())
+    for char in chars:
+       process = process.replace(char,chars[char])
     return process
 
+def ShowImage():
+    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', 'notes.png'))
+    logo = Image.open(img_path).convert("RGBA")
+    fff = Image.new(logo.mode, logo.size, (255,) * 4)
+    background = Image.new("RGBA", device.size, "black")
+    posn = ((device.width - logo.width) // 2, 0)
+    img = Image.composite(logo, fff, logo)
+    background.paste(img, posn)
+    device.display(background.convert(device.mode))
+    sleep(0.2)
+
+
 def main(num_iterations=sys.maxsize):
-    device = get_device()
+#    device = get_device()
     while num_iterations > 0:
         try:
           num_iterations = 1
-          sleep(0.5)
+          sleep(0.4)
           mpcstatus = GetMPC("mpc status")
           playing = mpcstatus.split("\n")[1].split(" ")[0] #Split to see if mpc is playing at the moment
           file = GetMPC("mpc -f %file% current") # Get the current title
@@ -69,16 +84,19 @@ def main(num_iterations=sys.maxsize):
                   draw.text((0, 0),filename, font=font, fill="white")
               #show_message(device, album+"TEST "+titel, fill="white", font=proportional(SINCLAIR_FONT))
           else:
-            with canvas(device) as draw:
-              draw.text((0, 0),"Karte auflegen...", font=font, fill="white")
+#            with canvas(device) as draw:
+#              draw.text((0, 0),"Karte auflegen...", font=font, fill="white")
+             ShowImage()
         except:
-          with canvas(device) as draw:
-            draw.text((0, 0),"Houston, wir haben ein", font=font, fill="white")
-            draw.text((0, 10),"Problem", font=font, fill="white")
-            draw.text((0, 20),"Ruf den Papa :-)", font=font, fill="white") 
+          ShowImage()
+          #with canvas(device) as draw:
+            #draw.text((0, 0),"Houston, wir haben ein", font=font, fill="white")
+            #draw.text((0, 10),"Problem", font=font, fill="white")
+            #draw.text((0, 20),"Ruf den Papa :-)", font=font, fill="white") 
 
 if __name__ == "__main__":
     try:
+        device = get_device()
         main()
     except KeyboardInterrupt:
         pass

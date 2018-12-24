@@ -46,3 +46,4 @@ systemctl enable /etc/systemd/oled_phoniebox.service
 #service oled_phoniebox start
 service oled_phoniebox status
 echo ">>> Installation finished"
+echo ">>> Please reboot Pi"

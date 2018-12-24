@@ -1,3 +1,5 @@
+Date: 24.12.2018
+
 # oled_phoniebox
 oled_phoniebox
 Based on https://github.com/rm-hull/luma.oled
@@ -12,9 +14,14 @@ It is possible, that the Display uses the same GPIO like the Shut-Command of the
 > sed -i -e "s:shut = Button(3, hold_time=2):#shut = Button(3, hold_time=2):g" ~/RPi-Jukebox-RFID/scripts/gpio-buttons.py
 
 ### Service Installation
-1. sudo apt install -y git 
-2. sudo git clone https://github.com/splitti/oled_phoniebox ~/oled_phoniebox
-3. cd ~/oled_phoniebox
-4. sudo chmod 777 setup.sh
-5. sudo ./setup.sh
+1. cd ~
+2. sudo apt install -y git 
+3. sudo git clone https://github.com/splitti/oled_phoniebox ~/oled_phoniebox
+4. cd ~/oled_phoniebox
+5. sudo chmod 777 setup.sh
+6. sudo ./setup.sh
 
+## Some other Information
+Image: https://pixabay.com/de/noten-musik-melodie-musiknote-2570451/
+Font: https://www.dafont.com/pixel-arial-11.font
+GPIO-Config for jukebox4kids: https://github.com/MiczFlor/RPi-Jukebox-RFID/blob/master/docs/GPIO-BUTTONS.md
