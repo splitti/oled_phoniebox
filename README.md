@@ -4,9 +4,11 @@ Date: 24.12.2018
 oled_phoniebox
 Based on https://github.com/rm-hull/luma.oled
 
-| Start-/Stopscreem | Playscreen |
+| Start-/Stopscreen | Playscreen |
 | --- | --- | 
 | ![Caption](preview/startscreen.jpg "Caption") | ![Caption](preview/playscreen.jpg "Caption") |
+
+<a href="https://youtu.be/9hkUXuPlMVo" target="_blank">German Youtube Video</a>
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9hkUXuPlMVo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
