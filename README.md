@@ -4,6 +4,10 @@ Date: 24.12.2018
 oled_phoniebox
 Based on https://github.com/rm-hull/luma.oled
 
+|  |  |
+| --- | --- | 
+| ![Caption](preview/startscreen.jpg "Caption") | ![Caption](preview/playscreen.jpg "Caption") |
+
 ## Installation Steps
 
 ### Installation I2C
