@@ -10,8 +10,6 @@ Based on https://github.com/rm-hull/luma.oled
 
 <a href="https://youtu.be/9hkUXuPlMVo" target="_blank">German Youtube Video</a>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9hkUXuPlMVo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 ## Installation Steps
 
 ### Installation I2C
