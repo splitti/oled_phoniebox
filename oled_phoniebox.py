@@ -11,7 +11,7 @@ from PIL import Image
 font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
                             'fonts', 'PIXEARG_.TTF')) #C&C Red Alert [INET].ttf'))
 font = ImageFont.truetype(font_path, 8)
-chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252)}
+chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
 
 def SetCharacters(text):
     for char in chars:
@@ -35,7 +35,6 @@ def ShowImage():
     background.paste(img, posn)
     device.display(background.convert(device.mode))
     sleep(0.2)
-
 
 def main(num_iterations=sys.maxsize):
 #    device = get_device()
@@ -67,22 +66,23 @@ def main(num_iterations=sys.maxsize):
                 plpause = ""
               with canvas(device) as draw:
                 draw.text((0, 0),artist, font=font, fill="white")
-                draw.text((0, 12),titel,font=font, fill="cyan")
+                draw.text((0, 12),titel,font=font, fill="white")
                 if track == "\n":
-                  draw.text((0, 24),elapsed,font=font, fill="cyan")
-                  draw.text((0, 24),plpause,font=font, fill="cyan")
+                  draw.text((0, 24),elapsed,font=font, fill="white")
+                  draw.text((0, 24),plpause,font=font, fill="white")
                 else:
-                  draw.text((0, 24),"Track "+track,font=font, fill="cyan")
-                  draw.text((55, 24),elapsed,font=font, fill="cyan")
-                  draw.text((55, 24),plpause,font=font, fill="cyan")
-                draw.text((0, 36),album,font=font, fill="cyan")
+                  draw.text((0, 24),"Track "+track,font=font, fill="white")
+                  draw.text((55, 24),elapsed,font=font, fill="white")
+                  draw.text((55, 24),plpause,font=font, fill="white")
+                draw.text((0, 36),album,font=font, fill="white")
                 laenge="-"+artist+"-"
                 if artist == "\n":
                   filename = GetMPC("mpc -f %file% current")
                   filename = filename.split(":")[2]
                   filename = SetCharacters(filename)
-                  draw.text((0, 0),filename, font=font, fill="white")
-              #show_message(device, album+"TEST "+titel, fill="white", font=proportional(SINCLAIR_FONT))
+                  file = filename.split("/")
+                  draw.text((0, 0),file[1], font=font, fill="white")
+                  draw.text((0, 36),file[0], font=font, fill="white")
           else:
 #            with canvas(device) as draw:
 #              draw.text((0, 0),"Karte auflegen...", font=font, fill="white")
