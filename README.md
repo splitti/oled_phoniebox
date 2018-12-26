@@ -4,6 +4,8 @@ Date: 24.12.2018
 oled_phoniebox
 Based on https://github.com/rm-hull/luma.oled
 
+Tested with this display (affiliate Link): <a href="https://amzn.to/2SjPFPt" target="_blank">https://amzn.to/2SjPFPt</a>
+
 | Start-/Stopscreen | Playscreen |
 | --- | --- | 
 | ![Caption](preview/startscreen.jpg "Caption") | ![Caption](preview/playscreen.jpg "Caption") |
