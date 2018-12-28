@@ -29,15 +29,16 @@ thisPath=`pwd`
 echo ">>> Install Path: "$thisPath
 echo ">>> Controller type: "$controller
 echo ">>> Installing needed packages..."
-apt install -y python-dev python3-dev python-imaging python-smbus i2c-tools python-dev python-pip libfreetype6-dev libjpeg-dev build-essential python-pygame
+apt install -y python3-dev python-imaging python3-smbus i2c-tools python3-pip libfreetype6-dev libjpeg-dev build-essential python3-pygame
 echo ">>> Clone luma.examples from github"
 git clone https://github.com/rm-hull/luma.examples $thisPath/luma.examples
 echo ">>> Installing luma Packages"
-pip install --upgrade luma.oled
-pip install -e $thisPath/luma.examples/
+pip3 install --upgrade luma.oled
+pip3 install -e $thisPath/luma.examples/
 echo ">>> Link demo_opts.py"
 ln -s $thisPath/luma.examples/examples/demo_opts.py $thisPath/demo_opts.py
 echo ">>> Installing Service..."
+rm /etc/systemd/oled_phoniebox.service
 cp $thisPath/service.template /etc/systemd/oled_phoniebox.service
 sed -i -e "s:<PATH>:$thisPath:g" /etc/systemd/oled_phoniebox.service
 sed -i -e "s:<CONTROLLER>:$controller:g" /etc/systemd/oled_phoniebox.service

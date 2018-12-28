@@ -6,11 +6,12 @@ Based on https://github.com/rm-hull/luma.oled
 
 Tested with this display (affiliate Link): <a href="https://amzn.to/2SjPFPt" target="_blank">https://amzn.to/2SjPFPt</a>
 
-| Start-/Stopscreen | Playscreen |
-| --- | --- | 
-| ![Caption](preview/startscreen.jpg "Caption") | ![Caption](preview/playscreen.jpg "Caption") |
+| Start Screen | Play View | Play Screen | Vol Down Screen | Vol Up Screen |
+ause Screen
+| --- | --- | --- | --- | --- | --- |
+| ![Caption](preview/Start_Screen.jpg "Caption") | ![Caption](preview/Play_View.jpg "Caption") | ![Caption](preview/Pause_Screen.jpg "Caption") | ![Caption](preview/Play_Screen.jpg "Caption") | ![Caption](preview/VolumeDown_Screen.jpg "Caption") | ![Caption](preview/VolumeUp_Screen.jpg "Caption") |
 
-<a href="https://youtu.be/9hkUXuPlMVo" target="_blank">German Youtube Video</a>
+<a href="https://youtu.be/KXVeuthe45w" target="_blank">German Youtube Video</a>
 
 ## Installation Steps
 
@@ -30,6 +31,6 @@ It is possible, that the Display uses the same GPIO like the Shut-Command of the
 6. sudo ./setup.sh
 
 ## Some other Information
-Image: https://pixabay.com/de/noten-musik-melodie-musiknote-2570451/
+Image: https://pixabay.com/de/noten-musik-melodie-musiknote-2570451
 Font: https://www.dafont.com/pixel-arial-11.font
 GPIO-Config for jukebox4kids: https://github.com/MiczFlor/RPi-Jukebox-RFID/blob/master/docs/GPIO-BUTTONS.md
