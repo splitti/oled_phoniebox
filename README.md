@@ -7,7 +7,6 @@ Based on https://github.com/rm-hull/luma.oled
 Tested with this display (affiliate Link): <a href="https://amzn.to/2SjPFPt" target="_blank">https://amzn.to/2SjPFPt</a>
 
 | Start Screen | Play View | Pause Screen | Play Screen | Vol Down Screen | Vol Up Screen |
-ause Screen
 | --- | --- | --- | --- | --- | --- |
 | ![Caption](preview/Start_Screen.jpg "Caption") | ![Caption](preview/Play_View.jpg "Caption") | ![Caption](preview/Pause_Screen.jpg "Caption") | ![Caption](preview/Play_Screen.jpg "Caption") | ![Caption](preview/VolumeDown_Screen.jpg "Caption") | ![Caption](preview/VolumeUp_Screen.jpg "Caption") |
 
@@ -42,9 +41,9 @@ Contributors and Testers:
 - <a href="https://forum-raspberrypi.de/user/53531-uelly/" target="_blank">uelly</a>
 
 Github:
-<a href="https://github.com/rm-hull/luma.oled" target="_blank">Luma.Oled</a>
-<a href="https://github.com/rm-hull/luma.examples" target="_blank">Luma.Examples</a>
-<a href="https://github.com/MiczFlor/RPi-Jukebox-RFID" target="_blank">RPi-Jukebox-RFID also known as Phoniebox</a>
+- <a href="https://github.com/rm-hull/luma.oled" target="_blank">Luma.Oled</a>
+- <a href="https://github.com/rm-hull/luma.examples" target="_blank">Luma.Examples</a>
+- <a href="https://github.com/MiczFlor/RPi-Jukebox-RFID" target="_blank">RPi-Jukebox-RFID also known as Phoniebox</a>
 
 Image (music.png): 
 - https://pixabay.com/de/noten-musik-melodie-musiknote-2570451
