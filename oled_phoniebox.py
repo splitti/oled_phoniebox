@@ -26,8 +26,8 @@ def GetMPC(command):
        process = process.replace(char,chars[char])
     return process
 
-def ShowImage():
-    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', 'music.png'))
+def ShowImage(imgname):
+    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
     logo = Image.open(img_path).convert("RGBA")
     fff = Image.new(logo.mode, logo.size, (255,) * 4)
     background = Image.new("RGBA", device.size, "black")
@@ -35,7 +35,7 @@ def ShowImage():
     img = Image.composite(logo, fff, logo)
     background.paste(img, posn)
     device.display(background.convert(device.mode))
-
+	
 def main(num_iterations=sys.maxsize):
 #    welcomeText = "Phoniebox"
 #    i = 0
@@ -129,9 +129,9 @@ def main(num_iterations=sys.maxsize):
           oldMPC = currMPC
         else:
           oldMPC = currMPC
-          ShowImage()
+          ShowImage("cardhand")
       except:
-        ShowImage()
+        ShowImage("music")
 
 if __name__ == "__main__":
     try:
