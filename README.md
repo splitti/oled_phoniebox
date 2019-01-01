@@ -52,6 +52,7 @@ Images (cardhand and musiccard) based on:
 - https://pixabay.com/de/turm-mikrowelle-wireless-signal-34981/
 - https://pixabay.com/de/klavier-noten-musik-klavier-musical-2460937/
 - https://pixabay.com/de/hand-karte-halten-angabe-ticket-307636/
+- https://pixabay.com/de/herunterfahren-macht-off-auf-icon-2935465/
 
 Font: 
 - https://www.dafont.com/pixel-arial-11.font
