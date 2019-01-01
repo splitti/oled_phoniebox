@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import signal
 import sys
 from time import sleep
 from datetime import datetime
@@ -36,11 +37,19 @@ def ShowImage(imgname):
     img = Image.composite(logo, fff, logo)
     background.paste(img, posn)
     device.display(background.convert(device.mode))
+
+def sigterm_handler(signal, frame):
+    # save the state here or do whatever you want
+    ShowImage("poweroff")
+    sleep(1)
+    os._exit(0)
+
+signal.signal(signal.SIGTERM, sigterm_handler)
 	
 def main(num_iterations=sys.maxsize):
-    line1 = 0
-    line2 = 14
-    line3 = 28
+    line1 = 4
+    line2 = 18
+    line3 = 32
     line4 = device.height-1-10 
     lenLine1 = -1
     lenLine2 = -1
@@ -58,7 +67,7 @@ def main(num_iterations=sys.maxsize):
     while num_iterations > 0:
       try:
         num_iterations = 1
-        sleep(0.5)
+        sleep(0.8)
         mpcstatus = GetMPC("mpc status")
         playing = mpcstatus.split("\n")[1].split(" ")[0] #Split to see if mpc is playing at the moment
         currMPC = mpcstatus.split("\n")[0]
@@ -156,7 +165,23 @@ def main(num_iterations=sys.maxsize):
               else:
                 cnt = 0
                 subLine3 = 0
+          TimeLine = elapsed.split("/")
+          if not file.startswith("http"):
+            currT = TimeLine[0].split(":")
+            currT[0] = int(round(float(currT[0])))
+            currT[1] = int(round(float(currT[1])))
+            currTime = (currT[0]*60)+currT[1]
+            totalT = TimeLine[1].split(":")
+            totalT[0] = int(round(float(totalT[0])))
+            totalT[1] = int(round(float(totalT[1])))
+            totalTime = (totalT[0]*60)+totalT[1]
+            TimeLineP = currTime * 100 / totalTime
+            TimeLineP = device.width * TimeLineP / 100
+          else:
+            TimeLineP = device.width
           with canvas(device) as draw:
+            draw.line((0, 0, TimeLineP, 0), fill="white")
+            draw.line((1, 1, TimeLineP, 1), fill="white")
             draw.line((0, line4-2, device.width, line4-2), fill="white")
             draw.line((60, line4-2, 60, device.height), fill="white")
             draw.line((98, line4-2, 98, device.height), fill="white")
