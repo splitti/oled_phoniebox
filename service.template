@@ -2,7 +2,6 @@
 Description=Display Service
 [Service]
 Type=simple
-Restart=always
 WorkingDirectory=<PATH>/
 ExecStart=/usr/bin/python3 <PATH>/oled_phoniebox.py -d <CONTROLLER>
 RestartSec=2
