@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/uscr/bin/env python
 # -*- coding: utf-8 -*-
 
 import signal

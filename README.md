@@ -55,5 +55,5 @@ Images (cardhand and musiccard) based on:
 - https://pixabay.com/de/herunterfahren-macht-off-auf-icon-2935465/
 
 Font: 
-- https://www.dafont.com/pixel-arial-11.font
+- https://www.dafont.com/bitstream-vera-mono.font
 
