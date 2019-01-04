@@ -65,6 +65,15 @@ signal.signal(signal.SIGTERM, sigterm_handler)
 	
 def main(num_iterations=sys.maxsize):
     ShowImage("music")
+#    for _ in range(5):
+#        for level in range(255, -1, -85):
+#            device.contrast(level)
+#            sleep(3)
+#        sleep(1)
+#        for level in range(0, 255, 85):
+#            device.contrast(level)
+#            sleep(3)
+#        sleep(1)
     tmpcard = 3
     line1 = 4
     line2 = 19 
@@ -98,6 +107,7 @@ def main(num_iterations=sys.maxsize):
         except:
           WifiConn = "---"
       try:
+      #if WifiConn != "BUGFIXING_LINE":
         mpcstatus = GetMPC("mpc status")
         playing = mpcstatus.split("\n")[1].split(" ")[0] #Split to see if mpc is playing at the moment
         currMPC = mpcstatus.split("\n")[0]
@@ -128,10 +138,7 @@ def main(num_iterations=sys.maxsize):
           sleep(displayTime)
         oldVol = volume
         if (playing == "[playing]") or (playing == "[paused]"):
-          if playing == "[paused]":
-            plpause = "PAUSE"
-          else:
-            plpause = ""
+          if playing == "[playing]":
             #timer = GetMPC("mpc -f %time% current")
             elapsed = mpcstatus.split("\n")[1].replace("  "," ").split(" ")[3]
           if currMPC != oldMPC:
@@ -197,15 +204,18 @@ def main(num_iterations=sys.maxsize):
               else:
                 cnt = 0
                 subLine3 = 0
-          TimeLine = elapsed.split("/")
-          if TimeLine[1] != "0:00":
-            elapsed = TimeLine[1]
+          if playing != "[paused]":
+            TimeLine = elapsed.split("/")
+            if TimeLine[1] != "0:00":
+              elapsed = TimeLine[1]
+            else:
+              elapsed = "-:--"
+            if len(elapsed) == 4:
+              elapsed = "L "+elapsed
+            if len(elapsed) == 5:
+              elapsed = "L"+elapsed
           else:
-            elapsed = "-:--"
-          if len(elapsed) == 4:
-            elapsed = "L "+elapsed
-          if len(elapsed) == 5:
-            elapsed = "L"+elapsed
+            elapsed = "PAUSE"
           if not file.startswith("http"):
             TimeLineP = int(mpcstatus.split("\n")[1].replace("   "," ").replace("  "," ").split(" ")[3].replace("(","").replace("%)",""))
             TimeLineP = device.width * TimeLineP / 100
@@ -232,7 +242,6 @@ def main(num_iterations=sys.maxsize):
             draw.text((0-subLine2, line2),txtLine2,font=font, fill="white")
             draw.text((0-subLine3, line3),txtLine3,font=font, fill="white")
             draw.text((0, line4),elapsed,font=font_small, fill="white")
-            draw.text((0, line4),plpause,font=font_small, fill="white")
             draw.text((42, line4),track,font=font_small, fill="white")
             draw.text((78, line4),vol,font=font_small, fill="white")
             draw.text((108, line4),WifiConn,font=font_small, fill="white")
@@ -258,4 +267,3 @@ if __name__ == "__main__":
         main()
     except KeyboardInterrupt:
         pass
-
