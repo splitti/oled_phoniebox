@@ -1,4 +1,4 @@
-Date: 24.12.2018
+Date: 05.01.2019
 
 # oled_phoniebox
 oled_phoniebox
@@ -30,8 +30,14 @@ It is possible, that the Display uses the same GPIO like the Shut-Command of the
 3. sudo apt install -y git 
 4. sudo git clone https://github.com/splitti/oled_phoniebox ~/oled_phoniebox
 5. cd ~/oled_phoniebox
-6. sudo chmod 777 setup.sh
+6. sudo chmod 755 setup.sh
 7. sudo ./setup.sh
+
+### Contrast Control
+You can add Contrast Control while editing the ~/RPi-Jukebox-RFID/scripts/gpio-buttons.py
+Add a Button press and start these commands:
+> python3 ../oled_phoniebox/scripts/contrast/contrast_up.py
+> python3 ../oled_phoniebox/scripts/contrast/contrast_down.py
 
 ## Spend me a coffee
 <a href="http://paypal.me/splittscheid" target="_blank">paypal.me</a>
