@@ -3,6 +3,7 @@
 
 import signal
 import sys
+sys.path.append("/home/pi/oled_phoniebox/luma.examples/examples")
 from time import sleep
 from datetime import datetime
 import os
@@ -16,6 +17,17 @@ font = ImageFont.truetype(font_path, 12)
 font_small = ImageFont.truetype(font_path, 10)
 
 chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
+ContrastLastFile = "/home/pi/oled_phoniebox/scripts/contrast/contrast.last"
+
+def GetCurrContrast():
+ ContrastFile = open(ContrastLastFile)
+ ContrastFileContent = ContrastFile.readlines()
+ ContrastFile.close()
+ for line in ContrastFileContent:
+  if "contrast=" in line:
+   line = int(line.split("=")[1].replace("\n",""))
+   break
+ return line
 
 def SetCharacters(text):
     for char in chars:
@@ -64,16 +76,9 @@ def sigterm_handler(signal, frame):
 signal.signal(signal.SIGTERM, sigterm_handler)
 	
 def main(num_iterations=sys.maxsize):
+    oldContrast = GetCurrContrast()
+    device.contrast(oldContrast)
     ShowImage("music")
-#    for _ in range(5):
-#        for level in range(255, -1, -85):
-#            device.contrast(level)
-#            sleep(3)
-#        sleep(1)
-#        for level in range(0, 255, 85):
-#            device.contrast(level)
-#            sleep(3)
-#        sleep(1)
     tmpcard = 3
     line1 = 4
     line2 = 19 
@@ -108,6 +113,10 @@ def main(num_iterations=sys.maxsize):
           WifiConn = "---"
       try:
       #if WifiConn != "BUGFIXING_LINE":
+        currContrast = GetCurrContrast()
+        if currContrast != oldContrast:
+          device.contrast(currContrast)
+          oldContrast = currContrast
         mpcstatus = GetMPC("mpc status")
         playing = mpcstatus.split("\n")[1].split(" ")[0] #Split to see if mpc is playing at the moment
         currMPC = mpcstatus.split("\n")[0]
@@ -261,9 +270,9 @@ def main(num_iterations=sys.maxsize):
         sleep(0.5)
 #        ShowImage("music")
 
-if __name__ == "__main__":
-    try:
-        device = get_device()
-        main()
-    except KeyboardInterrupt:
-        pass
+#if __name__ == "__main__":
+try:
+  device = get_device()
+  main()
+except KeyboardInterrupt:
+  pass
