@@ -50,6 +50,8 @@ def GetWifiConn():
     WifiRate = WifiRate[2].replace("   ", " ").replace("  "," ")
     WifiRate = WifiRate.split(" ")
     WifiRate = WifiRate[4].replace(".","")
+	if WifiRate[0:1] == "-":
+	  WifiRate = int(WifiRate) + 100
     if len(WifiRate) == 1:
       WifiRate = " "+WifiRate
     if WifiRate == "100":
