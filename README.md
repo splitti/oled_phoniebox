@@ -45,6 +45,7 @@ Add a Button press and start these commands:
 ## Thank you
 Contributors and Testers:
 - <a href="https://forum-raspberrypi.de/user/53531-uelly/" target="_blank">uelly</a>
+- <a href="https://forum-raspberrypi.de/user/54691-xan/" target="_blank">Xan</a>
 
 Github:
 - <a href="https://github.com/rm-hull/luma.oled" target="_blank">Luma.Oled</a>
