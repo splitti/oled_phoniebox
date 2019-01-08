@@ -8,9 +8,9 @@ Please notice:
 
 ### Installation
 Copy the script like this way:
-> sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_original
-> sudo cp /home/pi/oled_phoniebox/scripts/gpio-buttons/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py
-> sudo kill $(ps aux | grep gpio-buttons.py | grep -v grep | awk '{print $2}')
+- sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_original
+- sudo cp /home/pi/oled_phoniebox/scripts/gpio-buttons/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py
+- sudo kill $(ps aux | grep gpio-buttons.py | grep -v grep | awk '{print $2}')
 
 That's it.
 
