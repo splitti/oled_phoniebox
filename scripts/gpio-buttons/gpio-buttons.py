@@ -51,20 +51,6 @@ def def_prev():
 def def_halt():
     check_call("./scripts/playout_controls.sh -c=playerpause", shell=True)
 
-def longPressCnt(Button,PressTime):
-    PressTimer = 0
-    for cnt in range(50):
-      if Button.when_pressed == False :
-        PressTimer = PressTimer + 1
-      else:
-        break
-      sleep(0.1)
-    if PressTimer >= PressTime:
-      rc = True
-    else:
-      rc = False
-    return rc
-
 #shut = Button(3, hold_time=2)
 vol0 = Button(13,pull_up=True)
 volU = Button(16,pull_up=True,hold_time=0.3,hold_repeat=True)
