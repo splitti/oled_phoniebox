@@ -10,7 +10,7 @@ Tested with this display (affiliate Link): <a href="https://amzn.to/2SjPFPt" tar
 | --- | --- | --- | --- | --- | --- |
 | ![Caption](preview/Start_Screen.jpg "Caption") | ![Caption](preview/Play_View.jpg "Caption") | ![Caption](preview/Pause_Screen.jpg "Caption") | ![Caption](preview/Play_Screen.jpg "Caption") | ![Caption](preview/VolumeDown_Screen.jpg "Caption") | ![Caption](preview/VolumeUp_Screen.jpg "Caption") |
 
-Youtube: <a href="https://youtu.be/70voU9fY2l8" target="_blank">German Youtube Video</a>
+Youtube: <a href="https://youtu.be/zBJPBblv2Xs" target="_blank">German Youtube Video</a>
 Forum: <a href="https://forum-raspberrypi.de/forum/thread/41465-oled-display-fuer-die-phoniebox/" target="_blank">German Forum</a>
 
 My Phoniebox Project (german only): <a href="https://splittscheid.de/selfmade-phoniebox/" target="_blank">My Selfmade Phoniebox</a>
@@ -45,7 +45,6 @@ Add a Button press and start these commands:
 ## Thank you
 Contributors and Testers:
 - <a href="https://forum-raspberrypi.de/user/53531-uelly/" target="_blank">uelly</a>
-- <a href="https://forum-raspberrypi.de/user/54691-xan/" target="_blank">Xan</a>
 
 Github:
 - <a href="https://github.com/rm-hull/luma.oled" target="_blank">Luma.Oled</a>
