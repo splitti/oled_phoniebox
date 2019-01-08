@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
+#
+# For more details go to https://github.com/splitti/oled_phoniebox/
 
 import signal
 import sys
@@ -50,6 +52,8 @@ def GetWifiConn():
     WifiRate = WifiRate[2].replace("   ", " ").replace("  "," ")
     WifiRate = WifiRate.split(" ")
     WifiRate = WifiRate[4].replace(".","")
+    if WifiRate[0:1] == "-":
+      WifiRate = int(WifiRate) + 100
     if len(WifiRate) == 1:
       WifiRate = " "+WifiRate
     if WifiRate == "100":
