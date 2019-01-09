@@ -1,11 +1,56 @@
 #!/bin/bash
+
+# Colors: \e[92m = Light green ; \e[91m = Light red ; \e[93m = Light yellow ; \e[31m = green ; \e[39m = Default ; \e[33m = Yellow ; \e[31m = Red
+
+
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root: sudo setup.sh"
   exit
 fi
-echo "Installaing OLED Display Python Based Service for Jukebox4kids"
-echo "=============================================================="
-echo "Please choose your display controller type: "
+
+clear
+echo "////////////////////////////////////////////////////////////////////
+///     ____  __   _______    ___  _          __                 ///
+///    / __ \/ /  / __/ _ \  / _ \(_)__ ___  / /__ ___ __        ///
+///   / /_/ / /__/ _// // / / // / (_-</ _ \/ / _ `/ // /        ///
+///   \____/____/___/____/ /____/_/___/ .__/_/\_,_/\_, /         ///
+///      ___           ___  __       /_/   _     _/___/          ///
+///     / _/__  ____  / _ \/ /  ___  ___  (_)__ / /  ___ __ __   ///
+///    / _/ _ \/ __/ / ___/ _ \/ _ \/ _ \/ / -_) _ \/ _ \\ \ /   ///
+///   /_/ \___/_/   /_/  /_//_/\___/_//_/_/\__/_.__/\___/_\_\    ///
+///                                                              ///
+////////////////////////////////////////////////////////////////////
+///                                                              ///
+///          https://github.com/splitti/oled_phoniebox           ///
+///                                                              ///
+////////////////////////////////////////////////////////////////////
+
+Please notice: This script will install all needed components for
+the OLED-Display (Format 128 X 64px) with SH1106- or SSD1306-
+Controller. A preinstallation of the jukebox4kids or similiar (MPC)
+will be needed."
+
+options=("Install" "Quit")
+
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Install")
+            break
+            ;;
+
+        "Quit")
+            exit
+            ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
+
+cls
+echo "////////////////////////////////////////////////////////////////////"
+echo "///   Please choose your display controller type:                ///"
+echo "////////////////////////////////////////////////////////////////////"
+
 options=("Controller type ssd1306" "Controller type sh1106" "Quit")
 
 select opt in "${options[@]}"
@@ -25,13 +70,26 @@ do
         *) echo "invalid option $REPLY";;
     esac
 done
+
 thisPath=`pwd`
-echo ">>> Install Path: "$thisPath
-echo ">>> Controller type: "$controller
-echo ">>> Changing some File Permissons"
-chown pi:pi $thisPath/scripts/contrast/contrast.last
-echo ">>> Installing needed packages..."
-apt install -y python3-dev python-imaging python3-smbus i2c-tools python3-pip libfreetype6-dev libjpeg-dev build-essential python3-pygame libtiff5
+cls
+cd
+echo "////////////////////////////////////////////////////////////////////"
+echo "///   Prerequirements:                                           ///"
+echo "////////////////////////////////////////////////////////////////////"
+apt update
+apt install -y git 
+apt install -y python3-dev
+apt install -y python-imaging
+apt install -y python3-smbus
+apt install -y i2c-tools
+apt install -y python3-pip
+apt install -y libfreetype6-dev
+apt install -y libjpeg-dev
+apt install -y build-essential
+apt install -y python3-pygame
+apt install -y libtiff5
+
 echo ">>> Clone luma.examples from github"
 git clone https://github.com/rm-hull/luma.examples $thisPath/luma.examples
 echo ">>> Installing luma Packages"
@@ -48,3 +106,7 @@ service oled_phoniebox start
 #service oled_phoniebox status
 echo ">>> Installation finished"
 echo ">>> Please reboot Pi"
+echo ">>> Changing some File Permissons"
+echo ">>> Controller type: \e[31m            "$controller
+echo ">>> Installing needed packages..."
+chown pi:pi $thisPath/scripts/contrast/contrast.last
