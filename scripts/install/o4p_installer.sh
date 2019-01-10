@@ -3,7 +3,6 @@
 
 nocolor='\e[0m'
 red="\e[91m"
-blue="\033[1;34"
 cyan="\e[36m"
 yellow="\e[93m"
 green="\e[92m"
@@ -152,12 +151,12 @@ read -n 1 -s -r -p "Press any key to continue"
 
 clear
 echo -e "////////////////////////////////////////////////////////////////////"
-echo -e "///${cyan}   Edit gpio-buttons.py                                     ${nocolor}///"
+echo -e "///${cyan}   Edit gpio-buttons.py                                       ${nocolor}///"
 echo -e "////////////////////////////////////////////////////////////////////"
 echo -e ""
 echo -e "If jukebox4kids is already installed, you can choose your new config"
 echo -e "for the file:"
-echo -e "  ${blue}/home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py${nocolor}"
+echo -e "  ${yellow}/home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py${nocolor}"
 echo -e ""
 echo -e "${cyan}Option 1:${nocolor}"
 echo -e "Just deactivate GPIO Pin 3 for the shutdown. This Pin is needed and"
@@ -176,13 +175,15 @@ select opt in "${options[@]}"
 do
     case $opt in
         "Option 1: Deactivate GPIO Pin 3")
+			echo -e " "
             sudo sed -i -e "s:shut = Button(3, hold_time=2):#shut = Button(3, hold_time=2):g" /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
 			echo -e -n ">>> Button replacement finished"
             break
             ;;
         "Option 2: Replace file for contrast-control")
+			echo -e " "
 			sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null
-			sudo wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py -P /home/pi/RPi-Jukebox-RFID/scripts/ > /dev/null
+			sudo wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py -P /home/pi/RPi-Jukebox-RFID/scripts/ > /dev/null 2>&1
 			sudo chmod +x /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
 			sudo chown pi:www-data /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
 			echo -e -n ">>> File replacement finished"
