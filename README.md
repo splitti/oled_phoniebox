@@ -1,4 +1,4 @@
-Date: 09.01.2019
+Date: 10.01.2019
 
 # oled_phoniebox
 oled_phoniebox
@@ -32,7 +32,7 @@ Run the following code with the user pi:
 > cd; rm o4p_installer.sh; wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/install/o4p_installer.sh; chmod +x o4p_installer.sh; ./o4p_installer.sh
 
 ### Contrast Control
-You can add Contrast Control while editing the ~/RPi-Jukebox-RFID/scripts/gpio-buttons.py
+You can add Contrast Control while editing the ~/RPi-Jukebox-RFID/scripts/gpio-buttons.py. You can find an example here: <a href="https://github.com/splitti/oled_phoniebox/tree/master/scripts/gpio-buttons" target="_blank">https://github.com/splitti/oled_phoniebox/tree/master/scripts/gpio-buttons</a>
 Add a Button press and start these commands:
 > python3 ../oled_phoniebox/scripts/contrast/contrast_up.py
 > python3 ../oled_phoniebox/scripts/contrast/contrast_down.py
@@ -61,3 +61,27 @@ Images (cardhand and musiccard) based on:
 Font: 
 - https://www.dafont.com/bitstream-vera-mono.font
 
+## Changelog
+- 10.01.2019
+  - New one line Setup
+  - Removed Luma Examples; Function integrated
+- 09.01.2019
+  - Bugfixing WLAN
+  - Contrast Control Tutorial with GPIO-Button-Control
+- 05.01.2019
+  - Contrast Control added
+- 04.01.2019
+  - WiFi-Signal
+  - Monospaced Font
+  - New Track View 
+  - Play bar 0 - 100%
+- 01.01.2019
+  - Shutdown Image
+- 30.12.2018
+  - Added Text scrolling
+  - Added Tracknr.
+  - New Screens optimized
+- 29.12.2018
+  - Python 3 Support
+  - New Screens
+  - Setup Bugfixes

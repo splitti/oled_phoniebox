@@ -133,7 +133,7 @@ for p in ${lumaPackages[@]}; do
 	pipInstalled=`sudo pip3 show ${p}`
 	if [ "$pipInstalled" = "" ]
 	then
-		sudo pip3 install luma.oled  > /dev/null 2>&1
+		sudo pip3 install ${p}  > /dev/null 2>&1
 		pipInstalled=`sudo pip3 show ${p}`
 		if [ "$pipInstalled" = "" ]
 		then
@@ -144,6 +144,52 @@ for p in ${lumaPackages[@]}; do
 	else
 		echo -e "${green}already installed${nocolor}"
 	fi	
+done
+echo -e ""
+read -n 1 -s -r -p "Press any key to continue"
+
+clear
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e "///${cyan}   Edit gpio-buttons.py                                     ${nocolor}///"
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e ""
+echo -e "If jukebox4kids is already installed, you can choose your new config"
+echo -e "for the file:"
+echo -e "  ${blue}/home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py${nocolor}"
+echo -e ""
+echo -e "${cyan}Option 1:${nocolor}"
+echo -e "Just deactivate GPIO Pin 3 for the shutdown. This Pin is needed and"
+echo -e "used for I2C-Display!"
+echo -e ""
+echo -e "${cyan}Option 2:${nocolor}"
+echo -e "Replace the gpio-buttons.py-File with a new file of these Repository"
+echo -e "for contrast-control with the prev- and next-Buttons,"
+echo -e ""
+echo -e "${cyan}Option 3:${nocolor}"
+echo -e "Just skip... ${red}Needed, it jukebox4kids is not installed!!!${nocolor}"
+echo -e " "
+options=("Option 1: Deactivate GPIO Pin 3" "Option 2: Replace file for contrast-control" "Option 3: Skip")
+
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Option 1: Deactivate GPIO Pin 3")
+            sudo sed -i -e "s:shut = Button(3, hold_time=2):#shut = Button(3, hold_time=2):g" /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
+			echo -e -n ">>> Button replacement finished"
+            break
+            ;;
+        "Option 2: Replace file for contrast-control")
+			sudo /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null
+			sudo wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py -P /home/pi/RPi-Jukebox-RFID/scripts/
+			echo -e -n ">>> File replacement finished"
+            break
+            ;;
+        "Option 3: Skip")
+			echo -e -n ">>> skipped"
+			break
+            ;;
+        *) echo -e "Invalid option $REPLY";;
+    esac
 done
 echo -e ""
 read -n 1 -s -r -p "Press any key to continue"
@@ -177,7 +223,7 @@ echo -e -n ">>> Installing Service:                "
 sudo cp ${installPath}/service.template /etc/systemd/oled_phoniebox.service > /dev/null
 sudo sed -i -e "s:<PATH>:$installPath:g" /etc/systemd/oled_phoniebox.service > /dev/null
 sudo sed -i -e "s:<CONTROLLER>:$controller:g" /etc/systemd/oled_phoniebox.service > /dev/null
-sudo systemctl daemon-reload > > /dev/null 2>&1
+sudo systemctl daemon-reload > /dev/null 2>&1
 sudo systemctl enable /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
 sudo service oled_phoniebox start > /dev/null 2>&1
 echo -e "${green}Done${nocolor}"
