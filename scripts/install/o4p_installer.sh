@@ -1,37 +1,37 @@
 #!/bin/bash
+# Colors: \e[36m=Cyan M ; \e[92m=Light green ; \e[91m=Light red ; \e[93m=Light yellow ; \e[31m=green ; \e[0m=Default ; \e[33m=Yellow ; \e[31m=Red
 
-# Colors: \e[96m = Cyan M \e[96m = Light green ; \e[91m = Light red ; \e[93m = Light yellow ; \e[31m = green ; \e[39m = Default ; \e[33m = Yellow ; \e[31m = Red
-
-
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root: sudo setup.sh"
-  exit
-fi
+nocolor='\e[0m'
+red="\e[91m"
+blue="\033[1;34"
+cyan="\e[36m"
+yellow="\e[93m"
+green="\e[92m"
 
 clear
-echo "////////////////////////////////////////////////////////////////////
-///\e[96m     ____  __   _______    ___  _          __                 \e[39m///
-///\e[96m    / __ \/ /  / __/ _ \  / _ \(_)__ ___  / /__ ___ __        \e[39m///
-///\e[96m   / /_/ / /__/ _// // / / // / (_-</ _ \/ / _ `/ // /        \e[39m///
-///\e[96m   \____/____/___/____/ /____/_/___/ .__/_/\_,_/\_, /         \e[39m///
-///\e[96m      ___           ___  __       /_/   _     _/___/          \e[39m///
-///\e[96m     / _/__  ____  / _ \/ /  ___  ___  (_)__ / /  ___ __ __   \e[39m///
-///\e[96m    / _/ _ \/ __/ / ___/ _ \/ _ \/ _ \/ / -_) _ \/ _ \\ \ /   \e[39m///
-///\e[96m   /_/ \___/_/   /_/  /_//_/\___/_//_/_/\__/_.__/\___/_\_\    \e[39m///
-///                                                              ///
-////////////////////////////////////////////////////////////////////
-///                                                              ///
-///\e[96m           https://github.com/splitti/oled_phoniebox           \e[39m///
-///                                                              ///
-////////////////////////////////////////////////////////////////////
-
-Please notice: This script will install all needed components for
-the OLED-Display (Format 128 X 64px) with SH1106- or SSD1306-
-Controller. A preinstallation of the jukebox4kids or similiar (MPC)
-will be needed.
-
-Do want to install this OLED-Display-Service?"
-
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e "///${cyan}     ____  __   _______    ___  _          __                 ${nocolor}///"
+echo -e "///${cyan}    / __ \/ /  / __/ _ \  / _ \(_)__ ___  / /__ ___ __        ${nocolor}///"
+echo -e "///${cyan}   / /_/ / /__/ _// // / / // / (_-</ _ \/ / _ \`/ // /        ${nocolor}///"
+echo -e "///${cyan}   \____/____/___/____/ /____/_/___/ .__/_/\_,_/\_, /         ${nocolor}///"
+echo -e "///${cyan}      ___           ___  __       /_/   _     _/___/          ${nocolor}///"
+echo -e "///${cyan}     / _/__  ____  / _ \/ /  ___  ___  (_)__ / /  ___ __ __   ${nocolor}///"
+echo -e "///${cyan}    / _/ _ \/ __/ / ___/ _ \/ _ \/ _ \/ / -_) _ \/ _ \\ \ /   ${nocolor}///"
+echo -e "///${cyan}   /_/ \___/_/   /_/  /_//_/\___/_//_/_/\__/_.__/\___/_\_\    ${nocolor}///"
+echo -e "///                                                              ///"
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e "///                                                              ///"
+echo -e "///${cyan}           https://github.com/splitti/oled_phoniebox           ${nocolor}///"
+echo -e "///                                                              ///"
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e ""
+echo -e "Please notice: This script will install all needed components for"
+echo -e "the OLED-Display (Format 128 X 64px) with SH1106- or SSD1306-"
+echo -e "Controller. A preinstallation of the jukebox4kids or similiar (MPC)"
+echo -e "will be needed."
+echo -e " "
+echo -e "Do want to install this OLED-Display-Service?"
+echo -e " "
 options=("Install" "Quit")
 
 select opt in "${options[@]}"
@@ -44,80 +44,122 @@ do
         "Quit")
             exit
             ;;
-        *) echo "invalid option $REPLY";;
+        *) echo -e "invalid option $REPLY";;
     esac
 done
 
-cls
-echo "////////////////////////////////////////////////////////////////////"
-echo "///\e[96m   Please choose your display controller type:                \e[39m///"
-echo "////////////////////////////////////////////////////////////////////"
-
-options=("Controller type ssd1306" "Controller type sh1106" "Quit")
+clear
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e "///${cyan}   Please choose your display controller type:                ${nocolor}///"
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e ""
+echo -e "Which type of OLED-Controller should be installed (needed for the "
+echo -e "Service-Startup:?"
+echo -e " "
+options=("ssd1306" "sh1106" "Quit")
 
 select opt in "${options[@]}"
 do
     case $opt in
-        "Controller type ssd1306")
+        "ssd1306")
             controller="ssd1306"
             break
             ;;
-        "Controller type sh1106")
+        "sh1106")
             controller="sh1106"
             break
             ;;
         "Quit")
             exit
             ;;
-        *) echo "Invalid option $REPLY";;
+        *) echo -e "Invalid option $REPLY";;
     esac
 done
 
-thisPath=`pwd`
-cls
+clear
 cd
-echo "////////////////////////////////////////////////////////////////////"
-echo "///\e[96m   Check/Install Prerequirements:                             \e[39m///"
-echo "////////////////////////////////////////////////////////////////////"
-echo ">>> \e[96mUpdate Sources"
-apt --qq update
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e "///${cyan}   Check/Install Prerequirements:                             ${nocolor}///"
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e ""
+echo -e "Starting installation-process, pleae wait..."
+echo -e ""
+echo -e -n ">>> Update Sources:          "
+sudo apt -qq update > /dev/null 2>&1
+echo -e "${green}done${nocolor}"
+echo -e ""
+echo -e "Install packages..."
 
-packages=(git python3-dev python-imaging python3-smbus i2c-tools python3-pip libfreetype6-dev libjpeg-dev build-essential python3-pygame libtiff5)
+lineLen=24
+packages=(git python3-dev python-imaging mc asdasdasdads python3-smbus i2c-tools python3-pip libfreetype6-dev libjpeg-dev build-essential python3-pygame libtiff5)
 for p in ${packages[@]}; do
-    installer = `dpkg -l | grep p`
-	if ${installer} != p
-		echo ">>> \e[96mInstall ${p}"
-		installer = `apt install -qq -y ${p}`
-		installer = `ècho $installer | grep installed`
-		if $installer == ""
-			echo ">>> \e[91mInstallation failed:    ${p}"	
-		else
-			echo ">>> \e[96mInstallation finished:  ${p}"			
-		fi
-	else
-		echo ">>> \e[96mAlready installed:      ${p}"
-	fi	
+                i=0
+                echo -n -e ">>> $p:"
+                let lLen="$lineLen"-"${#p}"
+                while [ "$i" -lt "$lLen" ]
+                do
+                        let i+=1
+                        echo -n -e " "
+                done
+        installer=`sudo dpkg -s ${p}  2>&1 | grep Status | grep installed`
+        if [ "$installer" = "" ]
+        then
+                installer=`sudo apt -qq -y install ${p} > /dev/null 2>&1`
+                installer=`sudo dpkg -s ${p} 2>&1 | grep Status | grep installed`
+                if [ "$installer" = "" ]
+                then
+                        echo -e "${red}failed${nocolor}"
+                else
+                        echo -e "${green}done${nocolor}"
+                fi
+        else
+                echo -e "${green}already installed${nocolor}"
+        fi
 done
-sleep 2
-exit
-echo ">>> \e[92mClone luma.examples from github"
-echo ">>> Clone luma.examples from github"
-git clone https://github.com/rm-hull/luma.examples $thisPath/luma.examples
-echo ">>> Installing luma Packages"
-pip3 install --upgrade luma.oled
-pip3 install -e $thisPath/luma.examples/
-echo ">>> Installing Service..."
-rm /etc/systemd/oled_phoniebox.service
-cp $thisPath/service.template /etc/systemd/oled_phoniebox.service
-sed -i -e "s:<PATH>:$thisPath:g" /etc/systemd/oled_phoniebox.service
-sed -i -e "s:<CONTROLLER>:$controller:g" /etc/systemd/oled_phoniebox.service
-sudo systemctl daemon-reload
-systemctl enable /etc/systemd/oled_phoniebox.service
-service oled_phoniebox start
-#service oled_phoniebox status
-echo ">>> Installation finished"
-echo ">>> Please reboot Pi"
-echo ">>> Changing some File Permissons"
-echo ">>> Controller type: \e[31m            "$controller
-echo ">>> Installing needed packages..."
-chown pi:pi $thisPath/scripts/contrast/contrast.last
+lumaPackages=(luma.oled luma.core)
+echo -e -n ">>> luma.oled:               "
+pipInstalled=`sudo pip3 list --format=columns | grep luma.oled`
+if [ "$pipInstalled" = "" ]
+then
+	sudo pip3 install --upgrade luma.oled  > /dev/null 2>&1
+	pipInstalled=`sudo pip3 list --format=columns | grep luma.oled`
+	if [ "$pipInstalled" = "" ]
+	then
+		echo -e "${red}failed${nocolor}"
+	else
+		echo -e "${green}done${nocolor}"
+	fi
+else
+	echo -e "${green}already installed${nocolor}"
+fi
+echo -e ""
+read -n 1 -s -r -p "Press any key to continue"
+
+clear
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e "///${cyan}   Installing Service:                                        ${nocolor}///"
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e ""
+echo -e ">>> Delete old Repository..."
+sudo rm -R oled_phoniebox > /dev/null 2>&1
+echo -e ""
+echo -e ">>> Clone oled_phoniebox Repository..."
+installPath="/home/pi/oled_phoniebox"
+sudo git clone https://github.com/splitti/oled_phoniebox --branch development ${installPath}  > /dev/null 2>&1
+sudo chown pi:pi ${installPath}/scripts/contrast/contrast.last > /dev/null
+echo -e ""
+echo -e ">>> Installing Service..."
+sudo systemctl disable /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
+sudo rm /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
+sudo cp ${installPath}/service.template /etc/systemd/oled_phoniebox.service > /dev/null
+sudo sed -i -e "s:<PATH>:$installPath:g" /etc/systemd/oled_phoniebox.service > /dev/null
+sudo sed -i -e "s:<CONTROLLER>:$controller:g" /etc/systemd/oled_phoniebox.service > /dev/null
+sudo systemctl daemon-reload > /dev/null
+sudo systemctl enable /etc/systemd/oled_phoniebox.service
+sudo service oled_phoniebox start
+echo -e ""
+echo -e "${green}INSTALLATION FINISHED${nocolor}"
+echo -e ""
+read -n 1 -s -r -p "Press any key to end install-process"
+echo -e ""
+
