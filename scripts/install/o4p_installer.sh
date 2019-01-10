@@ -182,7 +182,9 @@ do
             ;;
         "Option 2: Replace file for contrast-control")
 			sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null
-			sudo wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py -P /home/pi/RPi-Jukebox-RFID/scripts/
+			sudo wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py -P /home/pi/RPi-Jukebox-RFID/scripts/ > /dev/null
+			sudo chmod +x /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
+			sudo chown pi:www-data /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
 			echo -e -n ">>> File replacement finished"
             break
             ;;
@@ -226,7 +228,7 @@ sudo sed -i -e "s:<PATH>:$installPath:g" /etc/systemd/oled_phoniebox.service > /
 sudo sed -i -e "s:<CONTROLLER>:$controller:g" /etc/systemd/oled_phoniebox.service > /dev/null
 sudo systemctl daemon-reload > /dev/null 2>&1
 sudo systemctl enable /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
-sudo service oled_phoniebox start > /dev/null 2>&1
+sudo service oled_phoniebox restart > /dev/null 2>&1
 echo -e "${green}Done${nocolor}"
 echo -e ""
 read -n 1 -s -r -p "Press any key to continue"
@@ -250,3 +252,5 @@ echo -e "///   ${green} ╚═════╝ ╚═════╝ ╚═╝   
 echo -e "///                                                                                                   ///"
 echo -e "/////////////////////////////////////////////////////////////////////////////////////////////////////////"
 echo -e ""
+echo -e "${red}Please notice:${nocolor}"
+echo -e "You have to activate i2c in raspbian-config."
