@@ -29,7 +29,7 @@ Please notice:
 This installer will install in the home-Directory of the user pi in the subfolder oled_phoniebox. If you try to rename or move this folder, the service stops working.
 Run the following code with the user pi:
 
-> cd; rm o4p_installer.sh; wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/install/o4p_installer.sh; chmod +x o4p_installer.sh; sudo ./o4p_installer.sh
+> cd; rm o4p_installer.sh; wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/install/o4p_installer.sh; chmod +x o4p_installer.sh; ./o4p_installer.sh
 
 ### Contrast Control
 You can add Contrast Control while editing the ~/RPi-Jukebox-RFID/scripts/gpio-buttons.py
