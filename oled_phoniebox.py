@@ -5,14 +5,14 @@
 
 import signal
 import sys
-sys.path.append("/home/pi/oled_phoniebox/luma.examples/examples")
+#sys.path.append("/home/pi/oled_phoniebox/luma.examples/examples")
 from time import sleep
 from datetime import datetime
 import os
 from luma.core.render import canvas
-from demo_opts import get_device
-from PIL import ImageFont
-from PIL import Image
+from luma.core import cmdline, error
+#from demo_opts import get_device
+from PIL import ImageFont, Image
 font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
                             'fonts', 'Bitstream Vera Sans Mono Roman.ttf'))
 font = ImageFont.truetype(font_path, 12)
@@ -20,6 +20,54 @@ font_small = ImageFont.truetype(font_path, 10)
 
 chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
 ContrastLastFile = "/home/pi/oled_phoniebox/scripts/contrast/contrast.last"
+
+def display_settings(args):
+    """
+    Display a short summary of the settings.
+
+    :rtype: str
+    """
+    iface = ''
+    display_types = cmdline.get_display_types()
+    if args.display not in display_types['emulator']:
+        iface = 'Interface: {}\n'.format(args.interface)
+
+    lib_name = cmdline.get_library_for_display_type(args.display)
+    if lib_name is not None:
+        lib_version = cmdline.get_library_version(lib_name)
+    else:
+        lib_name = lib_version = 'unknown'
+
+    import luma.core
+    version = 'luma.{} {} (luma.core {})'.format(
+        lib_name, lib_version, luma.core.__version__)
+
+    return 'Version: {}\nDisplay: {}\n{}Dimensions: {} x {}\n{}'.format(
+        version, args.display, iface, args.width, args.height, '-' * 60)
+
+def get_device(actual_args=None):
+    """
+    Create device from command-line arguments and return it.
+    """
+    if actual_args is None:
+        actual_args = sys.argv[1:]
+    parser = cmdline.create_parser(description='luma.examples arguments')
+    args = parser.parse_args(actual_args)
+
+    if args.config:
+        # load config from file
+        config = cmdline.load_config(args.config)
+        args = parser.parse_args(config + actual_args)
+
+    print(display_settings(args))
+
+    # create device
+    try:
+        device = cmdline.create_device(args)
+    except error.Error as e:
+        parser.error(e)
+
+    return device
 
 def GetCurrContrast():
  ContrastFile = open(ContrastLastFile)
