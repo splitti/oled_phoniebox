@@ -7,6 +7,7 @@ blue="\033[1;34"
 cyan="\e[36m"
 yellow="\e[93m"
 green="\e[92m"
+installPath="/home/pi/oled_phoniebox"
 
 clear
 echo -e "////////////////////////////////////////////////////////////////////////////////////////////////////////////////"
@@ -86,7 +87,8 @@ echo -e "////////////////////////////////////////////////////////////////////"
 echo -e "///${cyan}   Check/Install Prerequirements:                             ${nocolor}///"
 echo -e "////////////////////////////////////////////////////////////////////"
 echo -e ""
-echo -e "Starting installation-process, pleae wait..."
+echo -e "Starting installation-process, pleae wait, some steps taking"
+echo -e "minutes..."
 echo -e ""
 echo -e -n ">>> Update Sources:          "
 sudo apt -qq update > /dev/null 2>&1
@@ -95,7 +97,7 @@ echo -e ""
 echo -e "Install packages..."
 
 lineLen=24
-packages=(git python3 build-essential python3-dev python3-pip python-imaging) # python3-smbus i2c-tools  libfreetype6-dev libjpeg-dev  python3-pygame libtiff5)
+packages=(git python3 build-essential python3-dev python3-pip python-imaging libjpeg-dev) # python3-smbus i2c-tools  libfreetype6-dev   python3-pygame libtiff5)
 for p in ${packages[@]}; do
 	i=0
 	echo -n -e ">>> $p:"
@@ -179,7 +181,7 @@ do
             break
             ;;
         "Option 2: Replace file for contrast-control")
-			sudo /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null
+			sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null
 			sudo wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py -P /home/pi/RPi-Jukebox-RFID/scripts/
 			echo -e -n ">>> File replacement finished"
             break
@@ -195,7 +197,6 @@ echo -e ""
 read -n 1 -s -r -p "Press any key to continue"
 
 clear
-installPath="/home/pi/oled_phoniebox"
 echo -e "////////////////////////////////////////////////////////////////////"
 echo -e "///${cyan}   Installing Service:                                        ${nocolor}///"
 echo -e "////////////////////////////////////////////////////////////////////"
