@@ -232,17 +232,17 @@ def main(num_iterations=sys.maxsize):
                 txtLine1 = localfile[1]
                 txtLine2 = localfile[0]
           if lenLine1 == -1:
-            lenLine1 = (len(txtLine1)*widthLetter)-device.width
+            lenLine1 = (len(txtLine1)*widthLetter)-device.width+spaceJump
             if lenLine1 > 0 and lenLine1 < spaceJump:
               lenLine1 = spaceJump + 1
             if lenLine1 < 1:
               lenLine1 = 0
-            lenLine2 = (len(txtLine2)*widthLetter)-device.width
+            lenLine2 = (len(txtLine2)*widthLetter)-device.width+spaceJump
             if lenLine2 > 0 and lenLine2 < spaceJump:
               lenLine2 = spaceJump + 1
             if lenLine2 < 1:
               lenLine2 = 0
-              lenLine3 = (len(txtLine3)*widthLetter)-device.width
+              lenLine3 = (len(txtLine3)*widthLetter)-device.width+spaceJump
             if lenLine3 > 0 and lenLine3 < spaceJump:
               lenLine3 = spaceJump + 1
             if lenLine3 < 1:
