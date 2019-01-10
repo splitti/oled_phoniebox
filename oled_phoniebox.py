@@ -293,6 +293,8 @@ def main(num_iterations=sys.maxsize):
             track = track
           with canvas(device) as draw:
             draw.rectangle((0,0,TimeLineP,1), outline="white", fill="white")
+            draw.rectangle((0,line1+5,7,10), outline="white", fill="white")
+
             draw.line((0, line4-2, device.width, line4-2), fill="white")
             draw.line((39, line4-2, 39, device.height), fill="white")
             draw.line((75, line4-2, 75, device.height), fill="white")
