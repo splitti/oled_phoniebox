@@ -5,13 +5,11 @@
 
 import signal
 import sys
-#sys.path.append("/home/pi/oled_phoniebox/luma.examples/examples")
 from time import sleep
 from datetime import datetime
 import os
 from luma.core.render import canvas
 from luma.core import cmdline, error
-#from demo_opts import get_device
 from PIL import ImageFont, Image
 font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
                             'fonts', 'Bitstream Vera Sans Mono Roman.ttf'))
