@@ -322,7 +322,8 @@ do
         *) echo -e "Invalid option $REPLY";;
     esac
 done
-
+echo -e ""
+read -n 1 -s -r -p "Press any key to continue"
 clear
 echo -e "////////////////////////////////////////////////////////////////////"
 echo -e "///${cyan}   Installing Service:                                        ${nocolor}///"
@@ -387,8 +388,5 @@ echo -e "///   ${green}╚██████╗╚██████╔╝██
 echo -e "///   ${green} ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝   ╚═╝   ╚══════╝                           ${nocolor}///";
 echo -e "///                                                                                                   ///"
 echo -e "/////////////////////////////////////////////////////////////////////////////////////////////////////////"
-echo -e ""
-echo -e "${red}Please notice:${nocolor}"
-echo -e "You have to activate i2c in raspbian-config."
 echo -e ""
 echo -e ""
