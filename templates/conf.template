@@ -1,0 +1,4 @@
+[GENERAL]
+contrast = <contrastvalue>
+controller = <controllervalue>
+mode = <modevalue>
