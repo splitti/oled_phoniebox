@@ -234,7 +234,7 @@ def main(num_iterations=sys.maxsize):
           if lenLine1 == -1:
             lenLine1 = (len(txtLine1)*widthLetter)-device.width+spaceJump
             if lenLine1 > 0 and lenLine1 < spaceJump:
-              lenLine1 = spaceJump + spaceJump
+              lenLine1 = device.width
             if lenLine1 < 1:
               lenLine1 = 0
             lenLine2 = (len(txtLine2)*widthLetter)-device.width+spaceJump
