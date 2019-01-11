@@ -308,8 +308,13 @@ do
         "Option 2: Replace file for contrast-control")
 			echo -e " "
 			sudo service phoniebox-gpio-buttons stop > /dev/null 2>&1
-			sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null  2>&1
-			sudo wget -O /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py121212 -o /dev/null https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py -P /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
+			if [ -e /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup ]
+			then
+				sudo rm /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null  2>&1
+			else
+				sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null  2>&1
+			fi
+			sudo wget -O /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py -o /dev/null https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py > /dev/null
 			sudo chmod +x /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
 			sudo chown pi:www-data /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
 			sudo service phoniebox-gpio-buttons start > /dev/null 2>&1
