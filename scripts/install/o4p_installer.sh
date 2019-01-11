@@ -307,11 +307,12 @@ do
             ;;
         "Option 2: Replace file for contrast-control")
 			echo -e " "
-			sudo service phoniebox-gpio-buttons start > /dev/null 2>&1
-			sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null
-			sudo wget https://raw.githubusercontent.com/splitti/test/master/scripts/gpio-buttons/gpio-buttons.py -P /home/pi/RPi-Jukebox-RFID/scripts/ > /dev/null 2>&1
+			sudo service phoniebox-gpio-buttons stop > /dev/null 2>&1
+			sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null  2>&1
+			sudo wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py -P /home/pi/RPi-Jukebox-RFID/scripts/ > /dev/null 2>&1
 			sudo chmod +x /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
 			sudo chown pi:www-data /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
+			sudo service phoniebox-gpio-buttons start > /dev/null 2>&1
 			echo -e "   --> File replacement finished"
 			echo -e ""
             break
