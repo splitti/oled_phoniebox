@@ -46,6 +46,7 @@ Press Prev- and Next-Button together for two or more seconds, and you get some V
 ## Thank you
 Contributors and Testers:
 - <a href="https://forum-raspberrypi.de/user/53531-uelly/" target="_blank">uelly</a>
+- <a href="https://forum-raspberrypi.de/user/53205-carver/" target="_blank">carver</a>
 
 Github:
 - <a href="https://github.com/rm-hull/luma.oled" target="_blank">Luma.Oled</a>
@@ -65,8 +66,16 @@ Font:
 - https://www.dafont.com/bitstream-vera-mono.font
 
 ## Changelog
+- 11.01.2019 - Version 1.3.6 
+  - Bugfixing
+  - Code optimized
+  - Lite and Full Display Version (like parent and kids-mode)
+  - Contrast-Control Installation
+  - I2C Installation
+  - New Button Control Installation
+  - Special Button Hint: Press Prev + Next for more then two seconds and you get some informations...
 - 10.01.2019
-  - New one line Setup
+  - New One Line Setup
   - Removed Luma Examples; Function integrated
 - 09.01.2019
   - Bugfixing WLAN
