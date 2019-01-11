@@ -37,6 +37,9 @@ Add a Button press and start these commands:
 > python3 ../oled_phoniebox/scripts/contrast/contrast_up.py
 > python3 ../oled_phoniebox/scripts/contrast/contrast_down.py
 
+### Just another Feature
+Press Prev- and Next-Button together for two or more seconds, and you get some Version about your WiFi and the installed oled_phoniebox-Version.
+
 ## Spend me a coffee
 <a href="http://paypal.me/splittscheid" target="_blank">paypal.me</a>
 
