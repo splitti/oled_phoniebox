@@ -182,7 +182,7 @@ def main(num_iterations=sys.maxsize):
                 lenLine3 = 0
               cnt = 0
             if linePos == 1:
-              if (cnt <= lenLine1) and (lenLine1 != 0):
+              if (cnt <= lenLine1+spaceJump-1) and (lenLine1 != 0):
                 subLine1 = cnt
                 subLine2 = 0
                 subLine3 = 0
@@ -190,7 +190,7 @@ def main(num_iterations=sys.maxsize):
                 linePos = 2
                 cnt = 0
             if linePos == 2:
-              if (cnt <= lenLine2) and (lenLine2 != 0):
+              if (cnt <= lenLine2+spaceJump-1) and (lenLine2 != 0):
                 subLine1 = 0
                 subLine2 = cnt
                 subLine3 = 0
@@ -198,7 +198,7 @@ def main(num_iterations=sys.maxsize):
                 linePos = 3
                 cnt = 0
             if  linePos == 3:
-              if (cnt <= lenLine3) and (lenLine3 != 0):
+              if (cnt <= lenLine3+spaceJump-1) and (lenLine3 != 0):
                 subLine1 = 0
                 subLine2 = 0
                 subLine3 = cnt
