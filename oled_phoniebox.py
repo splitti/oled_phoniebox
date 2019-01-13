@@ -20,7 +20,7 @@ font_hightower = ImageFont.truetype(font_path, 54)
 
 confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
-version = "1.4.3 - 20190113"
+version = "1.4.4 - 20190113"
 
 def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
@@ -57,7 +57,7 @@ def main(num_iterations=sys.maxsize):
     subLine2 = 0
     subLine3 = 0
     widthLetter = 7
-    spaceJump = 63
+    spaceJump = 45
     oldMPC = ""
     oldPlaying = "-"
     displayTime = 3
@@ -166,17 +166,17 @@ def main(num_iterations=sys.maxsize):
             if lenLine1 == -1:
               lenLine1 = (len(txtLine1)*widthLetter)-device.width+spaceJump
               if lenLine1 > 0 and lenLine1 < spaceJump:
-                lenLine1 = spaceJump
+                lenLine1 = spaceJump+1
               if lenLine1 < 1:
                 lenLine1 = 0
               lenLine2 = (len(txtLine2)*widthLetter)-device.width+spaceJump
               if lenLine2 > 0 and lenLine2 < spaceJump:
-                lenLine2 = spaceJump + spaceJump
+                lenLine2 = spaceJump+1
               if lenLine2 < 1:
                 lenLine2 = 0
                 lenLine3 = (len(txtLine3)*widthLetter)-device.width+spaceJump
               if lenLine3 > 0 and lenLine3 < spaceJump:
-                lenLine3 = spaceJump + spaceJump
+                lenLine3 = spaceJump+1
               if lenLine3 < 1:
                 lenLine3 = 0
               cnt = 0
