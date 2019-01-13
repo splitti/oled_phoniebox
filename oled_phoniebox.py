@@ -57,7 +57,7 @@ def main(num_iterations=sys.maxsize):
     subLine2 = 0
     subLine3 = 0
     widthLetter = 7
-    spaceJump = 63
+    spaceJump = 7
     oldMPC = ""
     oldPlaying = "-"
     displayTime = 3
@@ -251,9 +251,9 @@ def main(num_iterations=sys.maxsize):
               draw.text((78, line4),vol,font=font_small, fill="white")
               draw.text((108, line4),"---",font=font_small, fill=WifiConn[4])
               oldMPC = currMPC
-            seconds = int(seconds)%6
-            if seconds == 0:
-              cnt = cnt + spaceJump
+            #seconds = int(seconds)%6
+            #if seconds == 0:
+            cnt = cnt + spaceJump
         else:
           oldMPC = currMPC
           if tmpcard < 3:
