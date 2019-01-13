@@ -20,7 +20,7 @@ font_hightower = ImageFont.truetype(font_path, 54)
 
 confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
-version = "1.4.5 - 20190113"
+version = "1.5.1 - 20190113"
 
 def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
@@ -251,8 +251,6 @@ def main(num_iterations=sys.maxsize):
               draw.text((78, line4),vol,font=font_small, fill="white")
               draw.text((108, line4),"---",font=font_small, fill=WifiConn[4])
               oldMPC = currMPC
-            #seconds = int(seconds)%6
-            #if seconds == 0:
             cnt = cnt + spaceJump
         else:
           oldMPC = currMPC
