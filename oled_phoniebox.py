@@ -20,7 +20,7 @@ font_hightower = ImageFont.truetype(font_path, 54)
 
 confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
-version = "1.5.1 - 20190113"
+version = "1.5.2 - 20190113"
 
 def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
@@ -182,29 +182,29 @@ def main(num_iterations=sys.maxsize):
                 lenLine3 = 0
               cnt = 0
             if linePos == 1:
-              if (cnt <= lenLine1+spaceJump-1) and (lenLine1 != 0):
+              if (cnt <= lenLine1+spaceJump*3) and (lenLine1 != 0):
                 subLine1 = cnt
                 subLine2 = 0
                 subLine3 = 0
               else:
                 linePos = 2
-                cnt = 0
+                cnt = 0-spaceJump
             if linePos == 2:
-              if (cnt <= lenLine2+spaceJump-1) and (lenLine2 != 0):
+              if (cnt <= lenLine2+spaceJump*3) and (lenLine2 != 0):
                 subLine1 = 0
                 subLine2 = cnt
                 subLine3 = 0
               else:
                 linePos = 3
-                cnt = 0
+                cnt = 0-spaceJump
             if  linePos == 3:
-              if (cnt <= lenLine3+spaceJump-1) and (lenLine3 != 0):
+              if (cnt <= lenLine3+spaceJump*3) and (lenLine3 != 0):
                 subLine1 = 0
                 subLine2 = 0
                 subLine3 = cnt
               else:
                 linePos = 1
-                cnt = 0
+                cnt = 0-spaceJump
             if playing != "[paused]":
               TimeLine = elapsed.split("/")
               if TimeLine[1] != "0:00":
