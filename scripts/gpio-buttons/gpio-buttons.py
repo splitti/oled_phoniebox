@@ -60,7 +60,6 @@ def def_prev():
       check_call("./scripts/playout_controls.sh -c=playerprev", shell=True)
       break
    
-
 def def_halt():
     check_call("./scripts/playout_controls.sh -c=playerpause", shell=True)
 

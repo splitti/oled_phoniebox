@@ -1,5 +1,5 @@
 [Unit]
-Description=Display Service
+Description=OLED Phoniebox Display Service
 [Service]
 Type=simple
 WorkingDirectory=<PATH>/
