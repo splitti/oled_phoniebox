@@ -188,21 +188,24 @@ def main(num_iterations=sys.maxsize):
                 subLine3 = 0
               else:
                 linePos = 2
-            if linePos == 2:
+                cnt = 0
+			if linePos == 2:
               if (cnt <= lenLine2) and (lenLine2 != 0):
                 subLine1 = 0
                 subLine2 = cnt
                 subLine3 = 0
               else:
                 linePos = 3
-            if  linePos == 3:
+                cnt = 0
+			if  linePos == 3:
               if (cnt <= lenLine3) and (lenLine3 != 0):
                 subLine1 = 0
                 subLine2 = 0
                 subLine3 = cnt
               else:
                 linePos = 1
-            if playing != "[paused]":
+                cnt = 0
+			if playing != "[paused]":
               TimeLine = elapsed.split("/")
               if TimeLine[1] != "0:00":
                 elapsed = TimeLine[1]
