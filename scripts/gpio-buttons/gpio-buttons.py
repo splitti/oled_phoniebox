@@ -33,11 +33,13 @@ def def_vol0():
     check_call("./scripts/playout_controls.sh -c=mute", shell=True)
 
 def def_next():
-    if prev.is_pressed == True :
-      sleep(0.5)
-    if not next.is_pressed == True :
+  for x in range(0, 19):
+    if next.is_pressed == True :
+      sleep(0.1)
+    else:
       check_call("./scripts/playout_controls.sh -c=playernext", shell=True)
-
+      break
+ 
 def def_contrastup():
   if prev.is_pressed == True :
     check_call("/usr/bin/touch /tmp/o4p_overview.temp", shell=True)
@@ -51,10 +53,13 @@ def def_contrastdown():
     check_call("/usr/bin/python3 /home/pi/oled_phoniebox/scripts/contrast/contrast_down.py", shell=True)
 
 def def_prev():
-    if prev.is_pressed == True :  
-      sleep(0.5)
-    if not prev.is_pressed == True :
+  for x in range(0, 19):
+    if prev.is_pressed == True :
+      sleep(0.1)
+    else:
       check_call("./scripts/playout_controls.sh -c=playerprev", shell=True)
+      break
+   
 
 def def_halt():
     check_call("./scripts/playout_controls.sh -c=playerpause", shell=True)

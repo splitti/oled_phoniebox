@@ -48,21 +48,38 @@ def GetMPC(command):
     return process
 
 def GetWifiConn():
-    WifiFile = "/proc/net/wireless"
-    WifiRateFile = open(WifiFile)
-    WifiRate = WifiRateFile.readlines()
-    WifiRateFile.close()
-    WifiRate = WifiRate[2].replace("   ", " ").replace("  "," ")
-    WifiRate = WifiRate.split(" ")
-    WifiRate = WifiRate[4].replace(".","")
-    if WifiRate[0:1] == "-":
-      WifiRate = int(WifiRate) + 100
-    if len(WifiRate) == 1:
-      WifiRate = " "+WifiRate
-    if WifiRate == "100":
-      WifiRate = "99"
-    WifiConn = "W"+WifiRate
-    return WifiConn
+  import os
+  WifiFile = "/proc/net/wireless"
+  first = "black"
+  second = "black"
+  third = "black"
+  fourth = "black"
+  alternate = "black"
+  try:
+    if os.path.exists(WifiFile):
+      WifiRateFile = open(WifiFile)
+      WifiRate = WifiRateFile.readlines()
+      WifiRateFile.close()
+      WifiRate = WifiRate[2].replace("   ", " ").replace("  "," ")
+      WifiRate = WifiRate.split(" ")
+      WifiRate = WifiRate[4].replace(".","")
+      if WifiRate[0:1] == "-":
+        WifiRate = 100 + float(WifiRate)
+      else:
+        WifiRate = float(WifiRate)
+      if WifiRate > 0:
+        first = "white"
+      if WifiRate > 30:
+        second = "white"
+      if WifiRate > 60:
+        third = "white"
+      if WifiRate > 80:
+        fourth = "white"
+    else:
+      alternate = "white"
+  except:
+    alternate = "white" 
+  return (first,second,third,fourth,alternate)
 
 def GetSpecialInfos():
     from subprocess import check_output

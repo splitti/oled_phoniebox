@@ -20,7 +20,7 @@ font_hightower = ImageFont.truetype(font_path, 54)
 
 confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
-version = "1.3.6 - 20190111"
+version = "1.4.1 - 20190113"
 
 def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
@@ -62,10 +62,7 @@ def main(num_iterations=sys.maxsize):
     oldPlaying = "-"
     displayTime = 3
     oldVol = "FirstStart"
-    try:
-      WifiConn = GetWifiConn()
-    except:
-      WifiConn = "---"
+    WifiConn = GetWifiConn()
     while num_iterations > 0:
       num_iterations = 1
       curr_time = datetime.now()
@@ -73,10 +70,7 @@ def main(num_iterations=sys.maxsize):
       sleep(0.8)
       seconds = int(seconds)%5
       if seconds == 0:
-        try:
-          WifiConn = GetWifiConn()
-        except:
-          WifiConn = "---"
+        WifiConn = GetWifiConn()
       try:
       #if WifiConn != "BUGFIXING_LINE":
         if os.path.exists(tempFile):
@@ -231,7 +225,10 @@ def main(num_iterations=sys.maxsize):
               track = track
             with canvas(device) as draw:
               draw.rectangle((0,0,TimeLineP,1), outline="white", fill="white")
-  #            draw.rectangle((0,12,7,10), outline="white", fill="white")
+              draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
+              draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
+              draw.rectangle((119, line4+4,121,line4+10), outline=WifiConn[2], fill=WifiConn[2])
+              draw.rectangle((124, line4+2,126,line4+10), outline=WifiConn[3], fill=WifiConn[3])
               draw.line((0, line4-2, device.width, line4-2), fill="white")
               draw.line((39, line4-2, 39, device.height), fill="white")
               draw.line((75, line4-2, 75, device.height), fill="white")
@@ -242,7 +239,7 @@ def main(num_iterations=sys.maxsize):
               draw.text((0, line4),elapsed,font=font_small, fill="white")
               draw.text((42, line4),track,font=font_small, fill="white")
               draw.text((78, line4),vol,font=font_small, fill="white")
-              draw.text((108, line4),WifiConn,font=font_small, fill="white")
+              draw.text((108, line4),"---",font=font_small, fill=WifiConn[4])
               oldMPC = currMPC
             seconds = int(seconds)%6
             if seconds == 0:
