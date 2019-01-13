@@ -366,6 +366,7 @@ echo -e "${green}Done${nocolor}"
 echo -e ""
 echo -e -n "   --> Installing Service:                "
 sudo chown -R pi:pi ${installPath} > /dev/null
+sudo chmod +x ${installPath}/oled_phoniebox.py > /dev/null
 sudo cp ${installPath}/templates/service.template /etc/systemd/oled_phoniebox.service > /dev/null
 sudo sed -i -e "s:<PATH>:${installPath}:g" /etc/systemd/oled_phoniebox.service > /dev/null
 sudo systemctl daemon-reload > /dev/null 2>&1
