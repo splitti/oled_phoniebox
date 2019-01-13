@@ -181,21 +181,21 @@ def main(num_iterations=sys.maxsize):
               if lenLine3 < 1:
                 lenLine3 = 0
               cnt = 0
-            if  linePos = 1:
+            if linePos == 1:
               if (cnt <= lenLine1) and (lenLine1 != 0):
                 subLine1 = cnt
                 subLine2 = 0
                 subLine3 = 0
               else:
                 linePos = 2
-            if  linePos = 2:
+            if linePos == 2:
               if (cnt <= lenLine2) and (lenLine2 != 0):
                 subLine1 = 0
                 subLine2 = cnt
                 subLine3 = 0
               else:
                 linePos = 3
-            if  linePos = 3:
+            if  linePos == 3:
               if (cnt <= lenLine3) and (lenLine3 != 0):
                 subLine1 = 0
                 subLine2 = 0
