@@ -222,7 +222,7 @@ for p in ${lumaPackages[@]}; do
 		let i+=1
 		echo -n -e " "
 	done
-	pipInstalled="jkjkjkjk" #`sudo pip3 show ${p}`
+	pipInstalled=`sudo pip3 show ${p}`
 	if [ "$pipInstalled" = "" ]
 	then
 		sudo pip3 install ${p}  > /dev/null 2>&1
@@ -404,5 +404,7 @@ echo -e "///   ${green}╚██████╗╚██████╔╝██
 echo -e "///   ${green} ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚══════╝╚══════╝   ╚═╝   ╚══════╝                           ${nocolor}///";
 echo -e "///                                                                                                   ///"
 echo -e "/////////////////////////////////////////////////////////////////////////////////////////////////////////"
+echo -e ""
+echo -e "If this is a new installation, then a reboot is required..."
 echo -e ""
 echo -e ""
