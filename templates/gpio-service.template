@@ -1,0 +1,11 @@
+[Unit]
+Description=Phoniebox GPIO Buttons Service
+After=network.target iptables.service firewalld.service
+
+[Service]
+Restart=always
+WorkingDirectory=/home/pi/oled_phoniebox/scripts/gpio-buttons
+ExecStart=/home/pi/oled_phoniebox/scripts/gpio-buttons/gpio-buttons.py
+
+[Install]
+WantedBy=multi-user.target
