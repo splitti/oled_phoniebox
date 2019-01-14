@@ -222,7 +222,7 @@ for p in ${lumaPackages[@]}; do
 		let i+=1
 		echo -n -e " "
 	done
-	pipInstalled=`sudo pip3 show ${p}`
+	pipInstalled="jkjkjkjk" #`sudo pip3 show ${p}`
 	if [ "$pipInstalled" = "" ]
 	then
 		sudo pip3 install ${p}  > /dev/null 2>&1
@@ -273,65 +273,6 @@ read -n 1 -s -r -p "Press any key to continue"
 
 clear
 echo -e "////////////////////////////////////////////////////////////////////"
-echo -e "///${cyan}   Edit gpio-buttons.py                                       ${nocolor}///"
-echo -e "////////////////////////////////////////////////////////////////////"
-echo -e ""
-echo -e "If jukebox4kids is already installed, you can choose your new config"
-echo -e "for the file:"
-echo -e "  ${yellow}/home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py${nocolor}"
-echo -e ""
-echo -e "${cyan}Option 1:${nocolor}"
-echo -e "Just deactivate GPIO Pin 3 for the shutdown. This Pin is needed and"
-echo -e "used for I2C-Display!"
-echo -e ""
-echo -e "${cyan}Option 2:${nocolor}"
-echo -e "Contains Option 1!"
-echo -e "Replace the gpio-buttons.py-File with a new file of these Repository"
-echo -e "for contrast-control with the prev- and next-Buttons."
-echo -e ""
-echo -e "${cyan}Option 3:${nocolor}"
-echo -e "Just skip... ${red}Needed, if jukebox4kids is not installed!!!${nocolor}"
-echo -e " "
-options=("Option 1: Deactivate GPIO Pin 3" "Option 2: Replace file for contrast-control" "Option 3: Skip")
-
-select opt in "${options[@]}"
-do
-    case $opt in
-        "Option 1: Deactivate GPIO Pin 3")
-			echo -e " "
-			sudo service phoniebox-gpio-buttons stop > /dev/null 2>&1
-            sudo sed -i -e "s:shut = Button(3, hold_time=2):#shut = Button(3, hold_time=2):g" /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
-			echo -e "   --> Button replacement finished"
-			echo -e ""
-            break
-            ;;
-        "Option 2: Replace file for contrast-control")
-			echo -e " "
-			sudo service phoniebox-gpio-buttons stop > /dev/null 2>&1
-			if [ -e /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup ]
-			then
-				sudo rm /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null  2>&1
-			else
-				sudo mv /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py_backup > /dev/null  2>&1
-			fi
-			sudo wget -O /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py -o /dev/null https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/gpio-buttons/gpio-buttons.py > /dev/null
-			sudo chmod +x /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
-			sudo chown pi:www-data /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
-			sudo service phoniebox-gpio-buttons start > /dev/null 2>&1
-			echo -e "   --> File replacement finished"
-			echo -e ""
-            break
-            ;;
-        "Option 3: Skip")
-			break
-            ;;
-        *) echo -e "Invalid option $REPLY";;
-    esac
-done
-echo -e ""
-read -n 1 -s -r -p "Press any key to continue"
-clear
-echo -e "////////////////////////////////////////////////////////////////////"
 echo -e "///${cyan}   Installing Service:                                        ${nocolor}///"
 echo -e "////////////////////////////////////////////////////////////////////"
 echo -e ""
@@ -368,6 +309,8 @@ echo -e -n "   --> Installing Service:                "
 sudo chown -R pi:pi ${installPath} > /dev/null
 sudo chmod +x ${installPath}/oled_phoniebox.py > /dev/null
 sudo cp ${installPath}/templates/service.template /etc/systemd/oled_phoniebox.service > /dev/null
+sudo chown root:root /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
+sudo chmod 644 /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
 sudo sed -i -e "s:<PATH>:${installPath}:g" /etc/systemd/oled_phoniebox.service > /dev/null
 sudo systemctl daemon-reload > /dev/null 2>&1
 sudo systemctl enable /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
@@ -376,6 +319,72 @@ sudo service phoniebox-gpio-buttons restart > /dev/null 2>&1
 echo -e "${green}Done${nocolor}"
 echo -e ""
 read -n 1 -s -r -p "Press any key to continue"
+clear
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e "///${cyan}   Edit gpio-buttons.py                                       ${nocolor}///"
+echo -e "////////////////////////////////////////////////////////////////////"
+echo -e ""
+echo -e "If jukebox4kids is already installed, you can choose your new config"
+echo -e "for the file:"
+echo -e "  ${yellow}/home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py${nocolor}"
+echo -e ""
+echo -e "${cyan}Option 1:${nocolor}"
+echo -e "Just deactivate GPIO Pin 3 for the shutdown. This Pin is needed and"
+echo -e "used for I2C-Display! The origin gpio-buttons.py-File from the"
+echo -e "RPi-Jukebox-RFID-Repository will be changed!!!"
+echo -e ""
+echo -e "${cyan}Option 2:${nocolor}"
+echo -e "Replace the gpio-buttons.py-Service with a file from this "
+echo -e "Repository for contrast-control with the prev- and next-Buttons."
+echo -e "The origin Repository remains untouched."
+echo -e ""
+echo -e "${cyan}Option 3:${nocolor}"
+echo -e "Just skip... ${red}Needed, if jukebox4kids is not installed!!!${nocolor}"
+echo -e " "
+echo -e "I recommend option 2 or 3, because editing the origin service could"
+echo -e "make problems!"
+echo -e " "
+options=("Option 1: Deactivate GPIO Pin 3" "Option 2: Replace service for contrast-control" "Option 3: Skip")
+
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Option 1: Deactivate GPIO Pin 3")
+			echo -e " "
+			sudo service phoniebox-gpio-buttons stop > /dev/null 2>&1
+            sudo sed -i -e "s:shut = Button(3, hold_time=2):#shut = Button(3, hold_time=2):g" /home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py > /dev/null
+			sudo service phoniebox-gpio-buttons start > /dev/null 2>&1
+			echo -e "   --> Button replacement finished"
+			echo -e ""
+            break
+            ;;
+        "Option 2: Replace service for contrast-control")
+			echo -e " "
+			echo -e -n "   --> Delete old Service:                "
+			sudo chmod +x ${installPath}/scripts/gpio-buttons/gpio-buttons.py > /dev/null
+			sudo service phoniebox-gpio-buttons stop > /dev/null 2>&1
+			sudo systemctl disable phoniebox-gpio-buttons > /dev/null  2>&1
+			sudo rm /etc/systemd/system/phoniebox-gpio-buttons.service > /dev/null  2>&1
+			echo -e "${green}Done${nocolor}"
+			echo -e -n "   --> Installing Service:                "
+			sudo cp ${installPath}/templates/gpio-service.template /etc/systemd/system/phoniebox-gpio-buttons.service > /dev/null 2>&1
+			sudo chown root:root /etc/systemd/system/phoniebox-gpio-buttons.service > /dev/null 2>&1
+			sudo chmod 644 /etc/systemd/system/phoniebox-gpio-buttons.service > /dev/null 2>&1
+			sudo systemctl enable phoniebox-gpio-buttons > /dev/null 2>&1
+			sudo service phoniebox-gpio-buttons start > /dev/null 2>&1
+			echo -e "${green}Done${nocolor}"
+			echo -e ""
+            break
+            ;;
+        "Option 3: Skip")
+			break
+            ;;
+        *) echo -e "Invalid option $REPLY";;
+    esac
+done
+echo -e ""
+read -n 1 -s -r -p "Press any key to continue"
+
 clear
 echo -e ""
 echo -e "/////////////////////////////////////////////////////////////////////////////////////////////////////////"
