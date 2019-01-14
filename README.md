@@ -44,6 +44,14 @@ Press Prev- and Next-Button together for two or more seconds, and you get some V
 ## Spend me a coffee
 <a href="http://paypal.me/splittscheid" target="_blank">paypal.me</a>
 
+## FAQ
+How can i switch between lite or full version?
+- At this time you have to run the installer again, or modify the oled_phoniebox.py-File and change mode = to full or lite.
+
+How should i update the oled_phoniebox?
+- This time, the only way is to run the installer again, because there are different changes in the file-system. git pull does not work here!
+
+
 ## Thank you
 Contributors and Testers:
 - <a href="https://forum-raspberrypi.de/user/53531-uelly/" target="_blank">uelly</a>
