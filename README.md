@@ -67,6 +67,13 @@ Font:
 - https://www.dafont.com/bitstream-vera-mono.font
 
 ## Changelog
+- 13.01.2019 - Version 1.5.3 - 20190113
+  - Bugfix:
+    - Wifi
+    - Button Replacement
+  - Features:
+    - New updated Scrolling (Letter Scrolling)
+	- Wifi gets a new view
 - 11.01.2019 - Version 1.3.6 
   - Bugfixing
   - Code optimized
