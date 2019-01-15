@@ -69,7 +69,7 @@ def GetWifiConn():
         WifiRate = float(WifiRate)
       if WifiRate > 0:
         first = "white"
-      if WifiRate > 30:
+      if WifiRate > 40:
         second = "white"
       if WifiRate > 60:
         third = "white"
