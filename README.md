@@ -46,7 +46,7 @@ Press Prev- and Next-Button together for two or more seconds, and you get some V
 
 ## FAQ
 How can i switch between lite or full version?
-- At this time you have to run the installer again, or modify the oled_phoniebox.py-File and change mode = to full or lite.
+- Press and hold Next and Prev together for 2 seconds or more. The Information Screens will be displayed. Press and hold Next and Prev again for 2 seconds and the mode will be changed.
 
 How should i update the oled_phoniebox?
 - This time, the only way is to run the installer again, because there are different changes in the file-system. git pull does not work here!

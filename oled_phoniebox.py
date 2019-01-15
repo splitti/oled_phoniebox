@@ -87,7 +87,7 @@ def main(num_iterations=sys.maxsize):
             newMode = SetNewMode(confFile)
             initVars.set('GENERAL', 'mode', newMode)
             with canvas(device) as draw:
-              draw.text((0, line1),  "initVars['GENERAL']['mode'],font=font_hightower, fill="white")
+              draw.text((0, line1),initVars['GENERAL']['mode'],font=font_hightower, fill="white")
             sleep(displayTime)
         currContrast = GetCurrContrast(confFile)
         if currContrast != oldContrast:
@@ -169,7 +169,11 @@ def main(num_iterations=sys.maxsize):
               xpos = device.width/2-60
             with canvas(device) as draw:
               draw.text((xpos, 4),track,font=font_hightower, fill="white")
-
+              draw.rectangle((0,0,TimeLineP,1), outline="white", fill="white")
+              draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
+              draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
+              draw.rectangle((119, line4+4,121,line4+10), outline=WifiConn[2], fill=WifiConn[2])
+              draw.rectangle((124, line4+2,126,line4+10), outline=WifiConn[3], fill=WifiConn[3])
           if initVars['GENERAL']['mode'] == "full" :
             if lenLine1 == -1:
               lenLine1 = (len(txtLine1)*widthLetter)-device.width
