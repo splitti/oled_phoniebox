@@ -6,7 +6,7 @@
 import signal
 import sys
 sys.path.append("/home/pi/oled_phoniebox/scripts/")
-from o4p_functions import Init,get_device,GetCurrContrast,SetCharacters,GetMPC,GetWifiConn,GetSpecialInfos
+from o4p_functions import Init,get_device,GetCurrContrast,SetCharacters,GetMPC,GetWifiConn,GetSpecialInfos, SetNewMode
 from time import sleep
 from datetime import datetime
 import os
@@ -20,7 +20,7 @@ font_hightower = ImageFont.truetype(font_path, 54)
 
 confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
-version = "1.5.4 - 20190114"
+version = "1.6.1 - 20190115"
 
 def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
@@ -46,7 +46,7 @@ def main(num_iterations=sys.maxsize):
     ShowImage("music")
     tmpcard = 3
     line1 = 4
-    line2 = 19 
+    line2 = 19
     line3 = 34
     line4org = 49
     line4 = device.height-1-10
@@ -80,8 +80,15 @@ def main(num_iterations=sys.maxsize):
             draw.text((0, line2),  "IP:   "+specialInfos[1],font=font_small, fill="white")
             draw.text((0, line3),  "Version:",font=font_small, fill="white")
             draw.text((0, line4org),version,font=font_small, fill="white")
-          sleep(8)
           os.remove(tempFile)
+          sleep(10)
+          if os.path.exists(tempFile):
+            os.remove(tempFile)
+            newMode = SetNewMode(confFile)
+            initVars.set('GENERAL', 'mode', newMode)
+            with canvas(device) as draw:
+              draw.text((0, line1),initVars['GENERAL']['mode'],font=font_hightower, fill="white")
+            sleep(displayTime)
         currContrast = GetCurrContrast(confFile)
         if currContrast != oldContrast:
           device.contrast(currContrast)
@@ -125,8 +132,8 @@ def main(num_iterations=sys.maxsize):
               track = track.split("/")[0]
             if track == "\n":
               track = mpcstatus.split("\n")[1].replace("  ", " ").split(" ")[1].replace("#","") #.split("/")[0]
+            file = SetCharacters(GetMPC("mpc -f %file% current")) # Get the current title
             if initVars['GENERAL']['mode'] == "full" :
-              file = SetCharacters(GetMPC("mpc -f %file% current")) # Get the current title
               if file.startswith("http"): # if it is a http stream!
                 txtLine1 = SetCharacters(GetMPC("mpc -f %name% current"))
                 txtLine2 = SetCharacters(GetMPC("mpc -f %title% current"))
@@ -151,6 +158,13 @@ def main(num_iterations=sys.maxsize):
                   txtLine1 = localfile[1]
                   txtLine2 = localfile[0]
           if initVars['GENERAL']['mode'] == "lite" :
+            if playing != "[paused]":
+              TimeLine = elapsed.split("/")
+              if TimeLine[1] != "0:00":
+                elapsed = TimeLine[1]
+            if not file.startswith("http"):
+              TimeLineP = int(mpcstatus.split("\n")[1].replace("   "," ").replace("  "," ").split(" ")[3].replace("(","").replace("%)",""))
+              TimeLineP = device.width * TimeLineP / 100
             track = track.split("/")[0]
             if len(track) == 1:
               xpos = device.width/2-15
@@ -162,7 +176,11 @@ def main(num_iterations=sys.maxsize):
               xpos = device.width/2-60
             with canvas(device) as draw:
               draw.text((xpos, 4),track,font=font_hightower, fill="white")
-
+              draw.rectangle((0,0,TimeLineP,1), outline="white", fill="white")
+              draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
+              draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
+              draw.rectangle((119, line4+4,121,line4+10), outline=WifiConn[2], fill=WifiConn[2])
+              draw.rectangle((124, line4+2,126,line4+10), outline=WifiConn[3], fill=WifiConn[3])
           if initVars['GENERAL']['mode'] == "full" :
             if lenLine1 == -1:
               lenLine1 = (len(txtLine1)*widthLetter)-device.width

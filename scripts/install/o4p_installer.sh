@@ -2,6 +2,7 @@
 # Colors: \e[36m=Cyan M ; \e[92m=Light green ; \e[91m=Light red ; \e[93m=Light yellow ; \e[31m=green ; \e[0m=Default ; \e[33m=Yellow ; \e[31m=Red
 
 repo="https://github.com/splitti/oled_phoniebox"
+#branch="development"
 branch="master"
 
 nocolor='\e[0m'
@@ -235,7 +236,7 @@ for p in ${lumaPackages[@]}; do
 		fi
 	else
 		echo -e "${green}already installed${nocolor}"
-	fi	
+	fi
 done
 echo -e ""
 echo -e "Enable I2C..."

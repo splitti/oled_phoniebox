@@ -7,9 +7,9 @@ Based on https://github.com/rm-hull/luma.oled
 
 Tested with this display (affiliate Link): <a href="https://amzn.to/2SjPFPt" target="_blank">https://amzn.to/2SjPFPt</a>
 
-| Start Screen | Play View | Pause Screen | Play Screen | Vol Down Screen | Vol Up Screen |
-| --- | --- | --- | --- | --- | --- |
-| ![Caption](preview/Start_Screen.jpg "Caption") | ![Caption](preview/Play_View.jpg "Caption") | ![Caption](preview/Pause_Screen.jpg "Caption") | ![Caption](preview/Play_Screen.jpg "Caption") | ![Caption](preview/VolumeDown_Screen.jpg "Caption") | ![Caption](preview/VolumeUp_Screen.jpg "Caption") |
+| Start Screen | Play View Full | Play View Lite | Info Screen | Pause Screen | Play Screen | Vol Down Screen | Vol Up Screen |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| ![Caption](preview/Start_Screen.jpg "Caption") | ![Caption](preview/Play_View-full.jpg "Caption") | ![Caption](preview/Play_View-lite.jpg "Caption") | ![Caption](preview/Info_Screen.jpg "Caption") | ![Caption](preview/Pause_Screen.jpg "Caption") | ![Caption](preview/Play_Screen.jpg "Caption") | ![Caption](preview/VolumeDown_Screen.jpg "Caption") | ![Caption](preview/VolumeUp_Screen.jpg "Caption") |
 
 Youtube: <a href="https://youtu.be/bEJN0BWdAXY" target="_blank">German Youtube Video</a>
 Forum: <a href="https://forum-raspberrypi.de/forum/thread/41465-oled-display-fuer-die-phoniebox/" target="_blank">German Forum</a>
@@ -46,7 +46,7 @@ Press Prev- and Next-Button together for two or more seconds, and you get some V
 
 ## FAQ
 How can i switch between lite or full version?
-- At this time you have to run the installer again, or modify the oled_phoniebox.py-File and change mode = to full or lite.
+- Press and hold Next and Prev together for 2 seconds or more. The Information Screens will be displayed. Press and hold Next and Prev again for 2 seconds and the mode will be changed.
 
 How should i update the oled_phoniebox?
 - This time, the only way is to run the installer again, because there are different changes in the file-system. git pull does not work here!
@@ -62,7 +62,7 @@ Github:
 - <a href="https://github.com/rm-hull/luma.examples" target="_blank">Luma.Examples</a>
 - <a href="https://github.com/MiczFlor/RPi-Jukebox-RFID" target="_blank">RPi-Jukebox-RFID also known as Phoniebox</a>
 
-Image (music.png): 
+Image (music.png):
 - https://pixabay.com/de/noten-musik-melodie-musiknote-2570451
 
 Images (cardhand and musiccard) based on:
@@ -71,7 +71,7 @@ Images (cardhand and musiccard) based on:
 - https://pixabay.com/de/hand-karte-halten-angabe-ticket-307636/
 - https://pixabay.com/de/herunterfahren-macht-off-auf-icon-2935465/
 
-Font: 
+Font:
 - https://www.dafont.com/bitstream-vera-mono.font
 
 ## Changelog
@@ -82,7 +82,7 @@ Font:
   - Features:
     - New updated Scrolling (Letter Scrolling)
 	- Wifi gets a new view
-- 11.01.2019 - Version 1.3.6 
+- 11.01.2019 - Version 1.3.6
   - Bugfixing
   - Code optimized
   - Lite and Full Display Version (like parent and kids-mode)
@@ -101,7 +101,7 @@ Font:
 - 04.01.2019
   - WiFi-Signal
   - Monospaced Font
-  - New Track View 
+  - New Track View
   - Play bar 0 - 100%
 - 01.01.2019
   - Shutdown Image

@@ -11,7 +11,7 @@ from time import sleep
 # Added the function on holding volume + - buttons to change the volume in 0.3s interval
 #
 # 2018-10-15
-# this script has the `pull_up=True` for all pins. See the following link for additional info: 
+# this script has the `pull_up=True` for all pins. See the following link for additional info:
 # https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/259#issuecomment-430007446
 #
 # 2017-12-12
@@ -20,26 +20,28 @@ from time import sleep
 # I have not yet had the time to test is, so I placed it in the misc folder.
 # If anybody has ideas or tests or experience regarding this solution, please create pull requests or contact me.
 
+jukebox4kidsPath = "/home/pi/RPi-Jukebox-RFID"
+
 def def_shutdown():
-    check_call("./scripts/playout_controls.sh -c=shutdown", shell=True)
+    check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=shutdown", shell=True)
 
 def def_volU():
-    check_call("./scripts/playout_controls.sh -c=volumeup", shell=True)
+    check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=volumeup", shell=True)
 
 def def_volD():
-    check_call("./scripts/playout_controls.sh -c=volumedown", shell=True)
+    check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=volumedown", shell=True)
 
 def def_vol0():
-    check_call("./scripts/playout_controls.sh -c=mute", shell=True)
+    check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=mute", shell=True)
 
 def def_next():
   for x in range(0, 19):
     if next.is_pressed == True :
       sleep(0.1)
     else:
-      check_call("./scripts/playout_controls.sh -c=playernext", shell=True)
+      check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playernext", shell=True)
       break
- 
+
 def def_contrastup():
   if prev.is_pressed == True :
     check_call("/usr/bin/touch /tmp/o4p_overview.temp", shell=True)
@@ -57,11 +59,11 @@ def def_prev():
     if prev.is_pressed == True :
       sleep(0.1)
     else:
-      check_call("./scripts/playout_controls.sh -c=playerprev", shell=True)
+      check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerprev", shell=True)
       break
-   
+
 def def_halt():
-    check_call("./scripts/playout_controls.sh -c=playerpause", shell=True)
+    check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerpause", shell=True)
 
 #shut = Button(3, hold_time=2)
 vol0 = Button(13,pull_up=True)
