@@ -46,7 +46,7 @@ def main(num_iterations=sys.maxsize):
     ShowImage("music")
     tmpcard = 3
     line1 = 4
-    line2 = 19 
+    line2 = 19
     line3 = 34
     line4org = 49
     line4 = device.height-1-10
@@ -80,8 +80,15 @@ def main(num_iterations=sys.maxsize):
             draw.text((0, line2),  "IP:   "+specialInfos[1],font=font_small, fill="white")
             draw.text((0, line3),  "Version:",font=font_small, fill="white")
             draw.text((0, line4org),version,font=font_small, fill="white")
-          sleep(8)
           os.remove(tempFile)
+          sleep(10)
+          if os.path.exists(tempFile):
+            os.remove(tempFile)
+            newMode = SetNewMode(confFile)
+            initVars.set('GENERAL', 'mode', newMode)
+            with canvas(device) as draw:
+              draw.text((0, line2),  "Mode changed to: "+initVars['GENERAL']['mode'],font=font, fill="white")
+            sleep(displayTime)
         currContrast = GetCurrContrast(confFile)
         if currContrast != oldContrast:
           device.contrast(currContrast)
