@@ -158,6 +158,13 @@ def main(num_iterations=sys.maxsize):
                   txtLine1 = localfile[1]
                   txtLine2 = localfile[0]
           if initVars['GENERAL']['mode'] == "lite" :
+            if playing != "[paused]":
+              TimeLine = elapsed.split("/")
+              if TimeLine[1] != "0:00":
+                elapsed = TimeLine[1]
+            if not file.startswith("http"):
+              TimeLineP = int(mpcstatus.split("\n")[1].replace("   "," ").replace("  "," ").split(" ")[3].replace("(","").replace("%)",""))
+              TimeLineP = device.width * TimeLineP / 100
             track = track.split("/")[0]
             if len(track) == 1:
               xpos = device.width/2-15
