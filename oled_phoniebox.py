@@ -132,8 +132,8 @@ def main(num_iterations=sys.maxsize):
               track = track.split("/")[0]
             if track == "\n":
               track = mpcstatus.split("\n")[1].replace("  ", " ").split(" ")[1].replace("#","") #.split("/")[0]
+            file = SetCharacters(GetMPC("mpc -f %file% current")) # Get the current title
             if initVars['GENERAL']['mode'] == "full" :
-              file = SetCharacters(GetMPC("mpc -f %file% current")) # Get the current title
               if file.startswith("http"): # if it is a http stream!
                 txtLine1 = SetCharacters(GetMPC("mpc -f %name% current"))
                 txtLine2 = SetCharacters(GetMPC("mpc -f %title% current"))
