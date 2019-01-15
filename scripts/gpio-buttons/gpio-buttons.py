@@ -33,21 +33,33 @@ def def_vol0():
     check_call("./scripts/playout_controls.sh -c=mute", shell=True)
 
 def def_next():
-    sleep(0.5)
-    if not next.is_pressed == True :
+  for x in range(0, 19):
+    if next.is_pressed == True :
+      sleep(0.1)
+    else:
       check_call("./scripts/playout_controls.sh -c=playernext", shell=True)
-
+      break
+ 
 def def_contrastup():
-     check_call("/usr/bin/python3 /home/pi/oled_phoniebox/scripts/contrast/contrast_up.py", shell=True)
+  if prev.is_pressed == True :
+    check_call("/usr/bin/touch /tmp/o4p_overview.temp", shell=True)
+  else:
+    check_call("/usr/bin/python3 /home/pi/oled_phoniebox/scripts/contrast/contrast_up.py", shell=True)
 
 def def_contrastdown():
-     check_call("/usr/bin/python3 /home/pi/oled_phoniebox/scripts/contrast/contrast_down.py", shell=True)
+  if next.is_pressed == True :
+    check_call("/usr/bin/touch /tmp/o4p_overview.temp", shell=True)
+  else:
+    check_call("/usr/bin/python3 /home/pi/oled_phoniebox/scripts/contrast/contrast_down.py", shell=True)
 
 def def_prev():
-    sleep(0.5)
-    if not prev.is_pressed == True :
+  for x in range(0, 19):
+    if prev.is_pressed == True :
+      sleep(0.1)
+    else:
       check_call("./scripts/playout_controls.sh -c=playerprev", shell=True)
-
+      break
+   
 def def_halt():
     check_call("./scripts/playout_controls.sh -c=playerpause", shell=True)
 
@@ -55,8 +67,8 @@ def def_halt():
 vol0 = Button(13,pull_up=True)
 volU = Button(16,pull_up=True,hold_time=0.3,hold_repeat=True)
 volD = Button(19,pull_up=True,hold_time=0.3,hold_repeat=True)
-next = Button(26,pull_up=True,hold_time=3.0,hold_repeat=False)
-prev = Button(20,pull_up=True,hold_time=3.0,hold_repeat=False)
+next = Button(26,pull_up=True,hold_time=2.0,hold_repeat=False)
+prev = Button(20,pull_up=True,hold_time=2.0,hold_repeat=False)
 halt = Button(21,pull_up=True)
 
 #shut.when_held = def_shutdown

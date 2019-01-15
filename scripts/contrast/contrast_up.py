@@ -1,36 +1,18 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import sys,getopt
-sys.path.append("../../luma.examples/examples")
+import sys
+sys.path.append("/home/pi/oled_phoniebox/scripts")
 import os
-from time import sleep
+from o4p_functions import Init
 
-ContrastLastFile = "/home/pi/oled_phoniebox/scripts/contrast/contrast.last"
-
-def GetCurrContrast():
-    line = ""
-    ContrastFile = open(ContrastLastFile)
-    ContrastFileContent = ContrastFile.readlines()
-    ContrastFile.close()
-    for line in ContrastFileContent:
-      if "contrast=" in line:
-        line = line.split("=")[1].replace("\n","")
-        break
-    return line
-
-def SetContrast(newContrast,oldContrast):
-  with open(ContrastLastFile, 'r') as file :
-    filedata = file.read()
-  file.close()
-  filedata = filedata.replace(str(oldContrast), str(newContrast))
-  with open(ContrastLastFile, 'w') as file:
-    file.write(filedata)
-  file.close()
+confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 
 def main():
- currContrast = int(GetCurrContrast())
+ initVars = Init(confFile)
+ currContrast = int(initVars['GENERAL']['contrast'])
  if currContrast < 171 and currContrast != "":
-  SetContrast(currContrast+85,currContrast)
-
+  initVars.set('GENERAL', 'contrast', str(currContrast+85))
+  with open(confFile, 'w') as configfile:
+    initVars.write(configfile)
 main()

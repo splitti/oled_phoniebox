@@ -5,107 +5,22 @@
 
 import signal
 import sys
+sys.path.append("/home/pi/oled_phoniebox/scripts/")
+from o4p_functions import Init,get_device,GetCurrContrast,SetCharacters,GetMPC,GetWifiConn,GetSpecialInfos
 from time import sleep
 from datetime import datetime
 import os
 from luma.core.render import canvas
-from luma.core import cmdline, error
 from PIL import ImageFont, Image
 font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
                             'fonts', 'Bitstream Vera Sans Mono Roman.ttf'))
 font = ImageFont.truetype(font_path, 12)
 font_small = ImageFont.truetype(font_path, 10)
+font_hightower = ImageFont.truetype(font_path, 54)
 
-chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
-ContrastLastFile = "/home/pi/oled_phoniebox/scripts/contrast/contrast.last"
-
-def display_settings(args):
-    """
-    Display a short summary of the settings.
-
-    :rtype: str
-    """
-    iface = ''
-    display_types = cmdline.get_display_types()
-    if args.display not in display_types['emulator']:
-        iface = 'Interface: {}\n'.format(args.interface)
-
-    lib_name = cmdline.get_library_for_display_type(args.display)
-    if lib_name is not None:
-        lib_version = cmdline.get_library_version(lib_name)
-    else:
-        lib_name = lib_version = 'unknown'
-
-    import luma.core
-    version = 'luma.{} {} (luma.core {})'.format(
-        lib_name, lib_version, luma.core.__version__)
-
-    return 'Version: {}\nDisplay: {}\n{}Dimensions: {} x {}\n{}'.format(
-        version, args.display, iface, args.width, args.height, '-' * 60)
-
-def get_device(actual_args=None):
-    """
-    Create device from command-line arguments and return it.
-    """
-    if actual_args is None:
-        actual_args = sys.argv[1:]
-    parser = cmdline.create_parser(description='luma.examples arguments')
-    args = parser.parse_args(actual_args)
-
-    if args.config:
-        # load config from file
-        config = cmdline.load_config(args.config)
-        args = parser.parse_args(config + actual_args)
-
-    print(display_settings(args))
-
-    # create device
-    try:
-        device = cmdline.create_device(args)
-    except error.Error as e:
-        parser.error(e)
-
-    return device
-
-def GetCurrContrast():
- ContrastFile = open(ContrastLastFile)
- ContrastFileContent = ContrastFile.readlines()
- ContrastFile.close()
- for line in ContrastFileContent:
-  if "contrast=" in line:
-   line = int(line.split("=")[1].replace("\n",""))
-   break
- return line
-
-def SetCharacters(text):
-    for char in chars:
-       text = text.replace(char,chars[char])
-    return text
-
-def GetMPC(command):
-    from subprocess import check_output
-    process = check_output(command.split())
-    process = process.decode()
-    for char in chars:
-       process = process.replace(char,chars[char])
-    return process
-
-def GetWifiConn():
-    WifiFile = "/proc/net/wireless"
-    WifiRateFile = open(WifiFile)
-    WifiRate = WifiRateFile.readlines()
-    WifiRateFile.close()
-    WifiRate = WifiRate[2].replace("   ", " ").replace("  "," ")
-    WifiRate = WifiRate.split(" ")
-    WifiRate = WifiRate[4].replace(".","")
-    if WifiRate[0:1] == "-":
-      WifiRate = int(WifiRate) + 100
-    if len(WifiRate) == 1:
-      WifiRate = " "+WifiRate
-    if WifiRate == "100":
-      WifiRate = "99"
-    WifiConn = "W"+WifiRate
-    return WifiConn
+confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
+tempFile = "/tmp/o4p_overview.temp"
+version = "1.5.4 - 20190114"
 
 def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
@@ -124,15 +39,16 @@ def sigterm_handler(signal, frame):
     os._exit(0)
 
 signal.signal(signal.SIGTERM, sigterm_handler)
-	
+
 def main(num_iterations=sys.maxsize):
-    oldContrast = GetCurrContrast()
+    oldContrast = GetCurrContrast(confFile)
     device.contrast(oldContrast)
     ShowImage("music")
     tmpcard = 3
     line1 = 4
     line2 = 19 
     line3 = 34
+    line4org = 49
     line4 = device.height-1-10
     lenLine1 = -1
     lenLine2 = -1
@@ -141,33 +57,36 @@ def main(num_iterations=sys.maxsize):
     subLine2 = 0
     subLine3 = 0
     widthLetter = 7
-    spaceJump = 63
+    spaceJump = 7
     oldMPC = ""
     oldPlaying = "-"
     displayTime = 3
     oldVol = "FirstStart"
-    try:
-      WifiConn = GetWifiConn()
-    except:
-      WifiConn = "---"
+    WifiConn = GetWifiConn()
     while num_iterations > 0:
       num_iterations = 1
       curr_time = datetime.now()
       seconds = curr_time.strftime('%S')
       sleep(0.8)
-      seconds = int(seconds)%3
+      seconds = int(seconds)%5
       if seconds == 0:
-        try:
-          WifiConn = GetWifiConn()
-        except:
-          WifiConn = "---"
+        WifiConn = GetWifiConn()
       try:
       #if WifiConn != "BUGFIXING_LINE":
-        currContrast = GetCurrContrast()
+        if os.path.exists(tempFile):
+          specialInfos = GetSpecialInfos()
+          with canvas(device) as draw:
+            draw.text((0, line1),  "WLAN: "+specialInfos[0],font=font_small, fill="white")
+            draw.text((0, line2),  "IP:   "+specialInfos[1],font=font_small, fill="white")
+            draw.text((0, line3),  "Version:",font=font_small, fill="white")
+            draw.text((0, line4org),version,font=font_small, fill="white")
+          sleep(8)
+          os.remove(tempFile)
+        currContrast = GetCurrContrast(confFile)
         if currContrast != oldContrast:
           device.contrast(currContrast)
           oldContrast = currContrast
-        mpcstatus = GetMPC("mpc status")
+        mpcstatus = SetCharacters(GetMPC("mpc status"))
         playing = mpcstatus.split("\n")[1].split(" ")[0] #Split to see if mpc is playing at the moment
         currMPC = mpcstatus.split("\n")[0]
         if (playing == "[playing]") or (playing == "[paused]"):
@@ -198,115 +117,140 @@ def main(num_iterations=sys.maxsize):
         oldVol = volume
         if (playing == "[playing]") or (playing == "[paused]"):
           if playing == "[playing]":
-            #timer = GetMPC("mpc -f %time% current")
+            #timer = SetCharacters(GetMPC("mpc -f %time% current"))
             elapsed = mpcstatus.split("\n")[1].replace("  "," ").split(" ")[3]
           if currMPC != oldMPC:
-            track =   mpcstatus.split("\n")[1].replace("  "," ").split(" ")[1].replace("#","") #GetMPC("mpc -f %track% current")
+            track =   mpcstatus.split("\n")[1].replace("  "," ").split(" ")[1].replace("#","") #SetCharacters(GetMPC("mpc -f %track% current"))
             if len(track.split("/")[1]) > 2:
               track = track.split("/")[0]
             if track == "\n":
               track = mpcstatus.split("\n")[1].replace("  ", " ").split(" ")[1].replace("#","") #.split("/")[0]
-            file = GetMPC("mpc -f %file% current") # Get the current title
-            if file.startswith("http"): # if it is a http stream!
-              txtLine1 = GetMPC("mpc -f %name% current")
-              txtLine2 = GetMPC("mpc -f %title% current")
-              txtLine3 = ""
-              track = "--/--"
-            else: # if it is not a stream
-              if currMPC != oldMPC:
-                lenLine1 = -1
-                lenLine2 = -1
-                lenLine3 = -1
-                subLine1 = 0
+            if initVars['GENERAL']['mode'] == "full" :
+              file = SetCharacters(GetMPC("mpc -f %file% current")) # Get the current title
+              if file.startswith("http"): # if it is a http stream!
+                txtLine1 = SetCharacters(GetMPC("mpc -f %name% current"))
+                txtLine2 = SetCharacters(GetMPC("mpc -f %title% current"))
+                txtLine3 = ""
+                track = "--/--"
+              else: # if it is not a stream
+                  lenLine1 = -1
+                  lenLine2 = -1
+                  lenLine3 = -1
+                  subLine1 = 0
+                  subLine2 = 0
+                  subLine3 = 0
+                  linePos = 1
+                  txtLine1 = SetCharacters(GetMPC("mpc -f %album% current"))
+                  txtLine3 = SetCharacters(GetMPC("mpc -f %title% current"))
+                  txtLine2 = SetCharacters(GetMPC("mpc -f %artist% current"))
+              if txtLine2 == "\n":
+                  filename = SetCharacters(GetMPC("mpc -f %file% current"))
+                  filename = filename.split(":")[2]
+                  filename = SetCharacters(filename)
+                  localfile = filename.split("/")
+                  txtLine1 = localfile[1]
+                  txtLine2 = localfile[0]
+          if initVars['GENERAL']['mode'] == "lite" :
+            track = track.split("/")[0]
+            if len(track) == 1:
+              xpos = device.width/2-15
+            if len(track) == 2:
+              xpos = device.width/2-30
+            if len(track) == 3:
+              xpos = device.width/2-45
+            if len(track) == 4:
+              xpos = device.width/2-60
+            with canvas(device) as draw:
+              draw.text((xpos, 4),track,font=font_hightower, fill="white")
+
+          if initVars['GENERAL']['mode'] == "full" :
+            if lenLine1 == -1:
+              lenLine1 = (len(txtLine1)*widthLetter)-device.width
+              if lenLine1 > 0 and lenLine1 < spaceJump:
+                lenLine1 = spaceJump
+              if lenLine1 < 1:
+                lenLine1 = 0
+              lenLine2 = (len(txtLine2)*widthLetter)-device.width
+              if lenLine2 > 0 and lenLine2 < spaceJump:
+                lenLine2 = spaceJump
+              if lenLine2 < 1:
+                lenLine2 = 0
+              lenLine3 = (len(txtLine3)*widthLetter)-device.width
+              if lenLine3 > 0 and lenLine3 < spaceJump:
+                lenLine3 = spaceJump
+              if lenLine3 < 1:
+                lenLine3 = 0
+              cnt = 0
+            if linePos == 1:
+              if (cnt <= lenLine1+spaceJump*3) and (lenLine1 != 0):
+                subLine1 = cnt
                 subLine2 = 0
                 subLine3 = 0
-                txtLine1 = GetMPC("mpc -f %album% current"  )
-                txtLine3 = GetMPC("mpc -f %title% current")
-                txtLine2 = GetMPC("mpc -f %artist% current")
-            if txtLine2 == "\n":
-              if currMPC != oldMPC:
-                filename = GetMPC("mpc -f %file% current")
-                filename = filename.split(":")[2]
-                filename = SetCharacters(filename)
-                localfile = filename.split("/")
-                txtLine1 = localfile[1]
-                txtLine2 = localfile[0]
-          if lenLine1 == -1:
-            lenLine1 = (len(txtLine1)*widthLetter)-device.width
-            if lenLine1 > 0 and lenLine1 < spaceJump:
-              lenLine1 = spaceJump + 1
-            if lenLine1 < 1:
-              lenLine1 = 0
-            lenLine2 = (len(txtLine2)*widthLetter)-device.width
-            if lenLine2 > 0 and lenLine2 < spaceJump:
-              lenLine2 = spaceJump + 1
-            if lenLine2 < 1:
-              lenLine2 = 0
-              lenLine3 = (len(txtLine3)*widthLetter)-device.width
-            if lenLine3 > 0 and lenLine3 < spaceJump:
-              lenLine3 = spaceJump + 1
-            if lenLine3 < 1:
-              lenLine3 = 0
-            cnt = 0
-          if (cnt < lenLine1) and (lenLine1 != 0):
-            subLine1 = cnt
-            subLine2 = 0
-            subLine3 = 0
-          else:
-            subLine1 = 0
-            if (cnt-lenLine1 < lenLine2) and (lenLine2 != 0):
-              subLine2 = cnt-lenLine1
-            else:
-              subLine2 = 0
-              if (cnt-lenLine2-lenLine3 < lenLine3) and (lenLine3 != 0):
-                subLine3 = cnt-lenLine1-lenLine2
               else:
-                cnt = 0
+                linePos = 2
+                cnt = 0-spaceJump
+            elif linePos == 2:
+              if (cnt <= lenLine2+spaceJump*3) and (lenLine2 != 0):
+                subLine1 = 0
+                subLine2 = cnt
                 subLine3 = 0
-          if playing != "[paused]":
-            TimeLine = elapsed.split("/")
-            if TimeLine[1] != "0:00":
-              elapsed = TimeLine[1]
+              else:
+                linePos = 3
+                cnt = 0-spaceJump
+            elif  linePos == 3:
+              if (cnt <= lenLine3+spaceJump*3) and (lenLine3 != 0):
+                subLine1 = 0
+                subLine2 = 0
+                subLine3 = cnt
+              else:
+                linePos = 1
+                cnt = 0-spaceJump
+            if playing != "[paused]":
+              TimeLine = elapsed.split("/")
+              if TimeLine[1] != "0:00":
+                elapsed = TimeLine[1]
+              else:
+                elapsed = "-:--"
+              if len(elapsed) == 4:
+                elapsed = "L "+elapsed
+              if len(elapsed) == 5:
+                elapsed = "L"+elapsed
             else:
-              elapsed = "-:--"
-            if len(elapsed) == 4:
-              elapsed = "L "+elapsed
-            if len(elapsed) == 5:
-              elapsed = "L"+elapsed
-          else:
-            elapsed = "PAUSE"
-          if not file.startswith("http"):
-            TimeLineP = int(mpcstatus.split("\n")[1].replace("   "," ").replace("  "," ").split(" ")[3].replace("(","").replace("%)",""))
-            TimeLineP = device.width * TimeLineP / 100
-          else:
-            TimeLineP = device.width
-          track = track.replace("\n","")
-          if len(track) == 1:
-            track = "    "+track
-          if len(track) == 2:
-            track = "   "+track
-          if len(track) == 3:
-            track = "  "+track
-          if len(track) == 4:
-            track = " "+track
-          if len(track) == 5:
-            track = track
-          with canvas(device) as draw:
-            draw.rectangle((0,0,TimeLineP,1), outline="white", fill="white")
-            draw.line((0, line4-2, device.width, line4-2), fill="white")
-            draw.line((39, line4-2, 39, device.height), fill="white")
-            draw.line((75, line4-2, 75, device.height), fill="white")
-            draw.line((105, line4-2, 105, device.height), fill="white")
-            draw.text((0-subLine1, line1),txtLine1,font=font, fill="white")
-            draw.text((0-subLine2, line2),txtLine2,font=font, fill="white")
-            draw.text((0-subLine3, line3),txtLine3,font=font, fill="white")
-            draw.text((0, line4),elapsed,font=font_small, fill="white")
-            draw.text((42, line4),track,font=font_small, fill="white")
-            draw.text((78, line4),vol,font=font_small, fill="white")
-            draw.text((108, line4),WifiConn,font=font_small, fill="white")
-          oldMPC = currMPC
-          seconds = int(seconds)%5
-          if seconds == 0:
+              elapsed = "PAUSE"
+            if not file.startswith("http"):
+              TimeLineP = int(mpcstatus.split("\n")[1].replace("   "," ").replace("  "," ").split(" ")[3].replace("(","").replace("%)",""))
+              TimeLineP = device.width * TimeLineP / 100
+            else:
+              TimeLineP = device.width
+            track = track.replace("\n","")
+            if len(track) == 1:
+              track = "    "+track
+            if len(track) == 2:
+              track = "   "+track
+            if len(track) == 3:
+              track = "  "+track
+            if len(track) == 4:
+              track = " "+track
+            if len(track) == 5:
+              track = track
+            with canvas(device) as draw:
+              draw.rectangle((0,0,TimeLineP,1), outline="white", fill="white")
+              draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
+              draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
+              draw.rectangle((119, line4+4,121,line4+10), outline=WifiConn[2], fill=WifiConn[2])
+              draw.rectangle((124, line4+2,126,line4+10), outline=WifiConn[3], fill=WifiConn[3])
+              draw.line((0, line4-2, device.width, line4-2), fill="white")
+              draw.line((39, line4-2, 39, device.height), fill="white")
+              draw.line((75, line4-2, 75, device.height), fill="white")
+              draw.line((105, line4-2, 105, device.height), fill="white")
+              draw.text((0-subLine1, line1),txtLine1,font=font, fill="white")
+              draw.text((0-subLine2, line2),txtLine2,font=font, fill="white")
+              draw.text((0-subLine3, line3),txtLine3,font=font, fill="white")
+              draw.text((0, line4),elapsed,font=font_small, fill="white")
+              draw.text((42, line4),track,font=font_small, fill="white")
+              draw.text((78, line4),vol,font=font_small, fill="white")
+              draw.text((108, line4),"---",font=font_small, fill=WifiConn[4])
+              oldMPC = currMPC
             cnt = cnt + spaceJump
         else:
           oldMPC = currMPC
@@ -321,8 +265,9 @@ def main(num_iterations=sys.maxsize):
 #        ShowImage("music")
 
 #if __name__ == "__main__":
+initVars = Init(confFile)
 try:
-  device = get_device()
+  device = get_device(initVars['GENERAL']['controller'])
   main()
 except KeyboardInterrupt:
   pass

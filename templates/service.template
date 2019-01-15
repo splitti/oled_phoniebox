@@ -1,0 +1,10 @@
+[Unit]
+Description=OLED Phoniebox Display Service
+[Service]
+Type=simple
+WorkingDirectory=<PATH>/
+ExecStart=<PATH>/./oled_phoniebox.py
+RestartSec=2
+[Install]
+WantedBy=multi-user.target
+
