@@ -6,7 +6,7 @@
 import signal
 import sys
 sys.path.append("/home/pi/oled_phoniebox/scripts/")
-from o4p_functions import Init,get_device,GetCurrContrast,SetCharacters,GetMPC,GetWifiConn,GetSpecialInfos
+from o4p_functions import Init,get_device,GetCurrContrast,SetCharacters,GetMPC,GetWifiConn,GetSpecialInfos, SetNewMode
 from time import sleep
 from datetime import datetime
 import os
@@ -87,7 +87,7 @@ def main(num_iterations=sys.maxsize):
             newMode = SetNewMode(confFile)
             initVars.set('GENERAL', 'mode', newMode)
             with canvas(device) as draw:
-              draw.text((0, line2),  "Mode changed to: "+initVars['GENERAL']['mode'],font=font, fill="white")
+              draw.text((0, line1),  "initVars['GENERAL']['mode'],font=font_hightower, fill="white")
             sleep(displayTime)
         currContrast = GetCurrContrast(confFile)
         if currContrast != oldContrast:

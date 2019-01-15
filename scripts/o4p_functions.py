@@ -46,7 +46,7 @@ def SetNewMode(File):
     config.set('GENERAL', 'mode', 'full')
   with open(File, 'w') as configfile:
     config.write(configfile) 
-  return int(config['GENERAL']['mode'])
+  return config['GENERAL']['mode']
 
 def SetCharacters(text):
     chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
