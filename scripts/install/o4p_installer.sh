@@ -2,7 +2,7 @@
 # Colors: \e[36m=Cyan M ; \e[92m=Light green ; \e[91m=Light red ; \e[93m=Light yellow ; \e[31m=green ; \e[0m=Default ; \e[33m=Yellow ; \e[31m=Red
 
 repo="https://github.com/splitti/oled_phoniebox"
-branch="master"
+branch="development"
 
 nocolor='\e[0m'
 red="\e[1;91m"
