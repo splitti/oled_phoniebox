@@ -182,7 +182,7 @@ echo -e "Starting installation-process, pleae wait, some steps taking"
 echo -e "minutes, especially the luma-Packages..."
 echo -e ""
 echo -e -n "   --> Update Sources:          "
-sudo apt -qq update > /dev/null 2>&1
+#sudo apt -qq update > /dev/null 2>&1
 echo -e "${green}done${nocolor}"
 echo -e ""
 echo -e "Install packages..."
@@ -223,7 +223,7 @@ for p in ${lumaPackages[@]}; do
 		let i+=1
 		echo -n -e " "
 	done
-	pipInstalled=`sudo pip3 show ${p}`
+	pipInstalled="jkjk"`sudo pip3 show ${p}`
 	if [ "$pipInstalled" = "" ]
 	then
 		sudo pip3 install ${p}  > /dev/null 2>&1
@@ -243,30 +243,40 @@ echo -e "Enable I2C..."
 if grep -q 'i2c-bcm2708' /etc/modules; then
   echo -e "   --> i2c-bcm2708 module:      ${green}already exists${nocolor}"
 else
-  sudo echo 'i2c-bcm2708' >> /etc/modules
+  sudo -i
+  echo 'i2c-bcm2708' >> /etc/modules
+  exit
   echo -e "   --> i2c-bcm2708 module:      ${green}activated${nocolor}"
 fi
 if grep -q 'i2c-dev' /etc/modules; then
   echo -e "   --> i2c-dev module:          ${green}already exists${nocolor}"
 else
-  sudo echo 'i2c-dev' >> /etc/modules
+  sudo -i
+  echo 'i2c-dev' >> /etc/modules
+  exit
   echo -e "   --> i2c-dev module:          ${green}activated${nocolor}"
 fi
-if grep -q 'dtparam=i2c1=on' /boot/config.txt; then
+if grep -q 'dtparam=i2c1=on' /boot/config.txt; and ! grep -q '#dtparam=i2c1=on' /boot/config.txt; then
   echo -e "   --> i2c1 boot-parameter:     ${green}already set${nocolor}"
 else
-  sudo echo 'dtparam=i2c1=on' >> /boot/config.txt
+  sudo -i
+  echo 'dtparam=i2c1=on' >> /boot/config.txt
+  exit
   echo -e "   --> i2c1 boot-parameter:     ${green}set${nocolor}"
 fi
-if grep -q 'dtparam=i2c_arm=on' /boot/config.txt; then
+if grep -q 'dtparam=i2c_arm=on' /boot/config.txt; and ! grep -q '#dtparam=i2c_arm=on' /boot/config.txt; then
   echo -e "   --> i2c_arm boot-parameter:  ${green}already set${nocolor}"
 else
-  sudo echo 'dtparam=i2c_arm=on' >> /boot/config.txt
+  sudo -i
+  echo 'dtparam=i2c_arm=on' >> /boot/config.txt
+  exit
   echo -e "   --> i2c_arm boot-parameter:  ${green}set${nocolor}"
 fi
 if [ -f /etc/modprobe.d/raspi-blacklist.conf ]; then
-  sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
-  sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+  sudo -i
+  sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+  sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
+  exit
 fi
 
 echo -e ""
