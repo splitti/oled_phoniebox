@@ -177,12 +177,30 @@ cd
 echo -e "////////////////////////////////////////////////////////////////////"
 echo -e "///${cyan}   Check/Install Prerequirements:                             ${nocolor}///"
 echo -e "////////////////////////////////////////////////////////////////////"
+echo -e " "
+echo -e "Do you want to start the installation of needed packages?"
+echo -e " "
+options=("Install" "Quit")
+
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Install")
+            break
+            ;;
+
+        "Quit")
+            exit
+            ;;
+        *) echo -e "invalid option $REPLY";;
+    esac
+done
 echo -e ""
 echo -e "Starting installation-process, pleae wait, some steps taking"
 echo -e "minutes, especially the luma-Packages..."
 echo -e ""
 echo -e -n "   --> Update Sources:          "
-#sudo apt -qq update > /dev/null 2>&1
+sudo apt -qq update > /dev/null 2>&1
 echo -e "${green}done${nocolor}"
 echo -e ""
 echo -e "Install packages..."
@@ -213,55 +231,55 @@ for p in ${packages[@]}; do
 		echo -e "${green}already installed${nocolor}"
 	fi
 done
-#lumaPackages=(luma.core luma.oled netifaces)
-#for p in ${lumaPackages[@]}; do
-#	i=0
-#	let lLen="$lineLen"-"${#p}"
-#	echo -n -e "   --> $p:"
-#	while [ "$i" -lt "$lLen" ]
-#	do
-#		let i+=1
-#		echo -n -e " "
-#	done
-#	pipInstalled=`sudo pip3 show ${p}`
-#	if [ "$pipInstalled" = "" ]
-#	then
-#		sudo pip3 install ${p}  > /dev/null 2>&1
-#		pipInstalled=`sudo pip3 show ${p}`
-#		if [ "$pipInstalled" = "" ]
-#		then
-#			echo -e "${red}failed${nocolor}"
-#		else
-#			echo -e "${green}done${nocolor}"
-#		fi
-#	else
-#		echo -e "${green}already installed${nocolor}"
-#	fi	
-#done
+lumaPackages=(luma.core luma.oled netifaces)
+for p in ${lumaPackages[@]}; do
+	i=0
+	let lLen="$lineLen"-"${#p}"
+	echo -n -e "   --> $p:"
+	while [ "$i" -lt "$lLen" ]
+	do
+		let i+=1
+		echo -n -e " "
+	done
+	pipInstalled=`sudo pip3 show ${p}`
+	if [ "$pipInstalled" = "" ]
+	then
+		sudo pip3 install ${p}  > /dev/null 2>&1
+		pipInstalled=`sudo pip3 show ${p}`
+		if [ "$pipInstalled" = "" ]
+		then
+			echo -e "${red}failed${nocolor}"
+		else
+			echo -e "${green}done${nocolor}"
+		fi
+	else
+		echo -e "${green}already installed${nocolor}"
+	fi	
+done
 echo -e ""
 echo -e "Enable I2C..."
 if grep -q 'i2c-bcm2708' /etc/modules; then
   echo -e "   --> i2c-bcm2708 module:      ${green}already exists${nocolor}"
 else
-  echo 'i2c-bcm2708' | sudo tee -a /etc/modules
+  echo 'i2c-bcm2708' | sudo tee -a /etc/modules > /dev/null 2>&1
   echo -e "   --> i2c-bcm2708 module:      ${green}activated${nocolor}"
 fi
 if grep -q 'i2c-dev' /etc/modules; then
   echo -e "   --> i2c-dev module:          ${green}already exists${nocolor}"
 else
-  echo 'i2c-dev' | sudo tee -a /etc/modules
+  echo 'i2c-dev' | sudo tee -a /etc/modules > /dev/null 2>&1
   echo -e "   --> i2c-dev module:          ${green}activated${nocolor}"
 fi
 if grep -q '^dtparam=i2c1=on' /boot/config.txt; then
   echo -e "   --> i2c1 boot-parameter:     ${green}already set${nocolor}"
 else
-  echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt
+  echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt > /dev/null 2>&1
   echo -e "   --> i2c1 boot-parameter:     ${green}set${nocolor}"
 fi
 if grep -q '^dtparam=i2c_arm=on' /boot/config.txt; then
   echo -e "   --> i2c_arm boot-parameter:  ${green}already set${nocolor}"
 else
-  echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt
+  echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt > /dev/null 2>&1
   echo -e "   --> i2c_arm boot-parameter:  ${green}set${nocolor}"
 fi
 if [ -f /etc/modprobe.d/raspi-blacklist.conf ]; then
