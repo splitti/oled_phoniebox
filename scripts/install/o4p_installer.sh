@@ -243,25 +243,25 @@ echo -e "Enable I2C..."
 if grep -q 'i2c-bcm2708' /etc/modules; then
   echo -e "   --> i2c-bcm2708 module:      ${green}already exists${nocolor}"
 else
-  echo 'i2c-bcm2708' | sudo tee /etc/modules
+  echo 'i2c-bcm2708' | sudo tee -a /etc/modules
   echo -e "   --> i2c-bcm2708 module:      ${green}activated${nocolor}"
 fi
 if grep -q 'i2c-dev' /etc/modules; then
   echo -e "   --> i2c-dev module:          ${green}already exists${nocolor}"
 else
-  echo 'i2c-dev' | sudo tee /etc/modules
+  echo 'i2c-dev' | sudo tee -a /etc/modules
   echo -e "   --> i2c-dev module:          ${green}activated${nocolor}"
 fi
-if grep -q 'dtparam=i2c1=on' /boot/config.txt && ! grep -q '#dtparam=i2c1=on' /boot/config.txt; then
+if [ grep -q 'dtparam=i2c1=on' /boot/config.txt ] && [ ! grep -q '#dtparam=i2c1=on' /boot/config.txt ]; then
   echo -e "   --> i2c1 boot-parameter:     ${green}already set${nocolor}"
 else
-  echo 'dtparam=i2c1=on' | sudo tee /boot/config.txt
+  echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt
   echo -e "   --> i2c1 boot-parameter:     ${green}set${nocolor}"
 fi
-if grep -q 'dtparam=i2c_arm=on' /boot/config.txt && ! grep -q '#dtparam=i2c_arm=on' /boot/config.txt; then
+if [ grep -q 'dtparam=i2c_arm=on' /boot/config.txt ] && ! [ grep -q '#dtparam=i2c_arm=on' /boot/config.txt ]; then
   echo -e "   --> i2c_arm boot-parameter:  ${green}already set${nocolor}"
 else
-  echo 'dtparam=i2c_arm=on' | sudo tee /boot/config.txt
+  echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt
   echo -e "   --> i2c_arm boot-parameter:  ${green}set${nocolor}"
 fi
 if [ -f /etc/modprobe.d/raspi-blacklist.conf ]; then
