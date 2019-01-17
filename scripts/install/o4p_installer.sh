@@ -223,7 +223,7 @@ for p in ${lumaPackages[@]}; do
 		let i+=1
 		echo -n -e " "
 	done
-	pipInstalled="jkjk" #`sudo pip3 show ${p}`
+	pipInstalled="TEST" #`sudo pip3 show ${p}`
 	if [ "$pipInstalled" = "" ]
 	then
 		sudo pip3 install ${p}  > /dev/null 2>&1
