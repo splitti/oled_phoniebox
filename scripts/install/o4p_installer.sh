@@ -252,13 +252,13 @@ else
   echo 'i2c-dev' | sudo tee -a /etc/modules
   echo -e "   --> i2c-dev module:          ${green}activated${nocolor}"
 fi
-if grep -q 'dtparam=i2c1=on' /boot/config.txt -a ! grep -q '#dtparam=i2c1=on' /boot/config.txt; then
+if grep -q '^dtparam=i2c1=on' /boot/config.txt; then
   echo -e "   --> i2c1 boot-parameter:     ${green}already set${nocolor}"
 else
   echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt
   echo -e "   --> i2c1 boot-parameter:     ${green}set${nocolor}"
 fi
-if grep -q 'dtparam=i2c_arm=on' /boot/config.txt -a ! grep -q '#dtparam=i2c_arm=on' /boot/config.txt; then
+if grep -q '^dtparam=i2c_arm=on' /boot/config.txt; then
   echo -e "   --> i2c_arm boot-parameter:  ${green}already set${nocolor}"
 else
   echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt
