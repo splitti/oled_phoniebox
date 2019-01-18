@@ -1,8 +1,8 @@
 #!/bin/bash
 # Colors: \e[36m=Cyan M ; \e[92m=Light green ; \e[91m=Light red ; \e[93m=Light yellow ; \e[31m=green ; \e[0m=Default ; \e[33m=Yellow ; \e[31m=Red
 
-repo="https://github.com/splitti/oled_phoniebox"
 #branch="development"
+repo="https://github.com/splitti/oled_phoniebox"
 branch="master"
 
 nocolor='\e[0m'
@@ -46,7 +46,7 @@ else
 	echo -e " "
 fi
 
-echo -e "Do want to install this OLED-Display-Service?"
+echo -e "Do you want to install this OLED-Display-Service?"
 echo -e " "
 options=("Install" "Quit")
 
@@ -177,6 +177,24 @@ cd
 echo -e "////////////////////////////////////////////////////////////////////"
 echo -e "///${cyan}   Check/Install Prerequirements:                             ${nocolor}///"
 echo -e "////////////////////////////////////////////////////////////////////"
+echo -e " "
+echo -e "Do you want to start the installation of needed packages?"
+echo -e " "
+options=("Install" "Quit")
+
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Install")
+            break
+            ;;
+
+        "Quit")
+            exit
+            ;;
+        *) echo -e "invalid option $REPLY";;
+    esac
+done
 echo -e ""
 echo -e "Starting installation-process, pleae wait, some steps taking"
 echo -e "minutes, especially the luma-Packages..."
@@ -243,25 +261,25 @@ echo -e "Enable I2C..."
 if grep -q 'i2c-bcm2708' /etc/modules; then
   echo -e "   --> i2c-bcm2708 module:      ${green}already exists${nocolor}"
 else
-  sudo echo 'i2c-bcm2708' >> /etc/modules
+  echo 'i2c-bcm2708' | sudo tee -a /etc/modules > /dev/null 2>&1
   echo -e "   --> i2c-bcm2708 module:      ${green}activated${nocolor}"
 fi
 if grep -q 'i2c-dev' /etc/modules; then
   echo -e "   --> i2c-dev module:          ${green}already exists${nocolor}"
 else
-  sudo echo 'i2c-dev' >> /etc/modules
+  echo 'i2c-dev' | sudo tee -a /etc/modules > /dev/null 2>&1
   echo -e "   --> i2c-dev module:          ${green}activated${nocolor}"
 fi
-if grep -q 'dtparam=i2c1=on' /boot/config.txt; then
+if grep -q '^dtparam=i2c1=on' /boot/config.txt; then
   echo -e "   --> i2c1 boot-parameter:     ${green}already set${nocolor}"
 else
-  sudo echo 'dtparam=i2c1=on' >> /boot/config.txt
+  echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt > /dev/null 2>&1
   echo -e "   --> i2c1 boot-parameter:     ${green}set${nocolor}"
 fi
-if grep -q 'dtparam=i2c_arm=on' /boot/config.txt; then
+if grep -q '^dtparam=i2c_arm=on' /boot/config.txt; then
   echo -e "   --> i2c_arm boot-parameter:  ${green}already set${nocolor}"
 else
-  sudo echo 'dtparam=i2c_arm=on' >> /boot/config.txt
+  echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt > /dev/null 2>&1
   echo -e "   --> i2c_arm boot-parameter:  ${green}set${nocolor}"
 fi
 if [ -f /etc/modprobe.d/raspi-blacklist.conf ]; then
@@ -369,6 +387,7 @@ do
 			echo -e "${green}Done${nocolor}"
 			echo -e -n "   --> Installing Service:                "
 			sudo cp ${installPath}/templates/gpio-service.template /etc/systemd/system/phoniebox-gpio-buttons.service > /dev/null 2>&1
+			sudo sed -i -e "s:<PATH>:${installPath}:g" /etc/systemd/system/phoniebox-gpio-buttons.service > /dev/null 2>&1
 			sudo chown root:root /etc/systemd/system/phoniebox-gpio-buttons.service > /dev/null 2>&1
 			sudo chmod 644 /etc/systemd/system/phoniebox-gpio-buttons.service > /dev/null 2>&1
 			sudo systemctl enable phoniebox-gpio-buttons > /dev/null 2>&1
@@ -406,6 +425,22 @@ echo -e "///   ${green} ╚═════╝ ╚═════╝ ╚═╝   
 echo -e "///                                                                                                   ///"
 echo -e "/////////////////////////////////////////////////////////////////////////////////////////////////////////"
 echo -e ""
-echo -e "If this is a new installation, then a reboot is required..."
+echo -e "If this is a new installation, a reboot is required..."
 echo -e ""
-echo -e ""
+echo -e "Do you want to reboot now?"
+echo -e " "
+options=("Reboot" "Quit")
+
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Reboot")
+            sudo reboot
+            ;;
+
+        "Quit")
+            exit
+            ;;
+        *) echo -e "invalid option $REPLY";;
+    esac
+done
