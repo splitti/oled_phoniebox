@@ -22,7 +22,7 @@ confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
 version = "1.6.2 - 20190118"
 
-def ShowImage(imgname,line4):
+def ShowImage(imgname,line4,WifiConn):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
     logo = Image.open(img_path).convert("RGBA")
     fff = Image.new(logo.mode, logo.size, (255,) * 4)
@@ -39,7 +39,7 @@ def ShowImage(imgname,line4):
 
 def sigterm_handler(signal, frame):
     # save the state here or do whatever you want
-    ShowImage("poweroff",line4)
+    ShowImage("poweroff",line4,WifiConn)
     sleep(1)
     os._exit(0)
 
@@ -54,7 +54,7 @@ def main(num_iterations=sys.maxsize):
     line3 = 34
     line4org = 49
     line4 = device.height-1-10
-    ShowImage("music",line4)
+    ShowImage("music",line4,WifiConn)
     lenLine1 = -1
     lenLine2 = -1
     lenLine3 = -1
@@ -281,7 +281,7 @@ def main(num_iterations=sys.maxsize):
             sleep(0.5)
             tmpcard = tmpcard + 1
           else:
-            ShowImage("cardhand",line4)
+            ShowImage("cardhand",line4,WifiConn)
             tmpcard = 0
       except:
         sleep(0.5)
