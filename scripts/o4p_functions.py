@@ -49,7 +49,7 @@ def SetNewMode(File):
   return config['GENERAL']['mode']
 
 def SetCharacters(text):
-    chars = {'�':chr(246),'�':chr(228),'�':chr(252),'�':chr(223),'�':chr(196),'�':chr(220),'�':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
+    chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
     for char in chars:
        text = text.replace(char,chars[char])
     return text
