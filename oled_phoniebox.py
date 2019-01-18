@@ -29,13 +29,13 @@ def ShowImage(imgname,line4,WifiConn):
     background = Image.new("RGBA", device.size, "black")
     posn = ((device.width - logo.width) // 2, 0)
     img = Image.composite(logo, fff, logo)
+    background.paste(img, posn)
     with canvas(device) as draw:
       draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
       draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
       draw.rectangle((119, line4+4,121,line4+10), outline=WifiConn[2], fill=WifiConn[2])
       draw.rectangle((124, line4+2,126,line4+10), outline=WifiConn[3], fill=WifiConn[3])
-    background.paste(img, posn)
-    device.display(background.convert(device.mode))
+      device.display(background.convert(device.mode))
 
 def sigterm_handler(signal, frame):
     # save the state here or do whatever you want
@@ -277,12 +277,12 @@ def main(num_iterations=sys.maxsize):
             cnt = cnt + spaceJump
         else:
           oldMPC = currMPC
-          if tmpcard < 3:
-            sleep(0.5)
-            tmpcard = tmpcard + 1
-          else:
+          #if tmpcard < 3:
+          #  sleep(0.5)
+          #  tmpcard = tmpcard + 1
+          #else:
             ShowImage("cardhand",line4,WifiConn)
-            tmpcard = 0
+          #  tmpcard = 0
       except:
         sleep(0.5)
 #        ShowImage("music")
