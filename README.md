@@ -1,5 +1,5 @@
-Date: 14.01.2019
-Version: 1.5.3 - 20190113
+Date: 18.01.2019
+Version: 1.6.2 - 20190118
 
 # oled_phoniebox
 oled_phoniebox
@@ -75,6 +75,10 @@ Font:
 - https://www.dafont.com/bitstream-vera-mono.font
 
 ## Changelog
+- 18.01.2019 - Version 1.6.2 - 20190118
+  - Bugfix: One Line Install-Script
+- 16.01.2019 - Version 1.6.1 - 20190116
+  - Change mode without shell or installation
 - 13.01.2019 - Version 1.5.3 - 20190113
   - Bugfix:
     - Wifi

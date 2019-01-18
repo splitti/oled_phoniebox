@@ -1,9 +1,9 @@
 #!/bin/bash
 # Colors: \e[36m=Cyan M ; \e[92m=Light green ; \e[91m=Light red ; \e[93m=Light yellow ; \e[31m=green ; \e[0m=Default ; \e[33m=Yellow ; \e[31m=Red
 
-branch="development"
+#branch="development"
 repo="https://github.com/splitti/oled_phoniebox"
-#branch="master"
+branch="master"
 
 nocolor='\e[0m'
 red="\e[1;91m"
@@ -46,7 +46,7 @@ else
 	echo -e " "
 fi
 
-echo -e "Do want to install this OLED-Display-Service?"
+echo -e "Do you want to install this OLED-Display-Service?"
 echo -e " "
 options=("Install" "Quit")
 
@@ -425,6 +425,22 @@ echo -e "///   ${green} ╚═════╝ ╚═════╝ ╚═╝   
 echo -e "///                                                                                                   ///"
 echo -e "/////////////////////////////////////////////////////////////////////////////////////////////////////////"
 echo -e ""
-echo -e "If this is a new installation, then a reboot is required..."
+echo -e "If this is a new installation, a reboot is required..."
 echo -e ""
-echo -e ""
+echo -e "Do you want to reboot now?"
+echo -e " "
+options=("Reboot" "Quit")
+
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Reboot")
+            sudo reboot
+            ;;
+
+        "Quit")
+            exit
+            ;;
+        *) echo -e "invalid option $REPLY";;
+    esac
+done

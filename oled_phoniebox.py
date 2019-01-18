@@ -20,7 +20,7 @@ font_hightower = ImageFont.truetype(font_path, 54)
 
 confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
-version = "1.6.1 - 20190115"
+version = "1.6.2 - 20190118"
 
 def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
