@@ -23,20 +23,18 @@ tempFile = "/tmp/o4p_overview.temp"
 version = "1.6.2 - 20190118"
 
 def ShowImage(imgname,line4,WifiConn):
-    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
+  with canvas(device) as draw:
+    draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
+    draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
+    draw.rectangle((119, line4+4,121,line4+10), outline=WifiConn[2], fill=WifiConn[2])
+    draw.rectangle((124, line4+2,126,line4+10), outline=WifiConn[3], fill=WifiConn[3])    img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
     logo = Image.open(img_path).convert("RGBA")
     fff = Image.new(logo.mode, logo.size, (255,) * 4)
-    background = Image.new("RGBA", device.size, "black")
+    #background = Image.new("RGBA", device.size, "black")
     posn = ((device.width - logo.width) // 2, 0)
     img = Image.composite(logo, fff, logo)
-    
-    with canvas(device) as draw:
-      draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
-      draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
-      draw.rectangle((119, line4+4,121,line4+10), outline=WifiConn[2], fill=WifiConn[2])
-      draw.rectangle((124, line4+2,126,line4+10), outline=WifiConn[3], fill=WifiConn[3])
-      background.paste(img, posn)
-      device.display(background.convert(device.mode))
+    background.paste(img, posn)
+    device.display(background.convert(device.mode))
 
 def sigterm_handler(signal, frame):
     # save the state here or do whatever you want
