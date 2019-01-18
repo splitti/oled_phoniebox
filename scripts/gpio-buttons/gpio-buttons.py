@@ -11,7 +11,7 @@ from time import sleep
 # Added the function on holding volume + - buttons to change the volume in 0.3s interval
 #
 # 2018-10-15
-# this script has the `pull_up=True` for all pins. See the following link for additional info: 
+# this script has the `pull_up=True` for all pins. See the following link for additional info:
 # https://github.com/MiczFlor/RPi-Jukebox-RFID/issues/259#issuecomment-430007446
 #
 # 2017-12-12
@@ -41,7 +41,7 @@ def def_next():
     else:
       check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playernext", shell=True)
       break
- 
+
 def def_contrastup():
   if prev.is_pressed == True :
     check_call("/usr/bin/touch /tmp/o4p_overview.temp", shell=True)
@@ -61,7 +61,7 @@ def def_prev():
     else:
       check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerprev", shell=True)
       break
-   
+
 def def_halt():
     check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerpause", shell=True)
 

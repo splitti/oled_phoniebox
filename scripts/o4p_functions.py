@@ -34,7 +34,7 @@ def GetCurrContrast(File):
   config.read(File)
   config.sections()
   return int(config['GENERAL']['contrast'])
-  
+
 def SetNewMode(File):
   import configparser
   config = configparser.ConfigParser()
@@ -45,11 +45,11 @@ def SetNewMode(File):
   else:
     config.set('GENERAL', 'mode', 'full')
   with open(File, 'w') as configfile:
-    config.write(configfile) 
+    config.write(configfile)
   return config['GENERAL']['mode']
 
 def SetCharacters(text):
-    chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
+    chars = {'ï¿½':chr(246),'ï¿½':chr(228),'ï¿½':chr(252),'ï¿½':chr(223),'ï¿½':chr(196),'ï¿½':chr(220),'ï¿½':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
     for char in chars:
        text = text.replace(char,chars[char])
     return text
@@ -91,7 +91,7 @@ def GetWifiConn():
     else:
       alternate = "white"
   except:
-    alternate = "white" 
+    alternate = "white"
   return (first,second,third,fourth,alternate)
 
 def GetSpecialInfos():

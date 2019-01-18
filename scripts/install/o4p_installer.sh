@@ -254,7 +254,7 @@ for p in ${lumaPackages[@]}; do
 		fi
 	else
 		echo -e "${green}already installed${nocolor}"
-	fi	
+	fi
 done
 echo -e ""
 echo -e "Enable I2C..."

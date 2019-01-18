@@ -62,7 +62,7 @@ Github:
 - <a href="https://github.com/rm-hull/luma.examples" target="_blank">Luma.Examples</a>
 - <a href="https://github.com/MiczFlor/RPi-Jukebox-RFID" target="_blank">RPi-Jukebox-RFID also known as Phoniebox</a>
 
-Image (music.png): 
+Image (music.png):
 - https://pixabay.com/de/noten-musik-melodie-musiknote-2570451
 
 Images (cardhand and musiccard) based on:
@@ -71,7 +71,7 @@ Images (cardhand and musiccard) based on:
 - https://pixabay.com/de/hand-karte-halten-angabe-ticket-307636/
 - https://pixabay.com/de/herunterfahren-macht-off-auf-icon-2935465/
 
-Font: 
+Font:
 - https://www.dafont.com/bitstream-vera-mono.font
 
 ## Changelog
@@ -86,7 +86,7 @@ Font:
   - Features:
     - New updated Scrolling (Letter Scrolling)
 	- Wifi gets a new view
-- 11.01.2019 - Version 1.3.6 
+- 11.01.2019 - Version 1.3.6
   - Bugfixing
   - Code optimized
   - Lite and Full Display Version (like parent and kids-mode)
@@ -105,7 +105,7 @@ Font:
 - 04.01.2019
   - WiFi-Signal
   - Monospaced Font
-  - New Track View 
+  - New Track View
   - Play bar 0 - 100%
 - 01.01.2019
   - Shutdown Image
