@@ -31,7 +31,7 @@ def ShowImage(imgname,line4,WifiConn):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
     logo = Image.open(img_path).convert("RGBA")
     fff = Image.new(logo.mode, logo.size, (255,) * 4)
-    #background = Image.new("RGBA", device.size, "black")
+    background = Image.new("RGBA", device.size, "black")
     posn = ((device.width - logo.width) // 2, 0)
     img = Image.composite(logo, fff, logo)
     background.paste(img, posn)
