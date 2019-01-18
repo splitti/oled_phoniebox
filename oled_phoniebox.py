@@ -281,7 +281,7 @@ def main(num_iterations=sys.maxsize):
           #  sleep(0.5)
           #  tmpcard = tmpcard + 1
           #else:
-            ShowImage("cardhand",line4,WifiConn)
+          ShowImage("cardhand",line4,WifiConn)
           #  tmpcard = 0
       except:
         sleep(0.5)
