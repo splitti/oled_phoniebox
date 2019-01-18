@@ -22,7 +22,7 @@ confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
 version = "1.6.2 - 20190118"
 
-def ShowImage(imgname):
+def ShowImage(imgname,line4):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
     logo = Image.open(img_path).convert("RGBA")
     fff = Image.new(logo.mode, logo.size, (255,) * 4)
@@ -281,7 +281,7 @@ def main(num_iterations=sys.maxsize):
             sleep(0.5)
             tmpcard = tmpcard + 1
           else:
-            ShowImage("cardhand")
+            ShowImage("cardhand",line4)
             tmpcard = 0
       except:
         sleep(0.5)
