@@ -46,6 +46,7 @@ def sigterm_handler(signal, frame):
 signal.signal(signal.SIGTERM, sigterm_handler)
 
 def main(num_iterations=sys.maxsize):
+    WifiConn = GetWifiConn()
     oldContrast = GetCurrContrast(confFile)
     device.contrast(oldContrast)
     tmpcard = 3
@@ -67,7 +68,6 @@ def main(num_iterations=sys.maxsize):
     oldPlaying = "-"
     displayTime = 3
     oldVol = "FirstStart"
-    WifiConn = GetWifiConn()
     while num_iterations > 0:
       num_iterations = 1
       curr_time = datetime.now()
