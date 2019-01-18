@@ -22,8 +22,7 @@ confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
 version = "1.6.2 - 20190118"
 
-def ShowImage(imgname,line4,WifiConn):
-  with canvas(device) as draw:
+def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
     logo = Image.open(img_path).convert("RGBA")
     fff = Image.new(logo.mode, logo.size, (255,) * 4)
@@ -32,30 +31,25 @@ def ShowImage(imgname,line4,WifiConn):
     img = Image.composite(logo, fff, logo)
     background.paste(img, posn)
     device.display(background.convert(device.mode))
-    draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
-    draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
-    draw.rectangle((119, line4+4,121,line4+10), outline=WifiConn[2], fill=WifiConn[2])
-    draw.rectangle((124, line4+2,126,line4+10), outline=WifiConn[3], fill=WifiConn[3])
 
 def sigterm_handler(signal, frame):
     # save the state here or do whatever you want
-    ShowImage("poweroff",line4,WifiConn)
+    ShowImage("poweroff")
     sleep(1)
     os._exit(0)
 
 signal.signal(signal.SIGTERM, sigterm_handler)
 
 def main(num_iterations=sys.maxsize):
-    WifiConn = GetWifiConn()
     oldContrast = GetCurrContrast(confFile)
     device.contrast(oldContrast)
+    ShowImage("music")
     tmpcard = 3
     line1 = 4
     line2 = 19
     line3 = 34
     line4org = 49
     line4 = device.height-1-10
-    ShowImage("music",line4,WifiConn)
     lenLine1 = -1
     lenLine2 = -1
     lenLine3 = -1
@@ -68,6 +62,7 @@ def main(num_iterations=sys.maxsize):
     oldPlaying = "-"
     displayTime = 3
     oldVol = "FirstStart"
+    WifiConn = GetWifiConn()
     while num_iterations > 0:
       num_iterations = 1
       curr_time = datetime.now()
@@ -277,12 +272,12 @@ def main(num_iterations=sys.maxsize):
             cnt = cnt + spaceJump
         else:
           oldMPC = currMPC
-          #if tmpcard < 3:
-          #  sleep(0.5)
-          #  tmpcard = tmpcard + 1
-          #else:
-          ShowImage("cardhand",line4,WifiConn)
-          #  tmpcard = 0
+          if tmpcard < 3:
+            sleep(0.5)
+            tmpcard = tmpcard + 1
+          else:
+            ShowImage("cardhand")
+            tmpcard = 0
       except:
         sleep(0.5)
 #        ShowImage("music")
