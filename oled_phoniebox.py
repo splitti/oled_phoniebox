@@ -39,7 +39,7 @@ def ShowImage(imgname,line4):
 
 def sigterm_handler(signal, frame):
     # save the state here or do whatever you want
-    ShowImage("poweroff")
+    ShowImage("poweroff",line4)
     sleep(1)
     os._exit(0)
 
@@ -48,13 +48,13 @@ signal.signal(signal.SIGTERM, sigterm_handler)
 def main(num_iterations=sys.maxsize):
     oldContrast = GetCurrContrast(confFile)
     device.contrast(oldContrast)
-    ShowImage("music")
     tmpcard = 3
     line1 = 4
     line2 = 19
     line3 = 34
     line4org = 49
     line4 = device.height-1-10
+    ShowImage("music",line4)
     lenLine1 = -1
     lenLine2 = -1
     lenLine3 = -1
