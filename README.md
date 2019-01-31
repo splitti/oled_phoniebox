@@ -1,5 +1,5 @@
-Date: 18.01.2019
-Version: 1.6.2 - 20190118
+Date: 31.01.2019
+Version: 1.7.1 - 20190131
 
 # oled_phoniebox
 oled_phoniebox
@@ -73,8 +73,16 @@ Images (cardhand and musiccard) based on:
 
 Font:
 - https://www.dafont.com/bitstream-vera-mono.font
+- https://www.dafont.com/wifi.font
 
 ## Changelog
+- 31.01.2019 - Version 1.7.1 - 20190131
+  - Bugfix:
+    - The information on the radio stream was not displayed correctly: fixed (Issue: <a href="https://github.com/splitti/oled_phoniebox/issues/2#issuecomment-456209931">https://github.com/splitti/oled_phoniebox/issues/2#issuecomment-456209931</a>)
+    - Fixing some small errors
+  - Features:
+    - Mute Image
+    - Radio Image (new Font added)
 - 18.01.2019 - Version 1.6.2 - 20190118
   - Bugfix: One Line Install-Script
 - 16.01.2019 - Version 1.6.1 - 20190116

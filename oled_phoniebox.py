@@ -17,10 +17,14 @@ font_path = os.path.abspath(os.path.join(os.path.dirname(__file__),
 font = ImageFont.truetype(font_path, 12)
 font_small = ImageFont.truetype(font_path, 10)
 font_hightower = ImageFont.truetype(font_path, 54)
+font_path_wifi = os.path.abspath(os.path.join(os.path.dirname(__file__),
+                            'fonts', 'WIFI.ttf'))
+font_wifi = ImageFont.truetype(font_path_wifi, 64)
+
 
 confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
-version = "1.6.2 - 20190118"
+version = "1.7.1 - 20190131"
 
 def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
@@ -45,6 +49,7 @@ def main(num_iterations=sys.maxsize):
     device.contrast(oldContrast)
     ShowImage("music")
     tmpcard = 3
+    linePos = 1
     line1 = 4
     line2 = 19
     line3 = 34
@@ -117,9 +122,12 @@ def main(num_iterations=sys.maxsize):
           with canvas(device) as draw:
             draw.rectangle((30,22,45,42), outline="white", fill="white")
             draw.polygon([(45, 22),(60, 10), (60,54), (45, 42)], outline="white", fill="white")
-            draw.rectangle((75,28,105,36), outline="white", fill="white")
-            if oldVol < volume:
-              draw.rectangle((86,17,94,47), outline="white", fill="white")
+            if volume != 0:
+              draw.rectangle((75,28,105,36), outline="white", fill="white")
+              if oldVol < volume:
+                draw.rectangle((86,17,94,47), outline="white", fill="white")
+            else:
+              draw.text((75, 2),"X",font=font_hightower, fill="white") 
           sleep(displayTime)
         oldVol = volume
         if (playing == "[playing]") or (playing == "[paused]"):
@@ -160,11 +168,16 @@ def main(num_iterations=sys.maxsize):
           if initVars['GENERAL']['mode'] == "lite" :
             if playing != "[paused]":
               TimeLine = elapsed.split("/")
-              if TimeLine[1] != "0:00":
-                elapsed = TimeLine[1]
+              if not file.startswith("http"):
+                if TimeLine[1] != "0:00":
+                  elapsed = TimeLine[1]
             if not file.startswith("http"):
               TimeLineP = int(mpcstatus.split("\n")[1].replace("   "," ").replace("  "," ").split(" ")[3].replace("(","").replace("%)",""))
               TimeLineP = device.width * TimeLineP / 100
+            else:
+              TimeLineP = device.width 
+              track = "X"
+              xpos_w = device.width/2-38
             track = track.split("/")[0]
             if len(track) == 1:
               xpos = device.width/2-15
@@ -175,7 +188,10 @@ def main(num_iterations=sys.maxsize):
             if len(track) == 4:
               xpos = device.width/2-60
             with canvas(device) as draw:
-              draw.text((xpos, 4),track,font=font_hightower, fill="white")
+              if not file.startswith("http"):
+                draw.text((xpos, 4),track,font=font_hightower, fill="white")
+              else:
+                draw.text((xpos_w, 4),track,font=font_wifi, fill="white")
               draw.rectangle((0,0,TimeLineP,1), outline="white", fill="white")
               draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
               draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
@@ -225,7 +241,9 @@ def main(num_iterations=sys.maxsize):
                 cnt = 0-spaceJump
             if playing != "[paused]":
               TimeLine = elapsed.split("/")
-              if TimeLine[1] != "0:00":
+              if TimeLine[0] == "(0%)":
+                elapsed = "-:--"
+              elif TimeLine[1] != "0:00":
                 elapsed = TimeLine[1]
               else:
                 elapsed = "-:--"
@@ -252,20 +270,23 @@ def main(num_iterations=sys.maxsize):
             if len(track) == 5:
               track = track
             with canvas(device) as draw:
+              if not file.startswith("http"):
+                draw.line((39, line4-2, 39, device.height), fill="white")
+                draw.text((0, line4),elapsed,font=font_small, fill="white")
+                draw.text((42, line4),track,font=font_small, fill="white")
+                draw.line((0, line4-2, device.width, line4-2), fill="white")
+              else:
+                draw.line((75, line4-2, device.width, line4-2), fill="white")
               draw.rectangle((0,0,TimeLineP,1), outline="white", fill="white")
               draw.rectangle((109, line4+8,111,line4+10), outline=WifiConn[0], fill=WifiConn[0])
               draw.rectangle((114, line4+6,116,line4+10), outline=WifiConn[1], fill=WifiConn[1])
               draw.rectangle((119, line4+4,121,line4+10), outline=WifiConn[2], fill=WifiConn[2])
               draw.rectangle((124, line4+2,126,line4+10), outline=WifiConn[3], fill=WifiConn[3])
-              draw.line((0, line4-2, device.width, line4-2), fill="white")
-              draw.line((39, line4-2, 39, device.height), fill="white")
               draw.line((75, line4-2, 75, device.height), fill="white")
               draw.line((105, line4-2, 105, device.height), fill="white")
               draw.text((0-subLine1, line1),txtLine1,font=font, fill="white")
               draw.text((0-subLine2, line2),txtLine2,font=font, fill="white")
               draw.text((0-subLine3, line3),txtLine3,font=font, fill="white")
-              draw.text((0, line4),elapsed,font=font_small, fill="white")
-              draw.text((42, line4),track,font=font_small, fill="white")
               draw.text((78, line4),vol,font=font_small, fill="white")
               draw.text((108, line4),"---",font=font_small, fill=WifiConn[4])
               oldMPC = currMPC
@@ -280,7 +301,7 @@ def main(num_iterations=sys.maxsize):
             tmpcard = 0
       except:
         sleep(0.5)
-#        ShowImage("music")
+        ShowImage("music")
 
 #if __name__ == "__main__":
 initVars = Init(confFile)

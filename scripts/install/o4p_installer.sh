@@ -326,7 +326,7 @@ echo -e "${green}Done${nocolor}"
 echo -e ""
 echo -e -n "   --> Installing Service:                "
 sudo chown -R pi:pi ${installPath} > /dev/null
-sudo chmod +x ${installPath}/oled_phoniebox.py > /dev/null
+#sudo chmod +x ${installPath}/oled_phoniebox.py > /dev/null
 sudo cp ${installPath}/templates/service.template /etc/systemd/oled_phoniebox.service > /dev/null
 sudo chown root:root /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
 sudo chmod 644 /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
@@ -380,7 +380,7 @@ do
         "Option 2: Replace service for contrast-control")
 			echo -e " "
 			echo -e -n "   --> Delete old Service:                "
-			sudo chmod +x ${installPath}/scripts/gpio-buttons/gpio-buttons.py > /dev/null
+			#sudo chmod +x ${installPath}/scripts/gpio-buttons/gpio-buttons.py > /dev/null
 			sudo service phoniebox-gpio-buttons stop > /dev/null 2>&1
 			sudo systemctl disable phoniebox-gpio-buttons > /dev/null  2>&1
 			sudo rm /etc/systemd/system/phoniebox-gpio-buttons.service > /dev/null  2>&1
