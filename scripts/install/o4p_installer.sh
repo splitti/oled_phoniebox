@@ -147,6 +147,9 @@ echo -e ""
 echo -e "${cyan}Lite${nocolor} is a simple display mode just showing the Tracknr., other "
 echo -e "featues like brightness control are still available."
 echo -e ""
+echo -e ""
+echo -e "${cyan}Mix${nocolor} is a mix between lite and full without text. "
+echo -e ""
 echo -e "Choose your Display mode.:"
 echo -e " "
 options=("Full" "Lite" "Quit")
@@ -162,6 +165,12 @@ do
         "Lite")
             echo -e ""
 			mode="lite"
+			echo -e " "
+            break
+            ;;
+        "Mix")
+            echo -e ""
+			mode="mix"
 			echo -e " "
             break
             ;;

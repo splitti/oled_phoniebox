@@ -1,5 +1,5 @@
-Date: 31.01.2019
-Version: 1.7.1 - 20190131
+Date: 26.06.2019
+Version: 1.8.3 - 20190626
 
 # oled_phoniebox
 oled_phoniebox
@@ -11,8 +11,8 @@ Tested with this display (affiliate Link): <a href="https://amzn.to/2SjPFPt" tar
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | ![Caption](preview/Start_Screen.jpg "Caption") | ![Caption](preview/Play_View-full.jpg "Caption") | ![Caption](preview/Play_View-lite.jpg "Caption") | ![Caption](preview/Info_Screen.jpg "Caption") | ![Caption](preview/Pause_Screen.jpg "Caption") | ![Caption](preview/Play_Screen.jpg "Caption") | ![Caption](preview/VolumeDown_Screen.jpg "Caption") | ![Caption](preview/VolumeUp_Screen.jpg "Caption") |
 
-My finished Box on Youtube: <a href="https://youtu.be/9kE1KszaesI" target="_blank">Die drei ??? Kids Phoniebox</a>
-Youtube: <a href="https://youtu.be/bEJN0BWdAXY" target="_blank">German Youtube Video</a>
+My finished Box on Youtube: <a href="https://youtu.be/GpHAbM0JIt4" target="_blank">Die drei ??? Kids Phoniebox</a>
+Youtube Information Video: <a href="https://youtu.be/bEJN0BWdAXY" target="_blank">German Youtube Video</a>
 Forum: <a href="https://forum-raspberrypi.de/forum/thread/41465-oled-display-fuer-die-phoniebox/" target="_blank">German Forum</a>
 
 My Phoniebox Project (german only): <a href="https://splittscheid.de/selfmade-phoniebox/" target="_blank">My Selfmade Phoniebox</a>
@@ -40,7 +40,7 @@ Add a Button press and start these commands:
 > python3 ../oled_phoniebox/scripts/contrast/contrast_down.py
 
 ### Just another Feature
-Press Prev- and Next-Button together for two or more seconds, and you get some Version about your WiFi and the installed oled_phoniebox-Version.
+Press Prev- and Next-Button together for two or more seconds, and you get some Information about your WiFi and the installed oled_phoniebox-Version. If you press the buttons again, you can change the Display-Mode.
 
 ## Spend me a coffee
 <a href="http://paypal.me/splittscheid" target="_blank">paypal.me</a>
@@ -77,6 +77,11 @@ Font:
 - https://www.dafont.com/wifi.font
 
 ## Changelog
+- 26.06.2019 - Version 1.8.3 - 20190626
+  - Features:
+    - New Mixed Mode
+	- Special Button Hint optimized
+	- Shorter Duration Time of Status like Play, Vol Up/Down
 - 31.01.2019 - Version 1.7.1 - 20190131
   - Bugfix:
     - The information on the radio stream was not displayed correctly: fixed (Issue: <a href="https://github.com/splitti/oled_phoniebox/issues/2#issuecomment-456209931">https://github.com/splitti/oled_phoniebox/issues/2#issuecomment-456209931</a>)
