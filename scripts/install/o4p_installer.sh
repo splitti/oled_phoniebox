@@ -144,15 +144,17 @@ echo -e "${cyan}Full${nocolor} is a display mode with much informations like"
 echo -e "  -> Tracks and Trackinformations"
 echo -e "  -> Wifi-Signal"
 echo -e ""
-echo -e "${cyan}Lite${nocolor} is a simple display mode just showing the Tracknr., other "
-echo -e "featues like brightness control are still available."
+echo -e "${cyan}Lite${nocolor} is a simple display mode just showing the"
+echo -e "Tracknr. and WLAN-Signal, other featues like brightness control are"
+echo -e "still available."
 echo -e ""
-echo -e ""
-echo -e "${cyan}Mix${nocolor} is a mix between lite and full without text. "
+echo -e "${cyan}Mix${nocolor} is a mix between lite and full without"
+echo -e "Trackinformations like Name, Album and so on. Just Tracks, WLAN-"
+echo -e "Signal, Volume and Length."
 echo -e ""
 echo -e "Choose your Display mode.:"
 echo -e " "
-options=("Full" "Lite" "Quit")
+options=("Full" "Lite" "Mix" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
