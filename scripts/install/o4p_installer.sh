@@ -217,7 +217,7 @@ echo -e ""
 echo -e "Install packages..."
 
 lineLen=24
-packages=(git python3 build-essential python3-dev python3-pip python-imaging libjpeg-dev i2c-tools) # python3-smbus i2c-tools  libfreetype6-dev   python3-pygame libtiff5)
+packages=(git python3 build-essential python3-dev python3-pip python-pil libjpeg-dev i2c-tools) # python3-smbus i2c-tools  libfreetype6-dev   python3-pygame libtiff5)
 for p in ${packages[@]}; do
 	i=0
 	echo -n -e "   --> $p:"
