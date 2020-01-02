@@ -25,7 +25,7 @@ font_wifi_mix = ImageFont.truetype(font_path_wifi, 48)
 
 confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 tempFile = "/tmp/o4p_overview.temp"
-version = "1.8.3 - 20190626"
+version = "1.8.4 - 20200102"
 
 def ShowImage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
