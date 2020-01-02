@@ -1,5 +1,7 @@
 [Unit]
 Description=OLED Phoniebox Display Service
+DefaultDependencies=false
+
 [Service]
 Type=simple
 WorkingDirectory=<PATH>/
