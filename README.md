@@ -19,17 +19,14 @@ My Phoniebox Project (german only): <a href="https://splittscheid.de/selfmade-ph
 
 ## Installation Steps
 
-### Installation I2C
-Please follow these Instructions: https://learn.adafruit.com/adafruits-raspberry-pi-lesson-4-gpio-setup/configuring-i2c
-
 ### Deactivate Buttons
 It is possible, that the Display uses the same GPIO like the Shut-Command of the jukebox4kids. In this case, you should edit the file gpio-buttons.py like this
 > sed -i -e "s:shut = Button(3, hold_time=2):#shut = Button(3, hold_time=2):g" ~/RPi-Jukebox-RFID/scripts/gpio-buttons.py
 
 ### Service Installation
 Please notice:
-This installer will install in the home-Directory of the user pi in the subfolder oled_phoniebox. If you try to rename or move this folder, the service stops working.
-Run the following code with the user pi:
+This installer will install to the home-Directory of the user pi in the directory oled_phoniebox. If you try to rename or move this folder, the service stops working.
+Run the following code with the user pi for the installer:
 
 > cd; rm o4p_installer.sh; wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/install/o4p_installer.sh; chmod +x o4p_installer.sh; ./o4p_installer.sh
 
