@@ -79,10 +79,10 @@ Font:
 ## Changelog
 - 05.01.2020 - 1.9.1 - 20200105
   - Bugfix:
-      - Adding i2c dev dependecy for systemd
+      - Adding i2c dev dependecy to systemd, to give more control for starting the service (sometime i2c modules are not loaded and the service could not start)
 - 05.01.2020 - 1.9.0 - 20200105
   - Bugfix:
-      - Code review
+      - Code review: Sometimes the box hangs while shutting down. A complete Code review and some bug fixes will help to prevent this problem.
 - 02.01.2020 - 1.8.4 - 20200102
   - Bugfix:
       - The Phyton Package phyton-imaageing was replaced by python-pil; see also <a href="https://github.com/rm-hull/luma.oled" target="_blank">issue 5</a>
