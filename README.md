@@ -1,5 +1,5 @@
-Date: 02.01.2020
-Version: 1.8.4 - 20200102
+Date: 05.01.2020
+Version: 1.9.0 - 20200105
 
 # oled_phoniebox
 oled_phoniebox
@@ -77,7 +77,10 @@ Font:
 - https://www.dafont.com/wifi.font
 
 ## Changelog
-- 20.01.2020 - 1.8.4 - 20200102
+- 05.01.2020 - 1.9.0 - 20200105
+  - Bugfix:
+      - Code review
+- 02.01.2020 - 1.8.4 - 20200102
   - Bugfix:
       - The Phyton Package phyton-imaageing was replaced by python-pil; see also <a href="https://github.com/rm-hull/luma.oled" target="_blank">issue 5</a>
   - Featues:

@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: iso-8859-15 -*-
-#
+# 1.9.0 - 20200105
 
-def Init(File):
+def init_config(File):
     import configparser
     config = configparser.ConfigParser()
     config.read(File)
@@ -28,14 +28,14 @@ def get_device(deviceName):
         parser.error(e)
     return device
 
-def GetCurrContrast(File):
+def get_currcontrast(File):
     import configparser
     config = configparser.ConfigParser()
     config.read(File)
     config.sections()
     return int(config['GENERAL']['contrast'])
 
-def SetNewMode(File):
+def set_newmode(File):
     import configparser
     config = configparser.ConfigParser()
     config.read(File)
@@ -50,45 +50,45 @@ def SetNewMode(File):
         config.write(configfile)
     return config['GENERAL']['mode']
 
-def SetCharacters(text):
+def set_characters(text):
     chars = {'ö':chr(246),'ä':chr(228),'ü':chr(252),'ß':chr(223),'Ä':chr(196),'Ü':chr(220),'Ö':chr(214),'%20':' ',' 1/4':chr(252),'%C3%9C':chr(220),'%C3%BC':chr(252),'%C3%84':chr(196),'%C3%A4':chr(228),'%C3%96':chr(214),'%C3%B6':chr(246),'%C3%9F':chr(223)}
     for char in chars:
         text = text.replace(char,chars[char])
     return text
 
-def GetMPC(command):
+def get_mpc(command):
     from subprocess import check_output
     process = check_output(command.split())
     process = process.decode()
     return process
 
-def GetWifiConn():
+def get_wificonn():
     import os
-    WifiFile = "/proc/net/wireless"
+    wififile = "/proc/net/wireless"
     first = "black"
     second = "black"
     third = "black"
     fourth = "black"
     alternate = "black"
     try:
-        if os.path.exists(WifiFile):
-            WifiRateFile = open(WifiFile)
-            WifiRate = WifiRateFile.readlines()
-            WifiRateFile.close()
-            WifiRate = WifiRate[2].replace("   ", " ").replace("  "," ")
-            WifiRate = WifiRate.split(" ")
-            WifiRate = WifiRate[4].replace(".","")
-            if WifiRate[0:1] == "-":
-                WifiRate = 100 + float(WifiRate)
+        if os.path.exists(wififile):
+            wifirateFile = open(wififile)
+            wifirate = wifirateFile.readlines()
+            wifirateFile.close()
+            wifirate = wifirate[2].replace("   ", " ").replace("  "," ")
+            wifirate = wifirate.split(" ")
+            wifirate = wifirate[4].replace(".","")
+            if wifirate[0:1] == "-":
+                wifirate = 100 + float(wifirate)
             else:
-                WifiRate = float(WifiRate)
-            if WifiRate > 0:
+                wifirate = float(wifirate)
+            if wifirate > 0:
                 first = "white"
-            if WifiRate > 40:
+            if wifirate > 40:
                 second = "white"
-            if WifiRate > 60:
+            if wifirate > 60:
                 third = "white"
-            if WifiRate > 80:
+            if wifirate > 80:
                 fourth = "white"
         else:
             alternate = "white"
@@ -96,7 +96,7 @@ def GetWifiConn():
         alternate = "white"
     return (first,second,third,fourth,alternate)
 
-def GetSpecialInfos():
+def get_specialinfos():
     from subprocess import check_output
     process = check_output("iwgetid".split())
     process = process.decode()

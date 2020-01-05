@@ -4,15 +4,15 @@
 import sys
 sys.path.append("/home/pi/oled_phoniebox/scripts")
 import os
-from o4p_functions import Init
+from o4p_functions import init_config
 
-confFile = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
+CONFFILE = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 
 def main():
- initVars = Init(confFile)
- currContrast = int(initVars['GENERAL']['contrast'])
- if currContrast > 84 and currContrast != "":
-  initVars.set('GENERAL', 'contrast', str(currContrast-85))
-  with open(confFile, 'w') as configfile:
-    initVars.write(configfile)
+    initvars = init_config(CONFFILE)
+    currcontrast = int(initvars['GENERAL']['contrast'])
+    if currcontrast > 84 and currcontrast != "":
+        initvars.set('GENERAL', 'contrast', str(currcontrast-85))
+        with open(CONFFILE, 'w') as configfile:
+            initvars.write(configfile)
 main()

@@ -35,56 +35,56 @@ def def_vol0():
     check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=mute", shell=True)
 
 def def_next():
-  for x in range(0, 19):
-    if next.is_pressed == True :
-      sleep(0.1)
-    else:
-      check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playernext", shell=True)
-      break
+    for x in range(0, 19):
+        if btn_next.is_pressed == True :
+            sleep(0.1)
+        else:
+            check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playernext", shell=True)
+            break
 
 def def_contrastup():
-  if prev.is_pressed == True :
-    check_call("/usr/bin/touch /tmp/o4p_overview.temp", shell=True)
-  else:
-    check_call("/usr/bin/python3 /home/pi/oled_phoniebox/scripts/contrast/contrast_up.py", shell=True)
+    if btn_prev.is_pressed == True :
+        check_call("/usr/bin/touch /tmp/o4p_overview.temp", shell=True)
+    else:
+        check_call("/usr/bin/python3 /home/pi/oled_phoniebox/scripts/contrast/contrast_up.py", shell=True)
 
 def def_contrastdown():
-  if next.is_pressed == True :
-    check_call("/usr/bin/touch /tmp/o4p_overview.temp", shell=True)
-  else:
-    check_call("/usr/bin/python3 /home/pi/oled_phoniebox/scripts/contrast/contrast_down.py", shell=True)
+    if btn_next.is_pressed == True :
+        check_call("/usr/bin/touch /tmp/o4p_overview.temp", shell=True)
+    else:
+        check_call("/usr/bin/python3 /home/pi/oled_phoniebox/scripts/contrast/contrast_down.py", shell=True)
 
 def def_prev():
-  for x in range(0, 19):
-    if prev.is_pressed == True :
-      sleep(0.1)
-    else:
-      check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerprev", shell=True)
-      break
+    for x in range(0, 19):
+        if btn_prev.is_pressed == True :
+            sleep(0.1)
+        else:
+            check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerprev", shell=True)
+            break
 
 def def_halt():
     check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerpause", shell=True)
 
-#shut = Button(3, hold_time=2)
-vol0 = Button(13,pull_up=True)
-volU = Button(16,pull_up=True,hold_time=0.3,hold_repeat=True)
-volD = Button(19,pull_up=True,hold_time=0.3,hold_repeat=True)
-next = Button(26,pull_up=True,hold_time=2.0,hold_repeat=False)
-prev = Button(20,pull_up=True,hold_time=2.0,hold_repeat=False)
-halt = Button(21,pull_up=True)
+#btn_shut = Button(3, hold_time=2)
+#btn_vol0 = Button(21,pull_up=True)
+btn_volup = Button(16,pull_up=True,hold_time=0.3,hold_repeat=True)
+btn_voldown = Button(13,pull_up=True,hold_time=0.3,hold_repeat=True)
+btn_next = Button(26,pull_up=True,hold_time=2.0,hold_repeat=False)
+btn_prev = Button(27,pull_up=True,hold_time=2.0,hold_repeat=False)
+btn_halt = Button(12,pull_up=True)
 
-#shut.when_held = def_shutdown
-vol0.when_pressed = def_vol0
-volU.when_pressed = def_volU
+#btn_shut.when_held = def_shutdown
+#btn_vol0.when_pressed = def_vol0
+btn_volup.when_pressed = def_volU
 #When the Volume Up button was held for more than 0.3 seconds every 0.3 seconds he will call a ra$
-volU.when_held = def_volU
-volD.when_pressed = def_volD
+btn_volup.when_held = def_volU
+btn_voldown.when_pressed = def_volD
 #When the Volume Down button was held for more than 0.3 seconds every 0.3 seconds he will lower t$
-volD.when_held = def_volD
-next.when_pressed = def_next
-next.when_held = def_contrastup
-prev.when_pressed = def_prev
-prev.when_held = def_contrastdown
-halt.when_pressed = def_halt
+btn_voldown.when_held = def_volD
+btn_next.when_pressed = def_next
+btn_next.when_held = def_contrastup
+btn_prev.when_pressed = def_prev
+btn_prev.when_held = def_contrastdown
+btn_halt.when_pressed = def_halt
 
 pause()
