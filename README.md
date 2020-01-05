@@ -1,5 +1,5 @@
 Date: 05.01.2020
-Version: 1.9.0 - 20200105
+Version: 1.9.1 - 20200105
 
 # oled_phoniebox
 oled_phoniebox
@@ -77,6 +77,9 @@ Font:
 - https://www.dafont.com/wifi.font
 
 ## Changelog
+- 05.01.2020 - 1.9.1 - 20200105
+  - Bugfix:
+      - Adding i2c dev dependecy for systemd
 - 05.01.2020 - 1.9.0 - 20200105
   - Bugfix:
       - Code review

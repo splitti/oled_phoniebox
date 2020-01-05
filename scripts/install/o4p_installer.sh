@@ -1,7 +1,7 @@
 #!/bin/bash
 # Colors: \e[36m=Cyan M ; \e[92m=Light green ; \e[91m=Light red ; \e[93m=Light yellow ; \e[31m=green ; \e[0m=Default ; \e[33m=Yellow ; \e[31m=Red
 
-#Version: 1.8.4 - 20200102
+#Version: 1.9.1 - 20200105
 #branch="development"
 repo="https://github.com/splitti/oled_phoniebox"
 branch="master"
@@ -294,6 +294,18 @@ else
   echo 'dtparam=i2c_arm=on' | sudo tee -a /boot/config.txt > /dev/null 2>&1
   echo -e "   --> i2c_arm boot-parameter:  ${green}set${nocolor}"
 fi
+if [ -f /etc/udev/rules.d/99-i2c.rules ]; then
+  if grep -q '^SUBSYSTEM=="i2c-dev", TAG+="systemd"' /etc/udev/rules.d/99-i2c.rules; then
+    echo -e "   --> i2c dev dependency:    ${green}already set${nocolor}"
+  else
+    echo 'SUBSYSTEM=="i2c-dev", TAG+="systemd"' | sudo tee  /etc/udev/rules.d/99-i2c.rules > /dev/null 2>&1
+    echo -e "   --> i2c dev dependency:    ${green}set${nocolor}"
+  fi
+else
+  echo 'SUBSYSTEM=="i2c-dev", TAG+="systemd"' | sudo tee  /etc/udev/rules.d/99-i2c.rules > /dev/null 2>&1
+    echo -e "   --> i2c dev dependency:    ${green}set${nocolor}"
+fi
+
 if [ -f /etc/modprobe.d/raspi-blacklist.conf ]; then
   sudo sed -i 's/^blacklist spi-bcm2708/#blacklist spi-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf
   sudo sed -i 's/^blacklist i2c-bcm2708/#blacklist i2c-bcm2708/' /etc/modprobe.d/raspi-blacklist.conf

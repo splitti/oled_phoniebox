@@ -1,6 +1,8 @@
 [Unit]
 Description=OLED Phoniebox Display Service
 DefaultDependencies=false
+Requires=dev-i2c\x2d1.device
+After=dev-i2c\x2d1.device
 
 [Service]
 Type=simple
