@@ -296,14 +296,14 @@ else
 fi
 if [ -f /etc/udev/rules.d/99-i2c.rules ]; then
   if grep -q '^SUBSYSTEM=="i2c-dev", TAG+="systemd"' /etc/udev/rules.d/99-i2c.rules; then
-    echo -e "   --> i2c dev dependency:    ${green}already set${nocolor}"
+    echo -e "   --> i2c dev dependency:      ${green}already set${nocolor}"
   else
     echo 'SUBSYSTEM=="i2c-dev", TAG+="systemd"' | sudo tee  /etc/udev/rules.d/99-i2c.rules > /dev/null 2>&1
-    echo -e "   --> i2c dev dependency:    ${green}set${nocolor}"
+    echo -e "   --> i2c dev dependency:      ${green}set${nocolor}"
   fi
 else
   echo 'SUBSYSTEM=="i2c-dev", TAG+="systemd"' | sudo tee  /etc/udev/rules.d/99-i2c.rules > /dev/null 2>&1
-    echo -e "   --> i2c dev dependency:    ${green}set${nocolor}"
+  echo -e "   --> i2c dev dependency:      ${green}set${nocolor}"
 fi
 
 if [ -f /etc/modprobe.d/raspi-blacklist.conf ]; then
