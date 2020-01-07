@@ -327,7 +327,7 @@ echo -e "Controler Type:   ${green}${controller}${nocolor}"
 echo -e "Contrast:         ${green}${contrast}${nocolor}"
 echo -e ""
 echo -e -n "   --> Delete old Service:                "
-sudo sudo service oled_phoniebox stop > /dev/null 2>&1
+sudo service oled_phoniebox stop > /dev/null 2>&1
 sudo systemctl disable /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
 sudo rm /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
 echo -e "${green}Done${nocolor}"
