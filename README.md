@@ -1,5 +1,5 @@
 Date: 05.01.2020
-Version: 1.9.1 - 20200105
+Version: 1.9.2 - 20200209
 
 # oled_phoniebox
 oled_phoniebox
@@ -25,7 +25,7 @@ It is possible, that the Display uses the same GPIO like the Shut-Command of the
 
 ### Service Installation
 Please notice:
-This installer will install to the home-Directory of the user pi in the directory oled_phoniebox. If you try to rename or move this folder, the service stops working.
+This installer will create the directory oled_phoniebox in the home-Directory of the user. If you try to rename or move this folder, the service stops working.
 Run the following code with the user pi for the installer:
 
 > cd; rm o4p_installer.sh; wget https://raw.githubusercontent.com/splitti/oled_phoniebox/master/scripts/install/o4p_installer.sh; chmod +x o4p_installer.sh; ./o4p_installer.sh
@@ -74,6 +74,9 @@ Font:
 - https://www.dafont.com/wifi.font
 
 ## Changelog
+- 09.02.2020 - 1.9.2 - 20200209
+  - Feature:
+    - Set higher baudrate in the installation; improves a faster display reaction
 - 05.01.2020 - 1.9.1 - 20200105
   - Bugfix:
       - Adding i2c dev dependecy to systemd, to give more control for starting the service (sometime i2c modules are not loaded and the service could not start)
@@ -82,7 +85,7 @@ Font:
       - Code review: Sometimes the box hangs while shutting down. A complete Code review and some bug fixes will help to prevent this problem.
 - 02.01.2020 - 1.8.4 - 20200102
   - Bugfix:
-      - The Phyton Package phyton-imaageing was replaced by python-pil; see also <a href="https://github.com/rm-hull/luma.oled" target="_blank">issue 5</a>
+      - The Phyton Package phyton-imageing was replaced by python-pil; see also <a href="https://github.com/rm-hull/luma.oled" target="_blank">issue 5</a>
   - Featues:
       - Boot speed improvement. Reinstall necessary!
 - 26.06.2019 - Version 1.8.3 - 20190626
