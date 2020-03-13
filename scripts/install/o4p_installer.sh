@@ -1,7 +1,7 @@
 #!/bin/bash
 # Colors: \e[36m=Cyan M ; \e[92m=Light green ; \e[91m=Light red ; \e[93m=Light yellow ; \e[31m=green ; \e[0m=Default ; \e[33m=Yellow ; \e[31m=Red
 
-#Version: 1.9.2 - 20200209
+#Version: 1.9.3 - 20200313
 #branch="development"
 repo="https://github.com/splitti/oled_phoniebox"
 branch="master"
@@ -366,6 +366,9 @@ sudo systemctl daemon-reload > /dev/null 2>&1
 sudo systemctl enable /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
 sudo service oled_phoniebox restart > /dev/null 2>&1
 sudo service phoniebox-gpio-buttons restart > /dev/null 2>&1
+echo -e "${green}Done${nocolor}"
+echo -e -n "   --> Set Permissons:                    "
+sudo chmod 755 /home/pi/oled_phoniebox/scripts/toggle_display/toggle_display.sh > /dev/null 2>&1
 echo -e "${green}Done${nocolor}"
 echo -e ""
 read -n 1 -s -r -p "Press any key to continue"

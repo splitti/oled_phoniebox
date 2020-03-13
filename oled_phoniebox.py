@@ -26,7 +26,8 @@ FONT_WIFI_MIX = ImageFont.truetype(FONT_PATH_WIFI, 48)
 
 CONFFILE = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 TEMPFILE = "/tmp/o4p_overview.temp"
-VERSION = "1.9.2 - 20200209"
+SYNC_TEMPFILE="/tmp/phoniebox_sync_state.tmp"
+VERSION = "1.9.3 - 20200313"
 
 def showimage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
@@ -48,7 +49,7 @@ def sigterm_handler(*_):
 def main(num_iterations=sys.maxsize):
     oldcontrast = get_currcontrast(CONFFILE)
     device.contrast(oldcontrast)
-    showimage("music")
+    showimage("pawpatrol")
     tmpcard = 3
     linepos = 1
     line1 = 4
@@ -107,6 +108,11 @@ def main(num_iterations=sys.maxsize):
                     with canvas(device) as draw:
                         draw.text((0, line1),initvars['GENERAL']['mode'],font=FONT_HIGHTOWER, fill="white")
                     sleep(displaytime)
+            elif os.path.exists(SYNC_TEMPFILE):
+                with open(SYNC_TEMPFILE, 'r') as file:
+                    syncdata = file.read()
+                with canvas(device) as draw:
+                    draw.text((0, line1), syncdata,font=FONT_SMALL, fill="white")
             else:
                 currcontrast = get_currcontrast(CONFFILE)
                 if currcontrast != oldcontrast:
@@ -378,7 +384,7 @@ def main(num_iterations=sys.maxsize):
                         tmpcard = 0
         except:
             sleep(0.5)
-            showimage("music")
+            showimage("pawpatrol")
 
 if __name__ == "__main__":
     signal.signal(signal.SIGTERM, sigterm_handler)

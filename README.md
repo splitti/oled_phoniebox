@@ -1,5 +1,5 @@
-Date: 05.01.2020
-Version: 1.9.2 - 20200209
+Date: 13.03.2020
+Version: 1.9.3 - 20200313
 
 # oled_phoniebox
 oled_phoniebox
@@ -74,6 +74,9 @@ Font:
 - https://www.dafont.com/wifi.font
 
 ## Changelog
+- 13.03.2020 - 1.9.3 - 20200313
+  - Feature:
+    - Check for Sync State and showing the process
 - 09.02.2020 - 1.9.2 - 20200209
   - Feature:
     - Set higher baudrate in the installation; improves a faster display reaction
