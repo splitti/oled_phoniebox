@@ -367,6 +367,7 @@ sudo systemctl enable /etc/systemd/oled_phoniebox.service > /dev/null 2>&1
 sudo service oled_phoniebox restart > /dev/null 2>&1
 sudo service phoniebox-gpio-buttons restart > /dev/null 2>&1
 echo -e "${green}Done${nocolor}"
+echo -e ""
 echo -e -n "   --> Set Permissons:                    "
 sudo chmod 755 /home/pi/oled_phoniebox/scripts/toggle_display/toggle_display.sh > /dev/null 2>&1
 echo -e "${green}Done${nocolor}"
