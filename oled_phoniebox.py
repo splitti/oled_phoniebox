@@ -49,7 +49,7 @@ def sigterm_handler(*_):
 def main(num_iterations=sys.maxsize):
     oldcontrast = get_currcontrast(CONFFILE)
     device.contrast(oldcontrast)
-    showimage("pawpatrol")
+    showimage("music")
     tmpcard = 3
     linepos = 1
     line1 = 4
@@ -384,7 +384,7 @@ def main(num_iterations=sys.maxsize):
                         tmpcard = 0
         except:
             sleep(0.5)
-            showimage("pawpatrol")
+            showimage("music")
 
 if __name__ == "__main__":
     signal.signal(signal.SIGTERM, sigterm_handler)
