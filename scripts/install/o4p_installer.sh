@@ -382,12 +382,12 @@ echo -e "If jukebox4kids is already installed, you can choose your new config"
 echo -e "for the file:"
 echo -e "  ${yellow}/home/pi/RPi-Jukebox-RFID/scripts/gpio-buttons.py${nocolor}"
 echo -e ""
-echo -e "${cyan}Option 1:${nocolor}"
+echo -e "${cyan}Option 1:${nocolor} DOES NOT WORK AFTER PHONIEBOX UPDATE 2.2"
 echo -e "Just deactivate GPIO Pin 3 for the shutdown. This Pin is needed and"
 echo -e "used for I2C-Display! The origin gpio-buttons.py-File from the"
 echo -e "RPi-Jukebox-RFID-Repository will be changed!!!"
 echo -e ""
-echo -e "${cyan}Option 2:${nocolor}"
+echo -e "${cyan}Option 2:${nocolor} DOES NOT WORK AFTER PHONIEBOX UPDATE 2.2"
 echo -e "Replace the gpio-buttons.py-Service with a file from this "
 echo -e "Repository for contrast-control with the prev- and next-Buttons."
 echo -e "The origin Repository remains untouched."
@@ -398,7 +398,7 @@ echo -e " "
 echo -e "I recommend option 2 or 3, because editing the origin service could"
 echo -e "make problems!"
 echo -e " "
-options=("Option 1: Deactivate GPIO Pin 3" "Option 2: Replace service for contrast-control" "Option 3: Skip")
+options=("Option 3: Skip")
 
 select opt in "${options[@]}"
 do
