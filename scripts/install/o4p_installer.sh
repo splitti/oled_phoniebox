@@ -398,7 +398,7 @@ echo -e " "
 echo -e "I recommend option 2 or 3, because editing the origin service could"
 echo -e "make problems!"
 echo -e " "
-options=("Option 3: Skip")
+options=("Option 2: Replace service for contrast-control" "Option 3: Skip")
 
 select opt in "${options[@]}"
 do
