@@ -15,7 +15,7 @@ My finished Box on Youtube: <a href="https://youtu.be/GpHAbM0JIt4" target="_blan
 Youtube Information Video: <a href="https://youtu.be/bEJN0BWdAXY" target="_blank">German Youtube Video</a>
 Forum: <a href="https://forum-raspberrypi.de/forum/thread/41465-oled-display-fuer-die-phoniebox/" target="_blank">German Forum</a>
 
-My Phoniebox Project (german only): <a href="https://splittscheid.de/selfmade-phoniebox/" target="_blank">My Selfmade Phoniebox</a>
+My Phoniebox Project (german only): <a href="https://splittscheid.de/phoniebox-bauanleitung-toniebox-alternative/" target="_blank">My Selfmade Phoniebox</a>
 
 ## Installation Steps
 
