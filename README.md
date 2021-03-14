@@ -12,7 +12,9 @@ Tested with this display (affiliate Link): <a href="https://amzn.to/2SjPFPt" tar
 | ![Caption](preview/Start_Screen.jpg "Caption") | ![Caption](preview/Play_View-full.jpg "Caption") | ![Caption](preview/Play_View-mixed.jpg "Caption") | ![Caption](preview/Play_View-lite.jpg "Caption") | ![Caption](preview/Info_Screen.jpg "Caption") | ![Caption](preview/Pause_Screen.jpg "Caption") | ![Caption](preview/Play_Screen.jpg "Caption") | ![Caption](preview/VolumeDown_Screen.jpg "Caption") | ![Caption](preview/VolumeUp_Screen.jpg "Caption") |
 
 My finished Box on Youtube: <a href="https://youtu.be/GpHAbM0JIt4" target="_blank">Die drei ??? Kids Phoniebox</a>
+
 Youtube Information Video: <a href="https://youtu.be/bEJN0BWdAXY" target="_blank">German Youtube Video</a>
+
 Forum: <a href="https://forum-raspberrypi.de/forum/thread/41465-oled-display-fuer-die-phoniebox/" target="_blank">German Forum</a>
 
 My Phoniebox Project (german only): <a href="https://splittscheid.de/phoniebox-bauanleitung-toniebox-alternative/" target="_blank">My Selfmade Phoniebox</a>
