@@ -75,9 +75,9 @@ def toggle_display():
 
 #btn_shut = Button(3, hold_time=2)
 #btn_vol0 = Button(21,pull_up=True)
-btn_volup = Button(16,pull_up=True,hold_time=0.3,hold_repeat=True)
+btn_volup = Button(7,pull_up=True,hold_time=0.3,hold_repeat=True)
 btn_voldown = Button(13,pull_up=True,hold_time=0.3,hold_repeat=True)
-btn_next = Button(26,pull_up=True,hold_time=2.0,hold_repeat=False)
+btn_next = Button(8,pull_up=True,hold_time=2.0,hold_repeat=False)
 btn_prev = Button(27,pull_up=True,hold_time=2.0,hold_repeat=False)
 btn_halt = Button(12,pull_up=True,hold_time=2.0,hold_repeat=False)
 
