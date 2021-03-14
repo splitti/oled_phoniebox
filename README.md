@@ -8,7 +8,7 @@ Based on https://github.com/rm-hull/luma.oled
 Tested with this display (affiliate Link): <a href="https://amzn.to/2SjPFPt" target="_blank">https://amzn.to/2SjPFPt</a>
 
 | Start Screen | Play View Full | Play View Mixed | Play View Lite | Info Screen | Pause Screen | Play Screen | Vol Down Screen | Vol Up Screen |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | ![Caption](preview/Start_Screen.jpg "Caption") | ![Caption](preview/Play_View-full.jpg "Caption") | ![Caption](preview/Play_View-mixed.jpg "Caption") | ![Caption](preview/Play_View-lite.jpg "Caption") | ![Caption](preview/Info_Screen.jpg "Caption") | ![Caption](preview/Pause_Screen.jpg "Caption") | ![Caption](preview/Play_Screen.jpg "Caption") | ![Caption](preview/VolumeDown_Screen.jpg "Caption") | ![Caption](preview/VolumeUp_Screen.jpg "Caption") |
 
 My finished Box on Youtube: <a href="https://youtu.be/GpHAbM0JIt4" target="_blank">Die drei ??? Kids Phoniebox</a>
