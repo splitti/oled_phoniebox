@@ -63,7 +63,12 @@ def def_prev():
             break
 
 def def_halt():
-    check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerpause", shell=True)
+    for x in range(0, 19):
+        if btn_halt.is_pressed == True :
+            sleep(0.1)
+        else:
+            check_call(jukebox4kidsPath+"/scripts/playout_controls.sh -c=playerpause", shell=True)
+            break
 	
 def toggle_display():
     check_call("/home/pi/oled_phoniebox/scripts/toggle_display/toggle_display.sh", shell=True)

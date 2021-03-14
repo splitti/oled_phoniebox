@@ -74,6 +74,11 @@ Font:
 - https://www.dafont.com/wifi.font
 
 ## Changelog
+- 14.03.2021 - 2.0.0 - 20210314
+  - Feature:
+    - Update compatibility to the new phoniebox-version.
+  - Bugfix:
+      - Add sleep to the pause button.
 - 13.03.2020 - 1.9.3 - 20200313
   - Feature:
     - Check for Sync State and showing the process
