@@ -407,7 +407,7 @@ do
 			echo -e ""
             break
             ;;
-        "Option 1: Replace service for contrast-control")
+        "Option 1: Replace service for disyplay control")
 			echo -e " "
 			echo -e -n "   --> Delete old Service:                "
 			#sudo chmod +x ${installPath}/scripts/gpio-buttons/gpio-buttons.py > /dev/null
@@ -431,7 +431,7 @@ do
 			echo -e ""
             break
             ;;
-        "Option 3: Skip")
+        "Option 2: Skip")
 			break
             ;;
         *) echo -e "Invalid option $REPLY";;
