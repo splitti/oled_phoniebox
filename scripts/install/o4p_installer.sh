@@ -394,7 +394,6 @@ echo -e "${cyan}Option 2:${nocolor}"
 echo -e "Just skip... Phoniebox will work well without display control!"
 echo -e " "
 options=("Option 1: Replace service for disyplay control" "Option 2: Skip")
->>>>>>> 6a734722b85295cffcdf9d683f400c6b09f73fb0
 
 select opt in "${options[@]}"
 do
