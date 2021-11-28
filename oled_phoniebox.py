@@ -137,19 +137,23 @@ def main(num_iterations=sys.maxsize):
                             draw.rectangle((69,10,77,54), outline="white", fill="white")
                         sleep(displaytime)
                     oldplaying = playing
-                volume = int(volume.replace(" ","").replace("%",""))
-                if (oldvol != volume) and (oldvol != "FirstStart"):
-                    with canvas(device) as draw:
-                        draw.rectangle((30,22,45,42), outline="white", fill="white")
-                        draw.polygon([(45, 22),(60, 10), (60,54), (45, 42)], outline="white", fill="white")
-                        if volume != 0:
-                            draw.rectangle((75,28,105,36), outline="white", fill="white")
-                            if oldvol < volume:
-                                draw.rectangle((86,17,94,47), outline="white", fill="white")
-                        else:
-                            draw.text((75, 2),"X",font=FONT_HIGHTOWER, fill="white") 
-                    sleep(displaytime)
-                oldvol = volume
+                volume_monitor = True
+                if initvars['GENERAL'].get("volume_monitor", fallback="true") == 'false':
+                    volume_monitor = False
+                if volume_monitor:
+                    volume = int(volume.replace(" ","").replace("%",""))
+                    if (oldvol != volume) and (oldvol != "FirstStart"):
+                        with canvas(device) as draw:
+                            draw.rectangle((30,22,45,42), outline="white", fill="white")
+                            draw.polygon([(45, 22),(60, 10), (60,54), (45, 42)], outline="white", fill="white")
+                            if volume != 0:
+                                draw.rectangle((75,28,105,36), outline="white", fill="white")
+                                if oldvol < volume:
+                                    draw.rectangle((86,17,94,47), outline="white", fill="white")
+                            else:
+                                draw.text((75, 2),"X",font=FONT_HIGHTOWER, fill="white")
+                        sleep(displaytime)
+                    oldvol = volume
                 if (playing == "[playing]") or (playing == "[paused]"):
                     if playing == "[playing]":
                         #timer = set_characters(get_mpc("mpc -f %time% current"))
