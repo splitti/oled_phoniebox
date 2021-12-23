@@ -184,7 +184,8 @@ def main(num_iterations=sys.maxsize):
                                 txtline2 = set_characters(get_mpc("mpc -f %artist% current"))
                             if txtline2 == "\n":
                                 filename = set_characters(get_mpc("mpc -f %file% current"))
-                                filename = filename.split(":")[2]
+                                if ":" in filename:
+                                    filename = filename.split(":")[2]
                                 filename = set_characters(filename)
                                 localfile = filename.split("/")
                                 txtline1 = localfile[1]
