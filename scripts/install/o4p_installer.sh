@@ -1,7 +1,7 @@
 #!/bin/bash
 # Colors: \e[36m=Cyan M ; \e[92m=Light green ; \e[91m=Light red ; \e[93m=Light yellow ; \e[31m=green ; \e[0m=Default ; \e[33m=Yellow ; \e[31m=Red
 
-#Version: 2.0.1 - 20210314
+#Version: 2.0.2 - 20220113
 #branch="development"
 repo="https://github.com/splitti/oled_phoniebox"
 branch="master"
@@ -218,7 +218,7 @@ echo -e ""
 echo -e "Install packages..."
 
 lineLen=24
-packages=(git python3 build-essential python3-dev python3-pip python-pil libjpeg-dev i2c-tools) # python3-smbus i2c-tools  libfreetype6-dev   python3-pygame libtiff5)
+packages=(git python3 build-essential python3-dev python3-pip libjpeg-dev i2c-tools) # python3-smbus i2c-tools  libfreetype6-dev   python3-pygame libtiff5)
 for p in ${packages[@]}; do
 	i=0
 	echo -n -e "   --> $p:"
@@ -381,9 +381,10 @@ echo -e ""
 echo -e "If jukebox4kids should be installed already! You have to choose"
 echo -e "between the new GPIO Button Settings in the Phoniebox Repository"
 echo -e "or the old one with enhanced display control features like:"
-echo -e "  ${yellow}Brightness control${nocolor}"
-echo -e "  ${yellow}Status Screen${nocolor}"
-echo -e "  ${yellow}OLED mode control${nocolor}"
+echo -e ""
+echo -e "  ${yellow}---> Brightness control${nocolor}"
+echo -e "  ${yellow}---> Status Screen${nocolor}"
+echo -e "  ${yellow}---> OLED mode control${nocolor}"
 echo -e ""
 echo -e "${cyan}Option 1:${nocolor} RECOMMEND"
 echo -e "Install a new Button control service for the Phoniebox & display."

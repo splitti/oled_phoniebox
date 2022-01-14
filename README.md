@@ -1,5 +1,5 @@
-Date: 14.03.2021
-Version: 2.0.1 - 20210314
+Date: 13.01.2022
+Version: 2.0.2 - 20220113
 
 # oled_phoniebox
 oled_phoniebox
@@ -76,6 +76,9 @@ Font:
 - https://www.dafont.com/wifi.font
 
 ## Changelog
+- 13.03.2022 - 2.0.2 - 20220113
+  - Bugfix:
+    - Remove unneeded package
 - 14.03.2021 - 2.0.1 - 20210314
   - Update:
     - Update buttons for new pinout (https://splittscheid.de/pinout-phoniebox-gpio-belegung/).
