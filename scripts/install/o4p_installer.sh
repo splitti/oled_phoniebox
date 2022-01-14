@@ -243,31 +243,31 @@ for p in ${packages[@]}; do
 		echo -e "${green}already installed${nocolor}"
 	fi
 done
-lumaPackages=(luma.core luma.oled netifaces)
-for p in ${lumaPackages[@]}; do
-	i=0
-	let lLen="$lineLen"-"${#p}"
-	echo -n -e "   --> $p:"
-	while [ "$i" -lt "$lLen" ]
-	do
-		let i+=1
-		echo -n -e " "
-	done
-	pipInstalled=`sudo pip3 show ${p}`
-	if [ "$pipInstalled" = "" ]
-	then
-		sudo pip3 install ${p}  > /dev/null 2>&1
-		pipInstalled=`sudo pip3 show ${p}`
-		if [ "$pipInstalled" = "" ]
-		then
-			echo -e "${red}failed${nocolor}"
-		else
-			echo -e "${green}done${nocolor}"
-		fi
-	else
-		echo -e "${green}already installed${nocolor}"
-	fi
-done
+#lumaPackages=(luma.core luma.oled netifaces)
+#for p in ${lumaPackages[@]}; do
+#	i=0
+#	let lLen="$lineLen"-"${#p}"
+#	echo -n -e "   --> $p:"
+#	while [ "$i" -lt "$lLen" ]
+#	do
+#		let i+=1
+#		echo -n -e " "
+#	done
+#	pipInstalled=`sudo pip3 show ${p}`
+#	if [ "$pipInstalled" = "" ]
+#	then
+#		sudo pip3 install ${p}  > /dev/null 2>&1
+#		pipInstalled=`sudo pip3 show ${p}`
+#		if [ "$pipInstalled" = "" ]
+#		then
+#			echo -e "${red}failed${nocolor}"
+#		else
+#			echo -e "${green}done${nocolor}"
+#		fi
+#	else
+#		echo -e "${green}already installed${nocolor}"
+#	fi
+#done
 echo -e ""
 echo -e "Enable I2C..."
 if grep -q 'i2c-bcm2708' /etc/modules; then
