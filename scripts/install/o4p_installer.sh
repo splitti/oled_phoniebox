@@ -1,7 +1,7 @@
 #!/bin/bash
 # Colors: \e[36m=Cyan M ; \e[92m=Light green ; \e[91m=Light red ; \e[93m=Light yellow ; \e[31m=green ; \e[0m=Default ; \e[33m=Yellow ; \e[31m=Red
 
-#Version: 2.0.2 - 20220113
+#Version: 2.0.3 - 20220206
 #branch="development"
 repo="https://github.com/splitti/oled_phoniebox"
 branch="master"
@@ -285,6 +285,7 @@ fi
 if grep -q '^dtparam=i2c1=on' /boot/config.txt; then
   echo -e "   --> i2c1 boot-parameter:     ${green}already set${nocolor}"
 else
+  echo '' | sudo tee -a /boot/config.txt > /dev/null 2>&1
   echo 'dtparam=i2c1=on' | sudo tee -a /boot/config.txt > /dev/null 2>&1
   echo -e "   --> i2c1 boot-parameter:     ${green}set${nocolor}"
 fi

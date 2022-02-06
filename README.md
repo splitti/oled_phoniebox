@@ -1,5 +1,5 @@
-Date: 13.01.2022
-Version: 2.0.2 - 20220113
+Date: 06.02.2022
+Version: 2.0.3 - 20220206
 
 # oled_phoniebox
 oled_phoniebox
@@ -76,6 +76,9 @@ Font:
 - https://www.dafont.com/wifi.font
 
 ## Changelog
+- 06.02.2022 - 2.0.3 - 20220206
+  - Bugfix:
+    - https://github.com/splitti/oled_phoniebox/issues/9#issue-1125147086 fixed
 - 13.03.2022 - 2.0.2 - 20220113
   - Bugfix:
     - Remove unneeded package
