@@ -153,13 +153,13 @@ def main(num_iterations=sys.maxsize):
                 if (playing == "[playing]") or (playing == "[paused]"):
                     if playing == "[playing]":
                         #timer = set_characters(get_mpc("mpc -f %time% current"))
-                        elapsed = mpcstatus.split("\n")[1].replace("  "," ").split(" ")[3]
+                        elapsed = mpcstatus.split("\n")[1].replace("   "," ").replace("  "," ").split(" ")[2]
                     if currmpc != oldmpc:
-                        track =   mpcstatus.split("\n")[1].replace("  "," ").split(" ")[1].replace("#","") #set_characters(get_mpc("mpc -f %track% current"))
+                        track =   mpcstatus.split("\n")[1].replace("   "," ").replace("  "," ").split(" ")[1].replace("#","") #set_characters(get_mpc("mpc -f %track% current"))
                         if len(track.split("/")[1]) > 2:
                             track = track.split("/")[0]
                         if track == "\n":
-                            track = mpcstatus.split("\n")[1].replace("  ", " ").split(" ")[1].replace("#","") #.split("/")[0]
+                            track = mpcstatus.split("\n")[1].replace("   ", " ").replace("  ", " ").split(" ")[1].replace("#","") #.split("/")[0]
                         file = set_characters(get_mpc("mpc -f %file% current")) # Get the current title
                         if initvars['GENERAL']['mode'] == "full" :
                             if file.startswith("http"): # if it is a http stream!
@@ -175,16 +175,25 @@ def main(num_iterations=sys.maxsize):
                                 subline2 = 0
                                 subline3 = 0
                                 linepos = 1
-                                txtline1 = set_characters(get_mpc("mpc -f %album% current"))
-                                txtline3 = set_characters(get_mpc("mpc -f %title% current"))
-                                txtline2 = set_characters(get_mpc("mpc -f %artist% current"))
-                            if txtline2 == "\n":
-                                filename = set_characters(get_mpc("mpc -f %file% current"))
-                                filename = filename.split(":")[2]
-                                filename = set_characters(filename)
-                                localfile = filename.split("/")
-                                txtline1 = localfile[1]
-                                txtline2 = localfile[0]
+                                text_album = get_mpc("mpc -f %album% current")
+                                text_title = get_mpc("mpc -f %title% current")
+                                text_artist = get_mpc("mpc -f %artist% current")
+                                # test if ID3-tags are available
+                                if len(text_album) < 2:
+                                    # if album is not available, use directory
+                                    text_album_tmp = get_mpc("mpc -f %file% current")
+                                    text_album_tmp = text_album_tmp.split("/")
+                                    text_album = text_album_tmp[0]
+                                if len(text_artist) < 2:
+                                    text_artist = ""
+                                if len(text_title) < 2:
+                                    # if title is not available, use filename without directory
+                                    text_title_tmp = get_mpc("mpc -f %file% current")
+                                    text_title_tmp = text_title_tmp.split("/")
+                                    text_title = text_title_tmp[len(text_title_tmp)-1]
+                                txtline1 = set_characters(text_album)
+                                txtline2 = set_characters(text_artist)
+                                txtline3 = set_characters(text_title)
                     if initvars['GENERAL']['mode'] == "lite" :
                         if playing != "[paused]":
                             timeline = elapsed.split("/")
@@ -220,16 +229,11 @@ def main(num_iterations=sys.maxsize):
                     if initvars['GENERAL']['mode'] == "mix" :
                         if playing != "[paused]":
                             timeline = elapsed.split("/")
-                            if timeline[0] == "(0%)":
-                                elapsed = "-:--"
-                            elif timeline[1] != "0:00":
-                                elapsed = timeline[1]
-                            else:
-                                elapsed = "-:--"
+                            elapsed = timeline[0]
                             if len(elapsed) == 4:
-                                elapsed = "L "+elapsed
+                                elapsed = "  "+elapsed
                             if len(elapsed) == 5:
-                                elapsed = "L"+elapsed
+                                elapsed = " "+elapsed
                         else:
                             elapsed = "PAUSE"
                         if not file.startswith("http"):
