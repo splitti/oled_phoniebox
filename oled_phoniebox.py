@@ -27,7 +27,7 @@ FONT_WIFI_MIX = ImageFont.truetype(FONT_PATH_WIFI, 48)
 CONFFILE = "/home/pi/oled_phoniebox/oled_phoniebox.conf"
 TEMPFILE = "/tmp/o4p_overview.temp"
 SYNC_TEMPFILE="/tmp/phoniebox_sync_state.tmp"
-VERSION = "2.0.0 - 20210314"
+VERSION = "2.0.1 - 20220314"
 
 def showimage(imgname):
     img_path = os.path.abspath(os.path.join(os.path.dirname(__file__),'images', imgname+'.png'))
@@ -328,16 +328,11 @@ def main(num_iterations=sys.maxsize):
                     if initvars['GENERAL']['mode'] == "full" :
                         if playing != "[paused]":
                             timeline = elapsed.split("/")
-                            if timeline[0] == "(0%)":
-                                elapsed = "-:--"
-                            elif timeline[1] != "0:00":
-                                elapsed = timeline[1]
-                            else:
-                                elapsed = "-:--"
+                            elapsed = timeline[0]
                             if len(elapsed) == 4:
-                                elapsed = "L "+elapsed
+                                elapsed = "  "+elapsed
                             if len(elapsed) == 5:
-                                elapsed = "L"+elapsed
+                                elapsed = " "+elapsed
                         else:
                             elapsed = "PAUSE"
                         if not file.startswith("http"):
